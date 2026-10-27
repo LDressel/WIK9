@@ -213,12 +213,12 @@ details.lp-fold > summary::-webkit-details-marker{display:none}
 .lt-head.wood .lt-firm{color:var(--paper-wood)}
 .lt-slogan{font-size:.85em;color:var(--paper-muted)}
 .lt-head svg{width:3.6em;height:3.6em;flex:none}
-.lt-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1em;margin-bottom:1.6em}
+.lt-top{display:grid;grid-template-columns:minmax(11em,1fr) minmax(0,max-content);gap:1.4em;margin-bottom:1.6em}
 .letter:not(.lp) .lt-top{min-height:9em}
 @media (max-width:560px){.letter:not(.lp) .lt-top{grid-template-columns:minmax(0,1fr)}}
 .rsa{font-size:.74em;color:var(--paper-muted);border-bottom:1px solid var(--paper-line);padding-bottom:.15em;margin-bottom:.45em}
 .addr .al,.addr .seg{display:block}
-.info{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 .7em;font-size:.95em;align-content:start;font-family:var(--f-letter);color:var(--paper-ink)}
+.info{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.1em .8em;line-height:1.5;font-size:.95em;align-content:start;font-family:var(--f-letter);color:var(--paper-ink)}
 .info .lw{color:var(--paper-muted);font-size:.88em;white-space:nowrap;padding-top:.07em}
 .info .gap{grid-column:1/-1;height:.75em}
 .info span{overflow-wrap:anywhere}
@@ -460,11 +460,11 @@ const LH=`<div class="lt-head"><div><div class="lt-firm">Reisebüro Sonnenweg</d
 const FOOT=`<div class="lt-foot"><span>Reisebüro Sonnenweg GmbH · Lindenweg 7 · 85229 Markt Indersdorf · Telefon 08136 8090-0 · www.sonnenweg-reisen.de</span><span>Sitz: Markt Indersdorf · Amtsgericht München HRB 123456 · Geschäftsführerin: Karin Berger</span><span>Sparkasse Musterstadt · IBAN DE12 3456 7890 1234 5678 90 · BIC SOWEDEM1XXX</span></div>`;
 const RSA='Reisebüro Sonnenweg GmbH · Lindenweg 7 · 85229 Markt Indersdorf';
 
-const KRAUS_INFO=`<div class="letter mini"><div class="lt-head wood"><div><div class="lt-firm">Holzbau Huber GmbH</div><div class="lt-slogan">Ausschnitt: Informationsblock im Brief von Frau Kraus</div></div></div><div class="info"><span class="lw">Unser Zeichen:</span><span class="hl">kr</span><span class="gap"></span><span class="lw">Name:</span><span>Lena Kraus</span><span class="lw">Telefon:</span><span>08131 4455-30</span><span class="lw">E-Mail:</span><span>l.kraus@holzbau-huber.de</span><span class="gap"></span><span class="lw">Datum:</span><span class="hl">14.10.2026</span></div></div>`;
+const KRAUS_INFO=`<div class="letter mini"><div class="lt-head wood"><div><div class="lt-firm">Holzbau Huber GmbH</div><div class="lt-slogan">Ausschnitt: Informationsblock im Brief von Frau Kraus</div></div></div><div class="info"><span class="lw">Unser Zeichen:</span><span class="hl">lk</span><span class="gap"></span><span class="lw">Name:</span><span>Lena Kraus</span><span class="lw">Telefon:</span><span>08131 4455-30</span><span class="lw">E-Mail:</span><span>l.kraus@holzbau-huber.de</span><span class="gap"></span><span class="lw">Datum:</span><span class="hl">14.10.2026</span></div></div>`;
 
 const KRAUS_LETTER=`<div class="letter mini"><div class="lt-head wood"><div><div class="lt-firm">Holzbau Huber GmbH</div><div class="lt-slogan">Zimmerei · Dachstühle · Holzhäuser</div></div></div>
 <div class="lt-top"><div><div class="rsa">Holzbau Huber GmbH · Gewerbering 14 · 85221 Dachau</div><div class="addr"><span class="al">Reisebüro Sonnenweg GmbH</span><span class="al">Lindenweg 7</span><span class="al">85229 Markt Indersdorf</span></div></div>
-<div class="info"><span class="lw">Unser Zeichen:</span><span>kr</span><span class="gap"></span><span class="lw">Name:</span><span>Lena Kraus</span><span class="lw">Telefon:</span><span>08131 4455-30</span><span class="gap"></span><span class="lw">Datum:</span><span>14.10.2026</span></div></div>
+<div class="info"><span class="lw">Unser Zeichen:</span><span>lk</span><span class="gap"></span><span class="lw">Name:</span><span>Lena Kraus</span><span class="lw">Telefon:</span><span>08131 4455-30</span><span class="gap"></span><span class="lw">Datum:</span><span>14.10.2026</span></div></div>
 <div class="lt-betreff">Anfrage für einen Betriebsausflug im Juni 2027</div>
 <p class="lt-p">Sehr geehrte Damen und Herren,</p>
 <p class="lt-p">wir möchten mit unseren 25 Mitarbeitenden am Freitag, 11.06.2027, einen Betriebsausflug machen. Bitte schicken Sie uns ein Angebot für eine Tagesfahrt mit dem Bus ab Dachau.</p>
@@ -472,7 +472,7 @@ const KRAUS_LETTER=`<div class="letter mini"><div class="lt-head wood"><div><div
 <div class="lt-sigrow"><span>i. A.</span><span class="lt-sig">L. Kraus</span></div>
 <p class="lt-p"><span class="hl">Lena Kraus<br>Personalabteilung</span></p></div>`;
 
-const YILMAZ_NOTE=`<div class="note tilt"><span class="hand">Notiz von Herrn Yilmaz</span><p>Bitte die Antwort an Frau Kraus vorbereiten.</p><ul><li>Ansprechpartner: ich, Murat Yilmaz</li><li>Mein Zeichen: yi</li><li>Telefon: Vorwahl 08136, Nummer 8090, meine Durchwahl 12</li><li>E-Mail: m.yilmaz@sonnenweg-reisen.de</li><li>Datum: heute, 21.10.2026</li></ul></div>`;
+const YILMAZ_NOTE=`<div class="note tilt"><span class="hand">Notiz von Herrn Yilmaz</span><p>Du bearbeitest die Anfrage von Frau Kraus. Ich unterschreibe am Ende.</p><ul><li>Ansprechpartner: du selbst, {voll}</li><li>Dein Zeichen: deine Initialen, klein geschrieben</li><li>Telefon: Vorwahl 08136, Nummer 8090, deine Durchwahl 15</li><li>E-Mail: {mail}</li><li>Datum: heute, 21.10.2026</li></ul></div>`;
 
 /* Briefbogen Form B, Werte in Prozent des A4-Blatts */
 const BRIEF_ZONES=[
@@ -492,7 +492,7 @@ const AF_EXAMPLE=`<div class="af"><div class="af-zone"><div class="af-zl">Zusatz
 <div class="af-l rs"><i>1</i><span>${RSA}</span></div><div class="af-l"><i>2</i><span></span></div><div class="af-l"><i>3</i><span></span></div><div class="af-l"><i>4</i><span></span></div><div class="af-l v"><i>5</i><span>Einschreiben</span></div></div>
 <div class="af-zone"><div class="af-zl">Anschriftzone · 6 Zeilen</div><div class="af-l"><i>1</i><span>Busreisen Brandl KG</span></div><div class="af-l"><i>2</i><span>Disposition</span></div><div class="af-l"><i>3</i><span>Herrn Thomas Brandl</span></div><div class="af-l"><i>4</i><span>Am Bahnhof 5</span></div><div class="af-l"><i>5</i><span>85241 Hebertshausen</span></div><div class="af-l"><i>6</i><span></span></div></div></div>`;
 
-const SWAP_EXAMPLE=`<div class="swap"><div class="box"><span class="bt">Brief von Frau Kraus</span><div class="info"><span class="lw">Unser Zeichen:</span><span class="hl">kr</span><span class="lw">Datum:</span><span class="hl">14.10.2026</span></div></div><span class="arr" aria-hidden="true">→</span><div class="box"><span class="bt">Unsere Antwort</span><div class="info"><span class="lw">Ihr Zeichen:</span><span class="hl">kr</span><span class="lw">Ihre Nachricht vom:</span><span class="hl">14.10.2026</span><span class="lw">Unser Zeichen:</span><span>yi</span></div></div></div>`;
+const SWAP_EXAMPLE=`<div class="swap"><div class="box"><span class="bt">Brief von Frau Kraus</span><div class="info"><span class="lw">Unser Zeichen:</span><span class="hl">lk</span><span class="lw">Datum:</span><span class="hl">14.10.2026</span></div></div><span class="arr" aria-hidden="true">→</span><div class="box"><span class="bt">Unsere Antwort</span><div class="info"><span class="lw">Ihr Zeichen:</span><span class="hl">lk</span><span class="lw">Ihre Nachricht vom:</span><span class="hl">14.10.2026</span><span class="lw">Unser Zeichen:</span><span>my</span></div></div></div>`;
 
 /* ===== Missionen ===== */
 const MS=[
@@ -550,9 +550,9 @@ const MS=[
 /* ---------- 3 ---------- */
 {title:'Der Informationsblock',time:'ca. 15 min',motif:'info',color:'--st3',steps:[
  {type:'intro',
-  lines:[{who:'mia',text:'Rechts neben die Anschrift kommt der Informationsblock. Er verrät: Worauf antworten wir? Wer schreibt? Wie erreicht man uns? Der Trick dabei heißt Zeichen-Tausch.'}],
+  lines:[{who:'mia',text:'Rechts neben die Anschrift kommt der Informationsblock. Er verrät: Worauf antworten wir? Wer schreibt? Wie erreicht man uns? Der Trick dabei heißt Zeichen-Tausch.'},{who:'yilmaz',text:'Diesmal bist du der Sachbearbeiter, {name}. Dein Name und dein Zeichen kommen in den Block.'}],
   note:{title:'Merkzettel 3: Der Informationsblock',ref:'Merkblatt Nr. 3',
-   rows:[['Reihenfolge der Leitwörter','Ihr Zeichen · Ihre Nachricht vom · Unser Zeichen · Unsere Nachricht vom – Name · Telefon · E-Mail – Datum'],['Zeichen-Tausch: Ihr „Unser Zeichen“ wird unser „Ihr Zeichen“','kr → Ihr Zeichen: kr'],['Nicht benötigte Leitwörter entfallen','„Unsere Nachricht vom“ fällt weg'],['Telefon: Leerzeichen nach der Vorwahl, Bindestrich vor der Durchwahl','08136 8090-12']],
+   rows:[['Reihenfolge der Leitwörter','Ihr Zeichen · Ihre Nachricht vom · Unser Zeichen · Unsere Nachricht vom – Name · Telefon · E-Mail – Datum'],['Unser Zeichen: Initialen von Vor- und Nachname des Sachbearbeiters, klein','Murat Yilmaz → my'],['Zeichen-Tausch: Ihr „Unser Zeichen“ wird unser „Ihr Zeichen“','lk → Ihr Zeichen: lk'],['Nicht benötigte Leitwörter entfallen','„Unsere Nachricht vom“ fällt weg'],['Telefon: Leerzeichen nach der Vorwahl, Bindestrich vor der Durchwahl','08136 8090-12']],
    visual:SWAP_EXAMPLE}},
  {type:'order',title:'Leitwörter ordnen',task:'Bringe die <b>8 Leitwörter</b> in die richtige Reihenfolge.',
   hint:'Zuerst „Ihr …“, dann „Unser …“, dann die Kontaktdaten, ganz unten das Datum.',
@@ -561,13 +561,13 @@ const MS=[
   hint:'„Ihr Zeichen“ und „Ihre Nachricht vom“ stehen im Ausschnitt von Frau Kraus. Alles über uns steht auf der Notiz. Wir haben Frau Kraus vorher noch nicht geschrieben.',
   context:`<div class="ctx-grid">${KRAUS_INFO}${YILMAZ_NOTE}</div>`,
   fields:[
-   {label:'Ihr Zeichen',answers:['kr'],ci:true,hints:[{re:/^yi$/i,msg:'„yi“ ist unser eigenes Zeichen. Hier steht das Zeichen von Frau Kraus.'}],msg:'Was steht bei Frau Kraus unter „Unser Zeichen“?'},
+   {label:'Ihr Zeichen',example:'lk',check:v=>{ if(v==='lk') return null; if(v==='') return 'Hier fehlt noch ein Eintrag.'; if(v.toLowerCase()==='lk') return 'Zeichen schreibt man klein: lk.'; if(v.toLowerCase()===ME().ini) return 'Das ist dein eigenes Zeichen. Hier steht das Zeichen von Frau Kraus.'; return 'Was steht bei Frau Kraus unter „Unser Zeichen“?'; }},
    {label:'Ihre Nachricht vom',answers:['14.10.2026','2026-10-14'],hints:[{re:/21\.10/,msg:'Das ist das heutige Datum. Gesucht ist das Datum des Briefs von Frau Kraus.'},{re:/^\d{1,2}\.\d{1,2}\.\d{2}$/,msg:'Schreibe die Jahreszahl vierstellig.'},{re:/oktober/i,msg:'Im Informationsblock schreibt man das Datum in Ziffern.'}],msg:'Gesucht ist das Datum des Briefs von Frau Kraus.'},
-   {label:'Unser Zeichen',answers:['yi'],ci:true,hints:[{re:/^kr$/i,msg:'„kr“ ist das Zeichen von Frau Kraus. Unser Zeichen steht auf der Notiz.'}],msg:'Unser Zeichen steht auf der Notiz.'},
+   {label:'Unser Zeichen',example:()=>ME().ini,check:v=>{ const ini=ME().ini; if(v===ini) return null; if(v==='') return 'Hier fehlt noch ein Eintrag.'; if(v.toLowerCase()===ini) return 'Zeichen schreibt man klein.'; if(v.toLowerCase()==='lk') return '„lk“ ist das Zeichen von Frau Kraus. Hier steht dein eigenes Zeichen.'; if(v.toLowerCase()==='my') return 'Das wäre das Zeichen von Herrn Yilmaz. Diesmal bist du der Sachbearbeiter.'; return 'Dein Zeichen sind deine Initialen: der erste Buchstabe deines Vornamens und deines Nachnamens, klein geschrieben.'; }},
    {label:'Unsere Nachricht vom',empty:true,emptyMsg:'Wir haben Frau Kraus vorher noch nicht geschrieben. Dieses Leitwort bleibt leer.'},
-   {label:'Name',answers:['Murat Yilmaz'],hints:[{re:/kraus/i,msg:'Bei „Name“ steht unser Ansprechpartner, nicht die Empfängerin.'},{re:/^herr/i,msg:'Schreibe nur Vor- und Nachnamen, ohne „Herr“.'},{re:/^yilmaz$/i,msg:'Schreibe Vor- und Nachnamen.'}],msg:'Wer ist bei uns der Ansprechpartner?'},
-   {label:'Telefon',answers:['08136 8090-12','+49 8136 8090-12'],hints:[{re:/\//,msg:'Zwischen Vorwahl und Rufnummer steht ein Leerzeichen, kein Schrägstrich.'},{re:/\(/,msg:'Klammern verwendet man nicht.'},{re:/-0$/,msg:'Das ist die Zentrale. Herr Yilmaz hat die Durchwahl 12.'},{re:/ - |- | -/,msg:'Vor und nach dem Bindestrich steht kein Leerzeichen.'},{re:/^08136-/,msg:'Zwischen Vorwahl und Rufnummer steht ein Leerzeichen.'},{re:/8090 ?12$/,msg:'Die Durchwahl hängst du mit Bindestrich an: 8090-12.'}],msg:'Vorwahl, Leerzeichen, Rufnummer, Bindestrich, Durchwahl.'},
-   {label:'E-Mail',answers:['m.yilmaz@sonnenweg-reisen.de'],ci:true,msg:'Schreibe die E-Mail-Adresse genau wie auf der Notiz.'},
+   {label:'Name',example:()=>ME().name,check:v=>{ const n=ME().name; if(v===n) return null; if(v==='') return 'Hier fehlt noch ein Eintrag.'; if(v.toLowerCase()===n.toLowerCase()) return 'Achte auf Groß- und Kleinschreibung.'; if(/yilmaz/i.test(v)) return 'Diesmal bist du der Sachbearbeiter. Hier steht dein eigener Name.'; if(/kraus/i.test(v)) return 'Bei „Name“ steht der Sachbearbeiter bei uns, nicht die Empfängerin.'; if(/^(herr|frau)\b/i.test(v)) return 'Schreibe nur Vor- und Nachnamen, ohne „Herr“ oder „Frau“.'; if(v.split(' ').length===1&&n.split(' ').length>1) return 'Schreibe Vor- und Nachnamen.'; return 'Schreibe deinen Vor- und Nachnamen so, wie du ihn am Anfang eingegeben hast.'; }},
+   {label:'Telefon',answers:['08136 8090-15','+49 8136 8090-15'],hints:[{re:/\//,msg:'Zwischen Vorwahl und Rufnummer steht ein Leerzeichen, kein Schrägstrich.'},{re:/\(/,msg:'Klammern verwendet man nicht.'},{re:/-0$/,msg:'Das ist die Zentrale. Deine Durchwahl ist 15.'},{re:/-12$/,msg:'Das ist die Durchwahl von Herrn Yilmaz. Deine Durchwahl ist 15.'},{re:/ - |- | -/,msg:'Vor und nach dem Bindestrich steht kein Leerzeichen.'},{re:/^08136-/,msg:'Zwischen Vorwahl und Rufnummer steht ein Leerzeichen.'},{re:/8090 ?15$/,msg:'Die Durchwahl hängst du mit Bindestrich an: 8090-15.'}],msg:'Vorwahl, Leerzeichen, Rufnummer, Bindestrich, Durchwahl.'},
+   {label:'E-Mail',example:()=>ME().mail,check:v=>{ if(v.toLowerCase()===ME().mail) return null; if(v==='') return 'Hier fehlt noch ein Eintrag.'; if(/yilmaz/i.test(v)) return 'Das ist die Adresse von Herrn Yilmaz. Hier steht deine eigene.'; return 'Schreibe die E-Mail-Adresse genau wie auf der Notiz.'; }},
    {label:'Datum',answers:['21.10.2026','2026-10-21'],hints:[{re:/14\.10/,msg:'Das ist das Datum von Frau Kraus. Hier steht das heutige Datum.'},{re:/^\d{1,2}\.\d{1,2}\.\d{2}$/,msg:'Schreibe die Jahreszahl vierstellig.'},{re:/oktober/i,msg:'Im Informationsblock schreibt man das Datum in Ziffern.'}],msg:'Hier steht das heutige Datum laut Notiz.'}
   ]}
 ]},
@@ -635,7 +635,7 @@ const MS=[
   hint:'Geh von oben nach unten: Anschriftfeld (1), Informationsblock (3), Betreff (1), Anrede (1), Brieftext (1), Gruß (1).',
   errs:{
    an:{what:'„An“ über der Anschrift',fix:'„An“ entfällt'},
-   zeichen:{what:'Zeichen vertauscht',fix:'Ihr Zeichen: kr · Unser Zeichen: yi'},
+   zeichen:{what:'Zeichen vertauscht',fix:'Ihr Zeichen: lk · Unser Zeichen: my'},
    tel:{what:'Schrägstrich in der Telefonnummer',fix:'08136 8090-12'},
    datum:{what:'Jahreszahl nur zweistellig',fix:'28.10.2026'},
    betreff:{what:'Wort „Betreff“ und Punkt am Ende',fix:'Buchungsbestätigung für Ihren Betriebsausflug'},
@@ -645,7 +645,7 @@ const MS=[
   },
   letter:`<div class="letter check">${LH}
 <div class="lt-top"><div><div class="rsa"><span class="seg">${RSA}</span></div><div class="addr"><span class="seg" data-e="an">An</span><span class="seg">Holzbau Huber GmbH</span><span class="seg">Personalabteilung</span><span class="seg">Frau Lena Kraus</span><span class="seg">Gewerbering 14</span><span class="seg">85221 Dachau</span></div></div>
-<div class="info"><span class="lw">Ihr Zeichen:</span><span class="seg" data-e="zeichen">yi</span><span class="lw">Ihre Nachricht vom:</span><span class="seg">26.10.2026</span><span class="lw">Unser Zeichen:</span><span class="seg" data-e="zeichen">kr</span><span class="lw">Unsere Nachricht vom:</span><span class="seg">21.10.2026</span><span class="gap"></span><span class="lw">Name:</span><span class="seg">Murat Yilmaz</span><span class="lw">Telefon:</span><span class="seg" data-e="tel">08136/8090-12</span><span class="lw">E-Mail:</span><span class="seg">m.yilmaz@sonnenweg-reisen.de</span><span class="gap"></span><span class="lw">Datum:</span><span class="seg" data-e="datum">28.10.26</span></div></div>
+<div class="info"><span class="lw">Ihr Zeichen:</span><span class="seg" data-e="zeichen">my</span><span class="lw">Ihre Nachricht vom:</span><span class="seg">26.10.2026</span><span class="lw">Unser Zeichen:</span><span class="seg" data-e="zeichen">lk</span><span class="lw">Unsere Nachricht vom:</span><span class="seg">21.10.2026</span><span class="gap"></span><span class="lw">Name:</span><span class="seg">Murat Yilmaz</span><span class="lw">Telefon:</span><span class="seg" data-e="tel">08136/8090-12</span><span class="lw">E-Mail:</span><span class="seg">m.yilmaz@sonnenweg-reisen.de</span><span class="gap"></span><span class="lw">Datum:</span><span class="seg" data-e="datum">28.10.26</span></div></div>
 <div class="lt-betreff"><span class="seg" data-e="betreff">Betreff: Buchungsbestätigung für Ihren Betriebsausflug.</span></div>
 <p class="lt-p"><span class="seg" data-e="anrede">Sehr geehrte Frau Kraus!</span></p>
 <p class="lt-p"><span class="seg">vielen Dank für Ihre Buchung vom 26.10.2026.</span> <span class="seg">Hiermit bestätigen wir Ihren Betriebsausflug an den Chiemsee am 11.06.2027 für 25 Personen.</span></p>
@@ -697,7 +697,15 @@ const $=(s,r)=>(r||document).querySelector(s);
 const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
-const fill=t=>String(t).replace(/\{name\}/g,esc(S.name||'Azubi'));
+function translit(s){ return String(s).toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9-]/g,''); }
+function ME(){
+  const name=String(S.name||'').replace(/\s+/g,' ').trim()||'Azubi';
+  const w=name.split(' '), first=w[0], last=w[w.length-1];
+  const ini=(w.length>1?first.charAt(0)+last.charAt(0):first.slice(0,2)).toLowerCase();
+  const mail=(w.length>1?translit(first).charAt(0)+'.'+translit(last):translit(first))+'@sonnenweg-reisen.de';
+  return {name,first,ini,mail};
+}
+const fill=t=>String(t).replace(/\{name\}/g,esc(ME().first)).replace(/\{voll\}/g,esc(ME().name)).replace(/\{mail\}/g,esc(ME().mail));
 
 function sheetHtml(zones,mode,cls){
   const marks='<span class="mark" style="top:35.35%"></span><span class="mark loch" style="top:50%"></span><span class="mark" style="top:70.71%"></span>';
@@ -771,7 +779,7 @@ function letterHtml(cls,newMi){
   const d=i=>msDone(i), nw=i=>i===newMi?' new':'', ph=(t)=>`<div class="slot-ph">${t}</div>`, v=vals();
   if(!d(0)) return `<div class="letter ${cls||''}"><div class="slot-ph" style="min-height:22em;display:grid;place-items:center;text-align:center">Hier entsteht dein Brief.<br>Mission 1 legt den Briefbogen an.</div></div>`;
   const anschrift=d(1)?`<div class="${nw(1)}"><div class="rsa">${RSA}</div><div class="addr"><span class="al">Holzbau Huber GmbH</span><span class="al">Personalabteilung</span><span class="al">Frau Lena Kraus</span><span class="al">Gewerbering 14</span><span class="al">85221 Dachau</span></div></div>`:ph('Anschriftfeld<br>Mission 2');
-  const info=d(2)?`<div class="info${nw(2)}"><span class="lw">Ihr Zeichen:</span><span>kr</span><span class="lw">Ihre Nachricht vom:</span><span>14.10.2026</span><span class="lw">Unser Zeichen:</span><span>yi</span><span class="gap"></span><span class="lw">Name:</span><span>Murat Yilmaz</span><span class="lw">Telefon:</span><span>08136 8090-12</span><span class="lw">E-Mail:</span><span>m.yilmaz@sonnenweg-reisen.de</span><span class="gap"></span><span class="lw">Datum:</span><span>21.10.2026</span></div>`:ph('Informationsblock<br>Mission 3');
+  const info=d(2)?`<div class="info${nw(2)}"><span class="lw">Ihr Zeichen:</span><span>lk</span><span class="lw">Ihre Nachricht vom:</span><span>14.10.2026</span><span class="lw">Unser Zeichen:</span><span>${esc(ME().ini)}</span><span class="gap"></span><span class="lw">Name:</span><span>${esc(ME().name)}</span><span class="lw">Telefon:</span><span>08136 8090-15</span><span class="lw">E-Mail:</span><span>${esc(ME().mail)}</span><span class="gap"></span><span class="lw">Datum:</span><span>21.10.2026</span></div>`:ph('Informationsblock<br>Mission 3');
   const kopf5=d(4)?`<div class="${nw(4)}"><div class="lt-betreff">${esc(v.betreff)}</div><p class="lt-p">${esc(v.anrede)}</p><p class="lt-p">vielen Dank für Ihre Anfrage vom 14.10.2026. Gern organisieren wir den Betriebsausflug für Ihre 25 Mitarbeitenden.</p></div>`:ph('Betreff, Anrede und Einleitung · Mission 5');
   const haupt=d(3)?`<p class="lt-p${nw(3)}">Wir schlagen Ihnen eine Tagesfahrt an den Chiemsee mit Schifffahrt zur Herreninsel vor. Termin ist Freitag, der ${esc(v.datum)}. Der Bus fährt um ${esc(v.ab)} am Gewerbering 14 in Dachau ab und ist gegen ${esc(v.an)} zurück. Der Preis beträgt ${esc(v.preis)} pro Person, für 25 Personen also ${esc(v.gesamt)}. Bei der Buchung bitten wir um eine Anzahlung von ${esc(v.anz)}.</p>`:ph('Angebot mit Datum, Uhrzeit und Preisen · Mission 4');
   const ende=d(4)?`<div class="${nw(4)}"><p class="lt-p">Das genaue Programm finden Sie in der Anlage. Wir freuen uns auf Ihre Buchung.</p><p class="lt-p">${esc(v.gruss)}</p><p class="lt-p" style="margin-bottom:0">Reisebüro Sonnenweg GmbH</p><div class="lt-sigrow"><span>i. V.</span><span class="lt-sig">M. Yilmaz</span></div><p class="lt-p">Murat Yilmaz</p><p class="lt-p"><b>Anlage</b><br>Programm Chiemsee-Ausflug</p></div>`:ph('Schluss, Gruß, Unterschrift und Anlage · Mission 5');
@@ -807,10 +815,10 @@ function renderTop(){
 }
 function renderStart(){
   main.innerHTML=`<section class="panel start"><div class="start-hero"><span class="eyebrow">Lernspiel · WiK 9 · Geschäftsbrief nach DIN 5008</span><h1>Dein erster Brief im Reisebüro</h1><p class="lead">Die Holzbau Huber GmbH möchte einen Betriebsausflug buchen. In 6 Missionen baust du die Antwort Schritt für Schritt zusammen. Danach kannst du einen Geschäftsbrief selbst schreiben.</p><div class="mission-strip" aria-hidden="true">${MS.map((m,i)=>stampHtml(i)).join('')}</div><p class="small muted">Für jede Mission bekommst du eine Briefmarke. Dauer: etwa 75 Minuten.</p></div>
-  <div class="start-forms"><form id="f-new" class="fld-group" autocomplete="off"><h3>Neu anfangen</h3><div class="fld"><label for="in-name">Dein Vorname</label><input type="text" id="in-name" maxlength="30" autocomplete="off"></div><button class="btn primary" type="submit">Arbeitstag beginnen</button><p class="small" id="new-msg" aria-live="polite"></p></form>
-  <form id="f-code" class="fld-group" autocomplete="off"><h3>Weiterspielen</h3><p class="small muted">Gib deinen Vornamen und deinen Fortsetzungscode ein.</p><div class="fld"><label for="in-name2">Vorname</label><input type="text" id="in-name2" maxlength="30" autocomplete="off"></div><div class="fld"><label for="in-code">Fortsetzungscode</label><input type="text" id="in-code" maxlength="14" placeholder="CXXXX-XXXX" class="mono-in" autocomplete="off"></div><button class="btn" type="submit">Weiterspielen</button><p class="small" id="code-msg" aria-live="polite"></p></form></div></section>`;
-  $('#f-new').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name').value.trim(); if(!n){ const m=$('#new-msg'); m.textContent='Bitte gib deinen Vornamen ein.'; m.className='small err-t'; $('#in-name').focus(); return; } S.name=n; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; save(); go('home'); };
-  $('#f-code').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name2').value.trim(); const st=n?readCode(n,$('#in-code').value):null; const m=$('#code-msg');
+  <div class="start-forms"><form id="f-new" class="fld-group" autocomplete="off"><h3>Neu anfangen</h3><div class="fld"><label for="in-name">Dein Vor- und Nachname</label><input type="text" id="in-name" maxlength="50" autocomplete="off"><span class="small muted">Daraus entsteht später dein Zeichen im Brief.</span></div><button class="btn primary" type="submit">Arbeitstag beginnen</button><p class="small" id="new-msg" aria-live="polite"></p></form>
+  <form id="f-code" class="fld-group" autocomplete="off"><h3>Weiterspielen</h3><p class="small muted">Gib deinen Namen genau wie beim Start und deinen Fortsetzungscode ein.</p><div class="fld"><label for="in-name2">Vor- und Nachname</label><input type="text" id="in-name2" maxlength="50" autocomplete="off"></div><div class="fld"><label for="in-code">Fortsetzungscode</label><input type="text" id="in-code" maxlength="14" placeholder="CXXXX-XXXX" class="mono-in" autocomplete="off"></div><button class="btn" type="submit">Weiterspielen</button><p class="small" id="code-msg" aria-live="polite"></p></form></div></section>`;
+  $('#f-new').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name').value.replace(/\s+/g,' ').trim(); if(n.split(' ').length<2){ const m=$('#new-msg'); m.textContent='Bitte gib deinen Vor- und Nachnamen ein.'; m.className='small err-t'; $('#in-name').focus(); return; } S.name=n; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; save(); go('home'); };
+  $('#f-code').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name2').value.replace(/\s+/g,' ').trim(); const st=n?readCode(n,$('#in-code').value):null; const m=$('#code-msg');
     if(!st){ m.textContent='Name und Code passen nicht zusammen. Prüfe die Schreibweise.'; m.className='small err-t'; return; }
     S.name=n; S.stars=st; S.pos={}; S.vals={}; save(); go('home'); };
 }
@@ -826,7 +834,7 @@ function renderHome(){
   let next=-1; for(let i=0;i<CORE;i++){ if(!msDone(i)&&msOpen(i)){ next=i; break; } }
   const all=coreDone()===CORE, pct=Math.round(coreDone()/CORE*100);
   main.innerHTML=`<div class="desk-top"><div class="desk-main">
-  <section class="panel hello"><div><span class="eyebrow">Dein Schreibtisch</span><h2>Hallo ${esc(S.name)}!</h2><p class="muted">${all?'Dein Brief ist fertig und geprüft. Jetzt schreibst du einen eigenen.':next>=0?`Als Nächstes: Mission ${next+1} · ${esc(MS[next].title)}`:''}</p><div class="progress"><span class="bar"><i style="width:${pct}%"></i></span><span>${coreDone()} von ${CORE} Missionen</span></div></div>
+  <section class="panel hello"><div><span class="eyebrow">Dein Schreibtisch</span><h2>Hallo ${esc(ME().first)}!</h2><p class="muted">${all?'Dein Brief ist fertig und geprüft. Jetzt schreibst du einen eigenen.':next>=0?`Als Nächstes: Mission ${next+1} · ${esc(MS[next].title)}`:''}</p><div class="progress"><span class="bar"><i style="width:${pct}%"></i></span><span>${coreDone()} von ${CORE} Missionen</span></div></div>
   <div style="display:grid;gap:.6rem">${all?'<button class="btn primary" id="b-zeug" type="button">Zeugnis ansehen</button>':next>=0?`<button class="btn primary" id="b-next" type="button">Weiter mit Mission ${next+1}</button>`:''}${codeBox()}</div></section>
   <section class="postcards" aria-label="Missionen">${MS.map((m,i)=>{ const open=msOpen(i), dn=msDone(i); return `<button class="pc ${i===next?'next':''} ${m.bonus?'bonus':''}" data-mi="${i}" type="button" ${open?'':'disabled'}><span class="pc-body"><span class="pc-no">${m.bonus?'★ Bonus':'Mission '+(i+1)}</span><span class="pc-title">${esc(m.bonus?m.title.replace('Bonus: ',''):m.title)}</span><span class="pc-meta">${esc(m.time)} · ${dn?'erledigt':open?'offen':m.bonus?'nach Mission 6':'gesperrt'}</span>${m.bonus&&open&&!dn?'<span class="tag">für Schnelle</span>':''}</span>${stampHtml(i)}<span class="pc-lines" aria-hidden="true"></span></button>`; }).join('')}</section>
   <p class="desk-note">Notiere dir den Code nach jeder Mission. Damit spielst du an jedem PC weiter.</p></div>
@@ -1013,7 +1021,7 @@ function fieldMsg(f,v){
 }
 R.input=(st,root,done)=>{
   const T=exFrame(st,root,done); let checks=0; const key='in'+st.sid;
-  T.body.innerHTML=`${st.context?`<div class="ctx">${st.context}</div>`:''}${st.timer?'<div class="timer">Diktat-Zeit: <b id="tm">0:00</b> min</div>':''}<form class="fields" autocomplete="off" novalidate>${st.fields.map((f,i)=>`<div class="field" data-i="${i}"><label for="${key}-${i}">${esc(f.label)}</label><input type="text" id="${key}-${i}" spellcheck="false" autocomplete="off"${f.empty?' placeholder="(leer lassen, wenn nicht nötig)"':''}><div class="f-msg"></div></div>`).join('')}<button type="submit" hidden>Prüfen</button></form>`;
+  T.body.innerHTML=`${st.context?`<div class="ctx">${fill(st.context)}</div>`:''}${st.timer?'<div class="timer">Diktat-Zeit: <b id="tm">0:00</b> min</div>':''}<form class="fields" autocomplete="off" novalidate>${st.fields.map((f,i)=>`<div class="field" data-i="${i}"><label for="${key}-${i}">${esc(f.label)}</label><input type="text" id="${key}-${i}" spellcheck="false" autocomplete="off"${f.empty?' placeholder="(leer lassen, wenn nicht nötig)"':''}><div class="f-msg"></div></div>`).join('')}<button type="submit" hidden>Prüfen</button></form>`;
   let iv=null; const t0=Date.now();
   if(st.timer){ const tm=$('#tm',T.body); iv=setInterval(()=>{ const s=Math.floor((Date.now()-t0)/1000); tm.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); },1000); cleanups.push(()=>clearInterval(iv)); }
   const form=$('form',T.body); form.onsubmit=e=>{ e.preventDefault(); check(); };
@@ -1021,7 +1029,7 @@ R.input=(st,root,done)=>{
   function lock(){ if(iv) clearInterval(iv); $$('input',form).forEach(x=>x.readOnly=true); st.fields.forEach((f,i)=>{ if(f.store) S.vals[f.store]=inp(i).value.replace(/\s+/g,' ').trim(); }); save(); }
   function setBtns(){ T.setRight(`${checks>=2?'<button class="btn" type="button" id="x-sol">Lösung zeigen</button>':''}<button class="btn primary" type="button" id="x-check">Prüfen</button>`,{'x-check':check,'x-sol':()=>{
     T.sol=true;
-    st.fields.forEach((f,i)=>{ const el=inp(i), fd=el.closest('.field'); if(fieldMsg(f,el.value.replace(/\s+/g,' ').trim())!==null) el.value=f.empty?'':(f.answers?f.answers[0]:f.example||''); fd.classList.remove('bad'); fd.classList.add('ok'); $('.f-msg',fd).textContent=f.empty?'bleibt leer':''; });
+    st.fields.forEach((f,i)=>{ const el=inp(i), fd=el.closest('.field'); if(fieldMsg(f,el.value.replace(/\s+/g,' ').trim())!==null) el.value=f.empty?'':(typeof f.example==='function'?f.example():(f.example||(f.answers?f.answers[0]:''))); fd.classList.remove('bad'); fd.classList.add('ok'); $('.f-msg',fd).textContent=f.empty?'bleibt leer':''; });
     lock(); T.finish('Hier siehst du die Lösung. Vergleiche sie mit deinen Eingaben.');
   }}); }
   function check(){
@@ -1131,7 +1139,7 @@ function drawLehrer(box){
   }
   box.innerHTML=`<div class="lehr-grid">
   <section class="fld-group"><h3>Ansicht</h3><label class="tgl"><input type="checkbox" id="t-beamer" ${S.beamer?'checked':''}><span>Beamer-Modus mit größerer Schrift</span></label><label class="tgl"><input type="checkbox" id="t-unlock" ${S.unlockAll?'checked':''}><span>Alle Missionen und Merkzettel auf diesem PC freischalten, z. B. zum Vorführen</span></label></section>
-  <section class="fld-group"><h3>Code prüfen</h3><p class="small muted">Vorname und Code vom Zeugnis oder vom Schreibtisch eingeben.</p><div class="fld"><label for="v-name">Vorname</label><input type="text" id="v-name" autocomplete="off"></div><div class="fld"><label for="v-code">Code</label><input type="text" id="v-code" class="mono-in" autocomplete="off"></div><div class="row"><button class="btn" type="button" id="v-go">Prüfen</button></div><div id="v-out" aria-live="polite"></div></section>
+  <section class="fld-group"><h3>Code prüfen</h3><p class="small muted">Name und Code vom Zeugnis oder vom Schreibtisch eingeben.</p><div class="fld"><label for="v-name">Vor- und Nachname</label><input type="text" id="v-name" autocomplete="off"></div><div class="fld"><label for="v-code">Code</label><input type="text" id="v-code" class="mono-in" autocomplete="off"></div><div class="row"><button class="btn" type="button" id="v-go">Prüfen</button></div><div id="v-out" aria-live="polite"></div></section>
   <section class="fld-group"><h3>Fortschritt löschen</h3><p class="small muted">Löscht Name und Sterne auf diesem PC, z. B. vor der nächsten Klasse. Ein notierter Code bleibt gültig.</p><div class="row"><button class="btn" type="button" id="r-1">Fortschritt löschen …</button></div><div id="r-confirm"></div></section></div>`;
   $('#t-beamer',box).onchange=e=>{ S.beamer=e.target.checked; save(); document.documentElement.classList.toggle('beamer',S.beamer); };
   $('#t-unlock',box).onchange=e=>{ S.unlockAll=e.target.checked; save(); render(); };
