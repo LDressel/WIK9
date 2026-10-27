@@ -416,6 +416,58 @@ textarea.addr-in{font-family:var(--f-letter);line-height:1.55;resize:vertical;mi
 .zeugnis .pstamp{position:absolute;right:2rem;top:5.5rem}
 @media (max-width:620px){.zeugnis .pstamp{position:static;justify-self:start}}
 
+
+/* Übungsmodus */
+.pc.post{background:var(--surface-2)}
+.desk-h{font-size:1.5rem;color:var(--desk-ink)}
+.desk-h .small{font-family:var(--f-body);font-weight:600;opacity:.85}
+.post-head .intro{align-items:center}
+.env-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1.1rem}
+.env{border:7px solid transparent;border-image:repeating-linear-gradient(-45deg,var(--air-red) 0 10px,var(--stamp-frame) 10px 15px,var(--air-blue) 15px 25px,var(--stamp-frame) 25px 30px) 7;background:var(--surface);color:var(--ink);font:inherit;text-align:left;cursor:pointer;padding:0;box-shadow:var(--shadow)}
+.env:hover{transform:translateY(-2px)}
+.env:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.env-in{display:grid;gap:.3rem;padding:.9rem 1rem}
+.env-from{font-family:var(--f-hand);font-size:1.45rem;line-height:1.05}
+.env-t{font-family:var(--f-display);font-weight:700;font-size:1.12rem}
+.env-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.88rem}
+.chip{font-size:.78rem;font-weight:700;padding:.12rem .55rem;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted);text-transform:capitalize}
+.chip.lv-leicht{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.chip.lv-mittel{background:var(--sun-soft);border-color:var(--sun);color:var(--sun-ink)}
+.chip.lv-schwer{background:var(--err-soft);border-color:var(--err);color:var(--err)}
+.ub{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+@media (max-width:1100px){.ub{grid-template-columns:minmax(0,1fr)}}
+.ub-in{display:grid;gap:.5rem;position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);max-height:calc(100vh - 100px);overflow:auto;border-radius:4px}
+@media (max-width:1100px){.ub-in{position:static;max-height:none}}
+.ub.pv-mode{grid-template-columns:minmax(0,1fr);max-width:880px;margin:0 auto;width:100%}
+.ub.pv-mode .ub-in{order:2;position:static;max-height:none}
+.ub-lab{display:flex;gap:.5rem;align-items:center;color:var(--desk-ink)}
+.ub-lab .eyebrow{color:var(--desk-ink)}
+.ub-form{display:grid;gap:1rem;min-width:0}
+.in-letter{font-size:.8rem}
+.lt-head.priv{border-bottom-color:var(--paper-ink)}
+.lt-head.priv .lt-firm{color:var(--paper-ink);font-family:var(--f-letter);font-size:1.3em}
+.lt-head.hotel{border-bottom-color:var(--paper-sun)}
+.lt-head.hotel .lt-firm{color:var(--paper-sun)}
+.lt-head.club{border-bottom-color:var(--paper-err)}
+.lt-head.club .lt-firm{color:var(--paper-err)}
+.lt-head.gov{border-bottom-color:var(--paper-ok)}
+.lt-head.gov .lt-firm{color:var(--paper-ok)}
+.fs{border:1px dashed var(--line);border-radius:6px;padding:.8rem .9rem 1rem;margin:0 0 .9rem;display:grid;gap:.65rem;min-width:0}
+.fs legend{font-weight:700;padding:0 .4rem;display:flex;align-items:center;gap:.45rem}
+.fs-no{display:inline-grid;place-items:center;min-width:1.6rem;height:1.6rem;padding:0 .35rem;border-radius:999px;background:var(--brand);color:var(--brand-ink);font-family:var(--f-display);font-size:.85rem}
+.ub-form .field{grid-template-columns:minmax(0,11rem) minmax(0,1fr)}
+.ub-form .field.wide{grid-template-columns:minmax(0,1fr)}
+.ub-form .field.wide .f-msg{grid-column:1}
+@media (max-width:640px){.ub-form .field{grid-template-columns:minmax(0,1fr)}.ub-form .f-msg{grid-column:1}}
+.field.ro input{background:var(--surface-2);color:var(--muted);border-style:dashed}
+.field.ro .f-msg{color:var(--muted);display:block}
+textarea.text-in{font-family:var(--f-letter);line-height:1.55;resize:vertical;min-height:14em;background:var(--paper);color:var(--paper-ink);border-color:var(--paper-line)}
+.field.ok textarea{border-color:var(--ok)}
+.field.bad textarea{border-color:var(--err)}
+.pv{display:grid;gap:1.1rem}
+.pv .letter{max-width:none}
+.pv-check{display:grid;gap:.7rem}
+.cl{list-style:none;padding:0;display:grid;gap:.5rem}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{
   .topbar,.foot,.no-print,body::before{display:none!important}
@@ -692,6 +744,88 @@ const TRANSFER={
   ],
   check:['Anschrift in der richtigen Reihenfolge, ohne Leerzeilen','Informationsblock mit Unser Zeichen, Name, Telefon, E-Mail, Datum','Betreff ohne „Betreff“ und ohne Punkt','Anrede mit Komma, Text beginnt klein','Text in 3 Absätzen: Anlass · Fragen · Ausblick','Datum, Uhrzeit und Beträge nach DIN 5008','Gruß ohne Komma, Name unter der Unterschrift']
 };
+
+/* ===== Übungsmodus: Posteingang ===== */
+MOTIF.post='<rect x="5" y="10" width="30" height="21" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M6 11.5l14 10 14-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>';
+const HEUTE_UEB='10.11.2026';
+const SONNENWEG_ADDR=['Reisebüro Sonnenweg GmbH','Lindenweg 7','85229 Markt Indersdorf'];
+const POST=[
+ {id:'meier',level:'leicht',from:'Sabine Meier',thema:'Katalog für Busreisen',
+  head:{firm:'Sabine Meier',sub:'Lindenstraße 3 · 85229 Markt Indersdorf',cls:'priv'},
+  rsa:'Sabine Meier · Lindenstraße 3 · 85229 Markt Indersdorf',
+  info:[['Datum','02.11.2026']],
+  betreff:'Katalog für Busreisen 2027',anrede:'Sehr geehrte Damen und Herren,',
+  text:['ich plane mit meinem Seniorenkreis für das Jahr 2027 eine mehrtägige Busreise. Bitte schicken Sie mir Ihren aktuellen Katalog „Busreisen 2027“.','Besonders interessiert uns eine Reise nach Südtirol im Frühjahr oder im Herbst. Gibt es dafür ein Angebot für Gruppen ab 20 Personen?','Vielen Dank im Voraus für Ihre Mühe.'],
+  gruss:'Mit freundlichen Grüßen',sig:'S. Meier',name:'Sabine Meier',
+  ans:{addr:[['Frau Sabine Meier','Lindenstraße 3','85229 Markt Indersdorf']],kinds:['„Frau“ mit Vor- und Nachname','Straße und Hausnummer','Postleitzahl und Ort'],
+   ihrZ:'',ihreN:'02.11.2026',unsN:'',anrede:'Sehr geehrte Frau Meier,',known:true,anlage:true,anlageName:'Katalog „Busreisen 2027“'},
+  musterBetreff:'Unser Katalog „Busreisen 2027“',betreffRe:/katalog/i,betreffMsg:'Sag im Betreff, worum es geht: den Katalog.',
+  mustText:[{re:/katalog/i,msg:'Schreibe im Text, dass du den Katalog schickst.'},{re:/anlage/i,msg:'Weise im Text auf die Anlage hin, z. B. „In der Anlage finden Sie …“.'}],
+  checklist:['Ich bedanke mich für die Anfrage.','Ich beantworte die Frage nach einer Reise nach Südtirol.','Ich weise auf den Katalog in der Anlage hin.'],
+  hint:'Frau Meier schreibt privat. Sie hat deshalb kein Zeichen angegeben: „Ihr Zeichen“ bleibt leer, aber ihr Briefdatum kommt zu „Ihre Nachricht vom“. Der Katalog liegt bei, also brauchst du einen Anlagenvermerk.',
+  muster:'vielen Dank für Ihre Anfrage vom 02.11.2026 und Ihr Interesse an unseren Busreisen.\n\nIn der Anlage finden Sie unseren Katalog „Busreisen 2027“. Für Gruppen ab 20 Personen bieten wir im Mai und im September eine fünftägige Reise nach Südtirol an. Die Reise kostet 549,00 EUR pro Person mit Halbpension.\n\nHaben Sie noch Fragen? Rufen Sie mich gern an. Wir freuen uns auf Ihre Buchung.'},
+
+ {id:'lindner',level:'mittel',from:'Autohaus Lindner GmbH',thema:'Beschwerde über eine Verspätung',
+  head:{firm:'Autohaus Lindner GmbH',sub:'Neuwagen · Werkstatt · Service',cls:'wood'},
+  rsa:'Autohaus Lindner GmbH · Augsburger Straße 22 · 85221 Dachau',
+  info:[['Unser Zeichen','lm'],null,['Name','Markus Lindner'],['Telefon','08131 7766-40'],null,['Datum','30.10.2026']],
+  betreff:'Verspätung bei unserem Ausflug am 24.10.2026',anrede:'Sehr geehrte Damen und Herren,',
+  text:['am 24.10.2026 haben wir mit 30 Mitarbeitenden unseren Betriebsausflug nach Füssen mit Ihnen gemacht. Leider kam der Bus erst um 08:15 Uhr statt um 07:30 Uhr. Niemand hat uns über die Verspätung informiert.','Dadurch mussten wir die Führung im Schloss Neuschwanstein absagen. Wir sind darüber sehr enttäuscht.','Bitte nehmen Sie bis zum 13.11.2026 Stellung. Wir erwarten einen Ausgleich für den entgangenen Programmpunkt.'],
+  gruss:'Mit freundlichen Grüßen',firm:'Autohaus Lindner GmbH',zusatz:'i. A.',sig:'M. Lindner',name:'Markus Lindner',abt:'Personalabteilung',
+  ans:{addr:[['Autohaus Lindner GmbH','Personalabteilung','Herrn Markus Lindner','Augsburger Straße 22','85221 Dachau']],kinds:['die Firma','die Abteilung','„Herrn“ mit Vor- und Nachname','Straße und Hausnummer','Postleitzahl und Ort'],
+   ihrZ:'lm',ihreN:'30.10.2026',unsN:'',anrede:'Sehr geehrter Herr Lindner,',known:true,anlage:true,anlageName:'Gutschein über 300,00 EUR'},
+  musterBetreff:'Ihre Beschwerde über die Verspätung am 24.10.2026',betreffRe:/versp(ä|ae)tung|beschwerde|ausflug|reklamation|gutschein/i,betreffMsg:'Sag im Betreff, worum es geht, z. B. die Verspätung beim Ausflug.',
+  mustText:[{re:/entschuldig|leid|bedauer/i,msg:'Entschuldige dich im Text für die Verspätung.'},{re:/gutschein|ausgleich|erstatt/i,msg:'Biete im Text einen Ausgleich an, z. B. einen Gutschein.'},{re:/anlage/i,msg:'Weise im Text auf die Anlage hin.'}],
+  checklist:['Ich entschuldige mich für die Verspätung.','Ich erkläre kurz, was passiert ist.','Ich biete einen Ausgleich an und weise auf den Gutschein in der Anlage hin.'],
+  hint:'Die Abteilung steht unter der Unterschrift, die Straße in der Rücksendeangabe. Bei einem Mann heißt es „Herrn“ in der Anschrift und „Sehr geehrter Herr …“ in der Anrede. Der Gutschein liegt bei.',
+  muster:'vielen Dank für Ihr Schreiben vom 30.10.2026. Es tut uns sehr leid, dass der Bus am 24.10.2026 zu spät kam und Sie nicht informiert wurden. Dafür entschuldigen wir uns.\n\nGrund war ein Unfall auf der Autobahn A 8. Unser Fahrer hätte Sie trotzdem anrufen müssen. Das haben wir mit unserem Busunternehmen besprochen.\n\nAls Ausgleich erhalten Sie einen Gutschein über 300,00 EUR für Ihren nächsten Ausflug. Sie finden ihn in der Anlage. Wir hoffen, Sie bald wieder als Gäste begrüßen zu dürfen.'},
+
+ {id:'gruber',level:'mittel',from:'Hotel Alpenrose',thema:'Zimmerangebot aus Österreich',
+  head:{firm:'Hotel Alpenrose',sub:'Seepromenade 3 · 6370 Kitzbühel · Österreich',cls:'hotel'},
+  rsa:'Hotel Alpenrose · Seepromenade 3 · 6370 Kitzbühel · ÖSTERREICH',
+  info:[['Ihr Zeichen','{ini}'],['Ihre Nachricht vom','26.10.2026'],['Unser Zeichen','gs'],null,['Name','Sabine Gruber'],['Telefon','+43 5356 6620-0'],null,['Datum','04.11.2026']],
+  betreff:'Ihre Zimmeranfrage für 12.03.2027 bis 14.03.2027',anrede:'Sehr geehrte Damen und Herren,',
+  text:['vielen Dank für Ihre Anfrage. Gern reservieren wir für Ihre Gruppe vom 12.03.2027 bis 14.03.2027 zwölf Doppelzimmer.','Der Preis beträgt 98,00 EUR pro Zimmer und Nacht, mit Frühstück. Für Ihre Gruppe ergibt sich ein Gesamtpreis von 2.352,00 EUR.','Wir halten die Zimmer bis zum 20.11.2026 für Sie frei. Bitte bestätigen Sie die Buchung bis zu diesem Datum schriftlich.'],
+  gruss:'Mit freundlichen Grüßen',firm:'Hotel Alpenrose',sig:'S. Gruber',name:'Sabine Gruber',abt:'Reservierung',
+  ans:{addr:[['Hotel Alpenrose','Reservierung','Frau Sabine Gruber','Seepromenade 3','6370 Kitzbühel','ÖSTERREICH'],['Hotel Alpenrose','Reservierung','Frau Sabine Gruber','Seepromenade 3','6370 KITZBÜHEL','ÖSTERREICH']],kinds:['das Hotel','die Abteilung','„Frau“ mit Vor- und Nachname','Straße und Hausnummer','Postleitzahl und Ort','das Land in Großbuchstaben'],country:'ÖSTERREICH',
+   ihrZ:'gs',ihreN:'04.11.2026',unsN:'26.10.2026',anrede:'Sehr geehrte Frau Gruber,',known:true,anlage:false},
+  musterBetreff:'Buchung von zwölf Doppelzimmern vom 12.03.2027 bis 14.03.2027',betreffRe:/buch|zimmer|best(ä|ae)tig|reservier/i,betreffMsg:'Sag im Betreff, worum es geht, z. B. die Buchung der Zimmer.',
+  mustText:[{re:/buch/i,msg:'Bestätige im Text die Buchung.'}],
+  checklist:['Ich bedanke mich für das Angebot.','Ich buche verbindlich mit Zimmerzahl, Zeitraum und Preis.','Ich bitte um eine Buchungsbestätigung.'],
+  hint:'Das Hotel antwortet auf unseren Brief. Im Informationsblock des Hotels steht bei „Ihr Zeichen“ dein eigenes Zeichen und bei „Ihre Nachricht vom“ das Datum deines Briefs. Bei dir wird daraus „Unsere Nachricht vom“. Österreich steht in der Anschrift ganz unten in Großbuchstaben.',
+  muster:'vielen Dank für Ihr Angebot vom 04.11.2026.\n\nHiermit buchen wir verbindlich zwölf Doppelzimmer vom 12.03.2027 bis 14.03.2027 mit Frühstück zum Gesamtpreis von 2.352,00 EUR. Unsere Gruppe kommt am 12.03.2027 gegen 16:00 Uhr an.\n\nBitte schicken Sie uns eine Buchungsbestätigung. Wir freuen uns auf den Aufenthalt in Ihrem Haus.'},
+
+ {id:'tsv',level:'schwer',from:'TSV Indersdorf e. V.',thema:'Busfahrt zum Auswärtsspiel',
+  head:{firm:'TSV Indersdorf e. V.',sub:'Abteilung Fußball',cls:'club'},
+  rsa:'TSV Indersdorf e. V. · Postfach 11 22 · 85226 Markt Indersdorf',
+  info:[['Unser Zeichen','fb'],null,['Datum','03.11.2026']],
+  betreff:'Busfahrt zum Auswärtsspiel nach Regensburg',anrede:'Sehr geehrte Damen und Herren,',
+  text:['unsere erste Mannschaft spielt am Samstag, 15.05.2027, in Regensburg. Für die Fahrt zum Spiel suchen wir einen Bus für 45 Personen.','Abfahrt wäre um 12:30 Uhr am Sportgelände in Markt Indersdorf, die Rückkehr gegen 21:00 Uhr.','Bitte schicken Sie uns ein Angebot. Richten Sie Ihre Antwort bitte an unsere Abteilung unter der Postfach-Anschrift.'],
+  gruss:'Mit freundlichen Grüßen',firm:'TSV Indersdorf e. V.',sig:'Abteilungsleitung',name:'Abteilungsleitung Fußball',sigPlain:true,
+  ans:{addr:[['TSV Indersdorf e. V.','Abteilung Fußball','Postfach 11 22','85226 Markt Indersdorf']],kinds:['der Verein','die Abteilung','das Postfach','Postleitzahl und Ort'],
+   extra:[{re:/e\.V\./,msg:'Abkürzungen schreibt man mit Leerzeichen: e. V.'},{re:/Postfach 1122/,msg:'Die Postfachnummer gliederst du von rechts in Zweiergruppen: 11 22.'},{re:/Lindenstr|Sportgel(ä|ae)nde/i,msg:'Der Verein möchte die Antwort an das Postfach. Nimm die Anschrift aus der Rücksendeangabe.'}],
+   ihrZ:'fb',ihreN:'03.11.2026',unsN:'',anrede:'Sehr geehrte Damen und Herren,',known:false,anlage:false},
+  musterBetreff:'Angebot für die Busfahrt nach Regensburg am 15.05.2027',betreffRe:/angebot|busfahrt|bus|regensburg|ausw(ä|ae)rts/i,betreffMsg:'Sag im Betreff, worum es geht, z. B. das Angebot für die Busfahrt.',
+  mustText:[{re:/\d{1,3}(\.\d{3})*,\d{2} ?(EUR|€)|(EUR|€) ?\d{1,3}(\.\d{3})*,\d{2}/,msg:'Nenne im Text einen Preis nach DIN 5008, z. B. 1.250,00 EUR.'},{re:/\d{1,2}:\d{2} Uhr/,msg:'Nenne die Abfahrtszeit nach DIN 5008, z. B. 12:30 Uhr.'}],
+  checklist:['Ich bedanke mich für die Anfrage.','Ich nenne Termin, Abfahrt, Rückkehr und den Preis.','Ich sage, bis wann der Verein buchen soll.'],
+  hint:'Im Brief steht kein Name, nur „Abteilungsleitung“. Dann nimmst du „Sehr geehrte Damen und Herren,“. Die Antwort geht an das Postfach aus der Rücksendeangabe. Die Postfachnummer wird in Zweiergruppen gegliedert.',
+  muster:'vielen Dank für Ihre Anfrage vom 03.11.2026.\n\nGern fahren wir Ihre Mannschaft und die Fans am 15.05.2027 nach Regensburg. Unser Reisebus mit 50 Plätzen holt Sie um 12:30 Uhr am Sportgelände ab und bringt Sie gegen 21:00 Uhr zurück. Der Preis für die Fahrt beträgt 1.250,00 EUR.\n\nBitte geben Sie uns bis zum 30.11.2026 Bescheid, ob Sie buchen möchten. Wir wünschen Ihrer Mannschaft viel Erfolg.'},
+
+ {id:'schmid',level:'schwer',from:'Markt Indersdorf, Ordnungsamt',thema:'Rückfrage zum Busparkplatz',
+  head:{firm:'Markt Indersdorf',sub:'Ordnungsamt · Marktplatz 1 · 85229 Markt Indersdorf',cls:'gov'},
+  rsa:'Markt Indersdorf · Marktplatz 1 · 85229 Markt Indersdorf',
+  info:[['Ihr Zeichen','ym'],['Ihre Nachricht vom','21.10.2026'],['Unser Zeichen','sp'],null,['Name','Petra Schmid'],['Telefon','08136 9300-21'],null,['Datum','05.11.2026']],
+  betreff:'Ihr Antrag auf einen Busparkplatz am 11.06.2027',anrede:'Sehr geehrte Damen und Herren,',
+  text:['vielen Dank für Ihren Antrag. Damit wir den Busparkplatz am Marktplatz reservieren können, brauchen wir noch zwei Angaben.','Wie viele Busse halten am 11.06.2027 am Marktplatz? Von wann bis wann brauchen Sie den Parkplatz?','Bitte teilen Sie uns diese Angaben bis zum 20.11.2026 mit.'],
+  gruss:'Mit freundlichen Grüßen',zusatz:'i. A.',sig:'P. Schmid',name:'Petra Schmid',
+  ans:{addr:[['Markt Indersdorf','Ordnungsamt','Frau Petra Schmid','Marktplatz 1','85229 Markt Indersdorf']],kinds:['die Behörde','das Amt','„Frau“ mit Vor- und Nachname','Straße und Hausnummer','Postleitzahl und Ort'],
+   ihrZ:'sp',ihreN:'05.11.2026',unsN:'21.10.2026',anrede:'Sehr geehrte Frau Schmid,',known:true,anlage:false},
+  musterBetreff:'Antrag auf einen Busparkplatz am 11.06.2027',betreffRe:/parkplatz|antrag|bus/i,betreffMsg:'Sag im Betreff, worum es geht: den Antrag auf den Busparkplatz.',
+  mustText:[{re:/\d{1,2}:\d{2} Uhr/,msg:'Nenne die Zeit, in der ihr den Parkplatz braucht, als Uhrzeit nach DIN 5008, z. B. 06:45 Uhr.'}],
+  checklist:['Ich nenne die Zahl der Busse.','Ich nenne die Zeit von … bis … als Uhrzeit nach DIN 5008.','Ich bitte um Bestätigung der Reservierung.'],
+  hint:'Die Behörde antwortet auf einen Brief, den Herr Yilmaz am 21.10.2026 geschrieben hat. Dieses Datum kommt bei dir zu „Unsere Nachricht vom“. Bei „Ihr Zeichen“ steht das „Unser Zeichen“ der Behörde.',
+  muster:'vielen Dank für Ihr Schreiben vom 05.11.2026.\n\nAm 11.06.2027 hält ein Reisebus am Marktplatz. Wir brauchen den Parkplatz von 06:45 Uhr bis 07:15 Uhr. In dieser Zeit steigen 25 Fahrgäste zu.\n\nBitte bestätigen Sie uns die Reservierung. Für Rückfragen erreichen Sie mich unter 08136 8090-15.'}
+];
 /* ===== Hilfsfunktionen ===== */
 const $=(s,r)=>(r||document).querySelector(s);
 const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
@@ -722,7 +856,7 @@ let NS=0;
 MS.forEach(m=>m.steps.forEach(s=>{ if(SCORED.has(s.type)) s.sid=NS++; }));
 const CORE=MS.filter(m=>!m.bonus).length;
 const KEY='sonnenweg-briefprofi-v2';
-const S={name:'',stars:new Array(NS).fill(0),pos:{},seen:[],vals:{},unlockAll:false,beamer:false};
+const S={name:'',stars:new Array(NS).fill(0),pos:{},seen:[],vals:{},ueb:{},drafts:{},unlockAll:false,beamer:false};
 function load(){
   try{
     const raw=localStorage.getItem(KEY); if(!raw) return;
@@ -732,6 +866,8 @@ function load(){
     if(o.pos&&typeof o.pos==='object') S.pos=o.pos;
     if(Array.isArray(o.seen)) S.seen=o.seen;
     if(o.vals&&typeof o.vals==='object') S.vals=o.vals;
+    if(o.ueb&&typeof o.ueb==='object') S.ueb=o.ueb;
+    if(o.drafts&&typeof o.drafts==='object') S.drafts=o.drafts;
     S.unlockAll=!!o.unlockAll; S.beamer=!!o.beamer;
   }catch(e){}
 }
@@ -805,6 +941,8 @@ function render(){
   if(V.view==='mission') renderMission();
   else if(V.view==='done') renderDone();
   else if(V.view==='zeugnis') renderZeugnis();
+  else if(V.view==='post') renderPost();
+  else if(V.view==='brief') renderBrief();
   else renderHome();
 }
 function renderTop(){
@@ -817,7 +955,7 @@ function renderStart(){
   main.innerHTML=`<section class="panel start"><div class="start-hero"><span class="eyebrow">Lernspiel · WiK 9 · Geschäftsbrief nach DIN 5008</span><h1>Dein erster Brief im Reisebüro</h1><p class="lead">Die Holzbau Huber GmbH möchte einen Betriebsausflug buchen. In 6 Missionen baust du die Antwort Schritt für Schritt zusammen. Danach kannst du einen Geschäftsbrief selbst schreiben.</p><div class="mission-strip" aria-hidden="true">${MS.map((m,i)=>stampHtml(i)).join('')}</div><p class="small muted">Für jede Mission bekommst du eine Briefmarke. Dauer: etwa 75 Minuten.</p></div>
   <div class="start-forms"><form id="f-new" class="fld-group" autocomplete="off"><h3>Neu anfangen</h3><div class="fld"><label for="in-name">Dein Vor- und Nachname</label><input type="text" id="in-name" maxlength="50" autocomplete="off"><span class="small muted">Daraus entsteht später dein Zeichen im Brief.</span></div><button class="btn primary" type="submit">Arbeitstag beginnen</button><p class="small" id="new-msg" aria-live="polite"></p></form>
   <form id="f-code" class="fld-group" autocomplete="off"><h3>Weiterspielen</h3><p class="small muted">Gib deinen Namen genau wie beim Start und deinen Fortsetzungscode ein.</p><div class="fld"><label for="in-name2">Vor- und Nachname</label><input type="text" id="in-name2" maxlength="50" autocomplete="off"></div><div class="fld"><label for="in-code">Fortsetzungscode</label><input type="text" id="in-code" maxlength="14" placeholder="CXXXX-XXXX" class="mono-in" autocomplete="off"></div><button class="btn" type="submit">Weiterspielen</button><p class="small" id="code-msg" aria-live="polite"></p></form></div></section>`;
-  $('#f-new').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name').value.replace(/\s+/g,' ').trim(); if(n.split(' ').length<2){ const m=$('#new-msg'); m.textContent='Bitte gib deinen Vor- und Nachnamen ein.'; m.className='small err-t'; $('#in-name').focus(); return; } S.name=n; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; save(); go('home'); };
+  $('#f-new').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name').value.replace(/\s+/g,' ').trim(); if(n.split(' ').length<2){ const m=$('#new-msg'); m.textContent='Bitte gib deinen Vor- und Nachnamen ein.'; m.className='small err-t'; $('#in-name').focus(); return; } S.name=n; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; S.ueb={}; S.drafts={}; save(); go('home'); };
   $('#f-code').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name2').value.replace(/\s+/g,' ').trim(); const st=n?readCode(n,$('#in-code').value):null; const m=$('#code-msg');
     if(!st){ m.textContent='Name und Code passen nicht zusammen. Prüfe die Schreibweise.'; m.className='small err-t'; return; }
     S.name=n; S.stars=st; S.pos={}; S.vals={}; save(); go('home'); };
@@ -836,12 +974,13 @@ function renderHome(){
   main.innerHTML=`<div class="desk-top"><div class="desk-main">
   <section class="panel hello"><div><span class="eyebrow">Dein Schreibtisch</span><h2>Hallo ${esc(ME().first)}!</h2><p class="muted">${all?'Dein Brief ist fertig und geprüft. Jetzt schreibst du einen eigenen.':next>=0?`Als Nächstes: Mission ${next+1} · ${esc(MS[next].title)}`:''}</p><div class="progress"><span class="bar"><i style="width:${pct}%"></i></span><span>${coreDone()} von ${CORE} Missionen</span></div></div>
   <div style="display:grid;gap:.6rem">${all?'<button class="btn primary" id="b-zeug" type="button">Zeugnis ansehen</button>':next>=0?`<button class="btn primary" id="b-next" type="button">Weiter mit Mission ${next+1}</button>`:''}${codeBox()}</div></section>
-  <section class="postcards" aria-label="Missionen">${MS.map((m,i)=>{ const open=msOpen(i), dn=msDone(i); return `<button class="pc ${i===next?'next':''} ${m.bonus?'bonus':''}" data-mi="${i}" type="button" ${open?'':'disabled'}><span class="pc-body"><span class="pc-no">${m.bonus?'★ Bonus':'Mission '+(i+1)}</span><span class="pc-title">${esc(m.bonus?m.title.replace('Bonus: ',''):m.title)}</span><span class="pc-meta">${esc(m.time)} · ${dn?'erledigt':open?'offen':m.bonus?'nach Mission 6':'gesperrt'}</span>${m.bonus&&open&&!dn?'<span class="tag">für Schnelle</span>':''}</span>${stampHtml(i)}<span class="pc-lines" aria-hidden="true"></span></button>`; }).join('')}</section>
+  <section class="postcards" aria-label="Missionen">${MS.map((m,i)=>{ const open=msOpen(i), dn=msDone(i); return `<button class="pc ${i===next?'next':''} ${m.bonus?'bonus':''}" data-mi="${i}" type="button" ${open?'':'disabled'}><span class="pc-body"><span class="pc-no">${m.bonus?'★ Bonus':'Mission '+(i+1)}</span><span class="pc-title">${esc(m.bonus?m.title.replace('Bonus: ',''):m.title)}</span><span class="pc-meta">${esc(m.time)} · ${dn?'erledigt':open?'offen':m.bonus?'nach Mission 6':'gesperrt'}</span>${m.bonus&&open&&!dn?'<span class="tag">für Schnelle</span>':''}</span>${stampHtml(i)}<span class="pc-lines" aria-hidden="true"></span></button>`; }).join('')}<button class="pc post" id="b-post" type="button" ${postOpen()?'':'disabled'}><span class="pc-body"><span class="pc-no">Übungsmodus</span><span class="pc-title">Posteingang</span><span class="pc-meta">${POST.length} Briefe beantworten · ${postOpen()?postDone()+' erledigt':'nach Mission 6'}</span>${postOpen()&&postDone()<POST.length?'<span class="tag">jetzt üben</span>':''}</span><span class="stamp${postDone()?'':' empty'}" style="--c:var(--st2)"><span class="stamp-in"><svg viewBox="0 0 40 40" aria-hidden="true">${MOTIF.post}</svg><span class="sv">${postDone()}/${POST.length}</span></span></span><span class="pc-lines" aria-hidden="true"></span></button></section>
   <p class="desk-note">Notiere dir den Code nach jeder Mission. Damit spielst du an jedem PC weiter.</p></div>
   ${letterAside(-1)}</div>`;
   $$('.pc',main).forEach(b=>b.onclick=()=>startMission(+b.dataset.mi));
   const bn=$('#b-next'); if(bn) bn.onclick=()=>startMission(next);
   const bz=$('#b-zeug'); if(bz) bz.onclick=()=>go('zeugnis');
+  const bp=$('#b-post'); if(bp) bp.onclick=()=>go('post');
   bindCode(); bindAside(main);
 }
 function startMission(mi){ if(!msOpen(mi)) return; let si=S.pos[mi]|0; if(si>=MS[mi].steps.length) si=0; go('mission',{mi,si}); }
@@ -881,10 +1020,12 @@ function renderZeugnis(){
   <div class="z-stamps">${MS.map((m,i)=>m.bonus&&!msDone(i)?'':stampHtml(i)).join('')}</div>
   <table class="vtbl"><tbody>${MS.map((m,i)=>m.bonus&&!msDone(i)?'':`<tr><td>${m.bonus?'★':i+1} · ${esc(m.title.replace('Bonus: ',''))}</td><td>${msStars(i)} / ${msMax(i)} Sterne</td></tr>`).join('')}</tbody></table>
   ${all?`<p>Gesamtbewertung: <b>${word}</b></p>`:''}
+  ${postDone()?`<p>Übungsmodus: <b>${postDone()} von ${POST.length}</b> Briefen selbst beantwortet.</p>`:''}
   <p class="small">Kontrollcode: <span class="z-code">${code}</span></p>
   <div class="z-sign"><div class="z-s"><span>&nbsp;</span><div class="z-line">Markt Indersdorf, ${ds}</div></div><div class="z-s"><span class="lt-sig">K. Berger</span><div class="z-line">Karin Berger, Geschäftsführerin</div></div></div></article>
-  <p class="desk-note no-print">Zeige dein Zeugnis deiner Lehrkraft. Sie kann den Kontrollcode prüfen.</p>`;
+  <p class="desk-note no-print">Zeige dein Zeugnis deiner Lehrkraft. Sie kann den Kontrollcode prüfen.</p>${all?'<div class="row no-print"><button class="btn primary" type="button" id="b-post">Weiter üben: Posteingang</button></div>':''}`;
   $('#b-back').onclick=()=>go('home');
+  const bp=$('#b-post'); if(bp) bp.onclick=()=>go('post');
 }
 
 /* ===== Übungsrahmen ===== */
@@ -1106,7 +1247,7 @@ R.errors=(st,root,done)=>{
   setBtns();
 };
 R.finale=(st,root,done)=>{
-  root.innerHTML=`<div style="display:grid;gap:1.4rem"><div class="done-grid">${stampHtml(V.mi,true)}<div class="done-text"><span class="eyebrow">Alle Missionen geschafft</span><h2>Dein Brief ist fertig und geprüft</h2><p>Jeden Teil dieses Briefs hast du selbst gebaut. Genau so schreibst du ab jetzt jeden Geschäftsbrief.</p></div></div>
+  root.innerHTML=`<div style="display:grid;gap:1.4rem"><div class="done-grid">${stampHtml(V.mi,true)}<div class="done-text"><span class="eyebrow">Alle Missionen geschafft</span><h2>Dein Brief ist fertig und geprüft</h2><p>Jeden Teil dieses Briefs hast du selbst gebaut. Genau so schreibst du ab jetzt jeden Geschäftsbrief. Nach dem Zeugnis wartet der <b>Posteingang</b>: Dort beantwortest du echte Briefe selbst.</p></div></div>
   ${letterHtml('')}
   <section class="transfer"><div class="note tilt"><span class="hand">${esc(TRANSFER.title)}</span><p>${esc(TRANSFER.task)}</p><ul>${TRANSFER.data.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="panel" style="box-shadow:none;border:1px dashed var(--line)"><h3>Checkliste für deinen Brief</h3><p class="small muted">Hake jeden Punkt ab, bevor du deinen Brief abgibst.</p><ul class="checklist">${TRANSFER.check.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></section>
   <div class="foot-row"><span class="small muted">Die Checkliste steht auch auf deinem Merkblatt.</span><button class="btn primary" type="button" id="go">Zum Zeugnis</button></div></div>`;
@@ -1152,10 +1293,194 @@ function drawLehrer(box){
   $('#r-1',box).onclick=()=>{
     $('#r-confirm',box).innerHTML='<p class="small"><b>Wirklich löschen?</b></p><div class="row"><button class="btn primary" type="button" id="r-yes">Ja, löschen</button><button class="btn" type="button" id="r-no">Abbrechen</button></div>';
     $('#r-no',box).onclick=()=>{ $('#r-confirm',box).innerHTML=''; };
-    $('#r-yes',box).onclick=()=>{ try{ localStorage.removeItem(KEY); }catch(e){} S.name=''; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; S.unlockAll=false; save(); closeModal(); go('home'); };
+    $('#r-yes',box).onclick=()=>{ try{ localStorage.removeItem(KEY); }catch(e){} S.name=''; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; S.ueb={}; S.drafts={}; S.unlockAll=false; save(); closeModal(); go('home'); };
   };
 }
 
+/* ===== Übungsmodus: Posteingang ===== */
+const postOpen=()=>S.unlockAll||coreDone()===CORE;
+const postDone=()=>POST.filter(p=>(S.ueb[p.id]|0)>0).length;
+const postById=id=>POST.find(p=>p.id===id);
+
+function inLetterHtml(sc){
+  const val=v=>esc(String(v).replace('{ini}',ME().ini));
+  const info=sc.info.map(r=>r?`<span class="lw">${esc(r[0])}:</span><span>${val(r[1])}</span>`:'<span class="gap"></span>').join('');
+  return `<div class="letter in-letter"><div class="lt-head ${sc.head.cls}"><div><div class="lt-firm">${esc(sc.head.firm)}</div><div class="lt-slogan">${esc(sc.head.sub)}</div></div></div>
+  <div class="lt-top"><div><div class="rsa">${esc(sc.rsa)}</div><div class="addr">${SONNENWEG_ADDR.map(l=>`<span class="al">${esc(l)}</span>`).join('')}</div></div><div class="info">${info}</div></div>
+  <div class="lt-betreff">${esc(sc.betreff)}</div><p class="lt-p">${esc(sc.anrede)}</p>${sc.text.map(t=>`<p class="lt-p">${esc(t)}</p>`).join('')}
+  <p class="lt-p">${esc(sc.gruss)}</p>${sc.firm?`<p class="lt-p" style="margin-bottom:0">${esc(sc.firm)}</p>`:''}
+  <div class="lt-sigrow">${sc.zusatz?`<span>${esc(sc.zusatz)}</span>`:''}<span class="lt-sig">${esc(sc.sig)}</span></div>
+  ${sc.sigPlain?'':`<p class="lt-p">${esc(sc.name)}${sc.abt?`<br>${esc(sc.abt)}`:''}</p>`}${sc.sigPlain?`<p class="lt-p">${esc(sc.name)}</p>`:''}</div>`;
+}
+
+/* --- Prüfregeln --- */
+const DATE_HINTS=[{re:/^\d{1,2}\.\d{1,2}\.\d{2}$/,msg:'Schreibe die Jahreszahl vierstellig.'},{re:/^\d\.|\.\d\./,msg:'Tag und Monat schreibst du zweistellig, z. B. 05.06.2027.'},{re:/[a-zäöü]/i,msg:'Im Informationsblock schreibt man das Datum in Ziffern.'}];
+const isDate=(v,d)=>{ const p=d.split('.'); return v===d||v===`${p[2]}-${p[1]}-${p[0]}`; };
+function dateHint(v){ for(const h of DATE_HINTS) if(h.re.test(v)) return h.msg; return null; }
+function textMsg(v,sc){
+  const t=v.replace(/\r/g,'').trim();
+  if(!t) return 'Hier fehlt noch dein Brieftext.';
+  const paras=t.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+  if(paras.length<3) return `Dein Text hat ${paras.length===1?'einen Absatz':paras.length+' Absätze'}. Schreibe 3 Absätze (Einleitung, Hauptteil, Schluss) und trenne sie mit einer Leerzeile: zweimal Enter.`;
+  if(paras.length>5) return 'Fasse dich kürzer: höchstens 5 Absätze.';
+  const fw=(paras[0].match(/^[^\s,.!?;:]+/)||[''])[0];
+  if(/^[A-ZÄÖÜ]/.test(fw)&&!['Sie','Ihre','Ihr','Ihnen','Ihren','Ihrem','Ihrer','Ihres'].includes(fw)) return `Nach der Anrede mit Komma geht der Text klein weiter: „${fw.charAt(0).toLowerCase()+fw.slice(1)} …“.`;
+  const fl=t.match(/bezug ?nehmend|\banbei\b|beiliegend|hochachtungsvoll|verbleiben|hiermit teilen wir ihnen mit|\bbetreff\b/i);
+  if(fl) return `„${fl[0]}“ ist eine veraltete Floskel. Formuliere einfacher.`;
+  for(const m of t.matchAll(/\b(\d{1,2})\.(\d{1,2})\.(\d{2,4})\b/g)){ if(m[1].length!==2||m[2].length!==2||m[3].length!==4) return `Schreibe Daten nach DIN 5008 als TT.MM.JJJJ, z. B. 05.06.2027. Gefunden: „${m[0]}“.`; }
+  if(/\b\d{1,2}\.\d{2} ?Uhr\b/.test(t)) return 'Uhrzeiten schreibst du mit Doppelpunkt: 07:30 Uhr.';
+  if(/\b\d{1,2}(:\d{2})? ?h\b/.test(t)) return 'Schreibe „Uhr“ statt „h“.';
+  if(/\d,-/.test(t)) return 'Schreibe Beträge mit Cent: 89,00 EUR.';
+  if(/\d(EUR|€)/.test(t)) return 'Zwischen Betrag und Währung steht ein Leerzeichen.';
+  if(/\d%/.test(t)) return 'Vor dem Prozentzeichen steht ein Leerzeichen: 20 %.';
+  if(/\bz\.B\./i.test(t)) return 'Abkürzungen mit Leerzeichen: z. B.';
+  if(t.replace(/\s+/g,' ').length<150) return 'Dein Text ist noch sehr kurz. Beantworte alle Fragen aus dem Brief.';
+  for(const m of (sc.mustText||[])) if(!m.re.test(t)) return m.msg;
+  return null;
+}
+function zeichenMsg(v){
+  const ini=ME().ini;
+  if(v===ini) return null; if(v==='') return 'Hier fehlt noch dein Zeichen.';
+  if(v.toLowerCase()===ini) return 'Zeichen schreibt man klein.';
+  if(v.length===2&&v.toLowerCase()===ini.split('').reverse().join('')) return 'Fast! Beim Zeichen kommt zuerst der Nachname, dann der Vorname.';
+  return 'Dein Zeichen: erster Buchstabe deines Nachnamens, dann deines Vornamens, klein.';
+}
+function postFields(sc){
+  const a=sc.ans, theirIhrZ=(sc.info.find(r=>r&&r[0]==='Ihr Zeichen')||[])[1];
+  const theirIhrZv=theirIhrZ?String(theirIhrZ).replace('{ini}',ME().ini):null;
+  return [
+   {id:'addr',grp:'a',type:'lines',label:'Anschriftzone – eine Angabe pro Zeile',sol:()=>a.addr[0].join('\n'),check:v=>{
+     const L=v.split(/\r?\n/).map(s=>s.replace(/\s+/g,' ').trim()); while(L.length&&L[0]==='') L.shift(); while(L.length&&L[L.length-1]==='') L.pop();
+     if(a.addr.some(x=>x.length===L.length&&x.every((y,k)=>y===L[k]))) return null;
+     const j=L.join('\n'); for(const e of (a.extra||[])) if(e.re.test(j)) return e.msg;
+     if(L.some(l=>/^(Frau|Herrn?)\s/.test(l))&&!a.known) return 'Im Brief steht keine Ansprechperson. Lass die Person in der Anschrift weg.';
+     if(L.some(l=>/Sonnenweg/i.test(l))) return 'Das ist unsere eigene Anschrift. Hier steht der Empfänger deiner Antwort.';
+     return diagLines(L,{answers:a.addr,kinds:a.kinds,country:a.country});
+   }},
+   {id:'ihrZ',grp:'i',label:'Ihr Zeichen',sol:()=>a.ihrZ,check:v=>{
+     if(v===a.ihrZ) return null;
+     if(!a.ihrZ) return 'Der Absender hat kein Zeichen angegeben. Dieses Feld bleibt leer.';
+     if(v==='') return 'Hier fehlt noch ein Eintrag. Schau im Brief bei „Unser Zeichen“.';
+     if(v.toLowerCase()===a.ihrZ) return 'Zeichen schreibt man klein.';
+     if(v===ME().ini) return 'Das ist dein eigenes Zeichen. Hier steht das „Unser Zeichen“ des Absenders.';
+     if(theirIhrZv&&v===theirIhrZv) return 'Das steht im Brief bei „Ihr Zeichen“ und ist unser Zeichen. Hier gehört das „Unser Zeichen“ des Absenders hin.';
+     return 'Schau im Brief bei „Unser Zeichen“.';
+   }},
+   {id:'ihreN',grp:'i',label:'Ihre Nachricht vom',sol:()=>a.ihreN,check:v=>{
+     if(isDate(v,a.ihreN)) return null; if(v==='') return 'Hier fehlt noch das Datum des Briefs, den du beantwortest.';
+     if(a.unsN&&isDate(v,a.unsN)) return 'Das ist das Datum unseres früheren Briefs. Hier steht das Datum des Briefs, den du beantwortest.';
+     if(isDate(v,HEUTE_UEB)) return 'Das ist das heutige Datum. Hier steht das Datum des Briefs, den du beantwortest.';
+     return dateHint(v)||'Schau im Brief bei „Datum“.';
+   }},
+   {id:'unsZ',grp:'i',label:'Unser Zeichen',sol:()=>ME().ini,check:zeichenMsg},
+   {id:'unsN',grp:'i',label:'Unsere Nachricht vom',sol:()=>a.unsN,ph:a.unsN?'':'(leer lassen, wenn nicht nötig)',check:v=>{
+     if(a.unsN?isDate(v,a.unsN):v==='') return null;
+     if(!a.unsN) return 'Wir haben diesem Absender vorher nicht geschrieben. Dieses Feld bleibt leer.';
+     if(v==='') return 'Der Absender antwortet auf einen Brief von uns. Schau im Brief bei „Ihre Nachricht vom“.';
+     if(isDate(v,a.ihreN)) return 'Das ist das Datum des Absenders. Hier gehört das Datum unseres früheren Briefs hin.';
+     return dateHint(v)||'Schau im Brief bei „Ihre Nachricht vom“.';
+   }},
+   {id:'name',grp:'i',label:'Name',sol:()=>ME().name,check:v=>{ const n=ME().name; if(v===n) return null; if(v==='') return 'Hier fehlt noch dein Name.'; if(v.toLowerCase()===n.toLowerCase()) return 'Achte auf Groß- und Kleinschreibung.'; if(/^(herr|frau)\b/i.test(v)) return 'Schreibe nur Vor- und Nachnamen.'; return 'Hier steht dein eigener Name, so wie du ihn am Anfang eingegeben hast.'; }},
+   {id:'tel',grp:'i',label:'Telefon',ro:'08136 8090-15'},
+   {id:'mail',grp:'i',label:'E-Mail',ro:()=>ME().mail},
+   {id:'datum',grp:'i',label:'Datum',sol:()=>HEUTE_UEB,check:v=>{ if(isDate(v,HEUTE_UEB)) return null; if(v==='') return 'Hier fehlt noch das heutige Datum.'; if(isDate(v,a.ihreN)) return 'Das ist das Datum des Absenders. Hier steht das heutige Datum.'; return dateHint(v)||`Hier steht das heutige Datum: Heute ist der ${HEUTE_UEB}.`; }},
+   {id:'betreff',grp:'b',label:'Betreff',sol:()=>sc.musterBetreff||('Ihr Schreiben vom '+a.ihreN),check:v=>{
+     if(v==='') return 'Hier fehlt noch der Betreff.'; if(/^betreff/i.test(v)) return 'Das Wort „Betreff“ schreibt man nicht.'; if(/[.!]$/.test(v)) return 'Am Ende des Betreffs steht kein Satzzeichen.';
+     if(/^[a-zäöü]/.test(v)) return 'Der Betreff beginnt mit einem Großbuchstaben.'; if(v.length>80) return 'Halte den Betreff kurz: höchstens eine Zeile.';
+     if(sc.betreffRe&&!sc.betreffRe.test(v)) return sc.betreffMsg; return null; }},
+   {id:'anrede',grp:'b',label:'Anrede',sol:()=>a.anrede,check:v=>{
+     if(v===a.anrede) return null; if(v==='') return 'Hier fehlt noch die Anrede.';
+     if(/!$/.test(v)) return 'Nach der Anrede steht ein Komma, kein Ausrufezeichen.'; if(!/,$/.test(v)) return 'Nach der Anrede steht ein Komma.';
+     if(/^hallo|^liebe/i.test(v)) return 'Das ist für einen Geschäftsbrief zu locker.';
+     if(/damen und herren/i.test(v)&&a.known) return 'Du kennst den Namen: Sprich die Person persönlich an.';
+     if(!a.known) return 'Im Brief steht kein Name einer Person. Nimm „Sehr geehrte Damen und Herren,“.';
+     if(/geehrter frau|geehrte herr\b/i.test(v)) return 'Bei einer Frau: „Sehr geehrte Frau …“, bei einem Mann: „Sehr geehrter Herr …“.';
+     const vn=a.anrede.replace(/,$/,'').split(' ').pop(); if(v.includes(vn)&&v.split(' ').length>4) return 'In der Anrede steht nur der Nachname.';
+     return `Sprich ${a.anrede.includes('Herr ')?'den Absender':'die Absenderin'} mit „Sehr geehrte …“ und Nachnamen an.`; }},
+   {id:'text',grp:'t',type:'text',label:'Brieftext – 3 Absätze, dazwischen eine Leerzeile',sol:()=>sc.muster,check:v=>textMsg(v,sc)},
+   {id:'gruss',grp:'g',label:'Gruß',sol:()=>'Mit freundlichen Grüßen',check:v=>{ if(['Mit freundlichen Grüßen','Freundliche Grüße'].includes(v)) return null; if(v==='') return 'Hier fehlt noch der Gruß.'; if(/,$/.test(v)) return 'Nach dem Gruß steht kein Komma.'; if(/hochachtungsvoll/i.test(v)) return '„Hochachtungsvoll“ ist veraltet.'; if(/^mfg/i.test(v)) return 'Im Gruß schreibt man keine Abkürzung.'; if(/grüssen/i.test(v)) return 'Grüßen schreibt man mit ß.'; return 'Der übliche Gruß lautet „Mit freundlichen Grüßen“.'; }},
+   {id:'zusatz',grp:'g',label:'Zusatz vor der Unterschrift',sol:()=>'i. A.',check:v=>{ if(v==='i. A.') return null; if(v==='') return 'Du unterschreibst als Azubi im Auftrag. Dafür steht ein Zusatz vor der Unterschrift.'; if(/^i\.? ?v\.?$/i.test(v)) return '„i. V.“ darf nur, wer die Chefin mit Vollmacht vertritt. Du bist Azubi: i. A.'; if(/^i\.a\.$/i.test(v)) return 'Nach dem ersten Punkt steht ein Leerzeichen: i. A.'; return 'Du unterschreibst im Auftrag: i. A.'; }},
+   {id:'uname',grp:'g',label:'Name unter der Unterschrift',sol:()=>ME().name,check:v=>{ const n=ME().name; if(v===n) return null; if(v==='') return 'Hier fehlt noch dein Name.'; if(v.toLowerCase()===n.toLowerCase()) return 'Achte auf Groß- und Kleinschreibung.'; return 'Unter die Unterschrift kommt dein Vor- und Nachname.'; }},
+   {id:'anlage',grp:'g',label:a.anlage?'Anlagenvermerk':'Anlagenvermerk (nur wenn etwas beiliegt)',ph:'(leer lassen, wenn nichts beiliegt)',sol:()=>a.anlage?'Anlage':'',check:v=>{
+     const ok=a.anlage?/^anlage:?$/i.test(v):v===''; if(ok) return null;
+     if(!a.anlage) return 'Diesem Brief liegt nichts bei. Lass das Feld leer.';
+     if(v==='') return `Du schickst etwas mit: ${a.anlageName}. Dafür brauchst du einen Anlagenvermerk.`;
+     if(/^anlagen/i.test(v)) return 'Es liegt nur eine Sache bei: „Anlage“ in der Einzahl.';
+     return 'Der Vermerk heißt einfach „Anlage“.'; }}
+  ];
+}
+
+/* --- Ansichten --- */
+function envHtml(sc){
+  const st=S.ueb[sc.id]|0;
+  return `<button class="env" type="button" data-id="${sc.id}"><span class="env-in"><span class="env-from">Von: ${esc(sc.from)}</span><span class="env-t">${esc(sc.thema)}</span><span class="env-meta"><span class="chip lv-${sc.level}">${esc(sc.level)}</span>${st?`<span class="ok-t">beantwortet</span> ${starsHtml(st,3)}`:'<span class="muted">offen</span>'}</span></span></button>`;
+}
+function renderPost(){
+  main.innerHTML=`<section class="panel post-head"><div class="intro"><div class="story"><div class="say">${avHtml('berger')}<div class="say-b"><div class="who"><b>${esc(P.berger.name)}</b> · ${esc(P.berger.role)}</div><div class="bubble">Probezeit bestanden, ${esc(ME().first)}! Ab jetzt beantwortest du die Post selbst. Heute ist der ${HEUTE_UEB}. Du unterschreibst mit „i. A.“, und jeder Brief geht durch meinen Chef-Check.</div></div></div></div>
+  <div class="note tilt"><span class="hand">So gehst du vor</span><ul><li>Brief lesen: Wer schreibt? Was will er?</li><li>Anschrift und Informationsblock aus dem Brief übernehmen</li><li>Betreff, Anrede und 3 Absätze schreiben</li><li>Prüfen, verbessern, abschicken</li></ul></div></div></section>
+  <div class="row" style="justify-content:space-between"><h2 class="desk-h">Posteingang <span class="small">${postDone()} von ${POST.length} beantwortet</span></h2><button class="btn small" type="button" id="b-back">← Zum Schreibtisch</button></div>
+  <section class="env-list" aria-label="Briefe im Posteingang">${POST.map(envHtml).join('')}</section>`;
+  $('#b-back').onclick=()=>go('home');
+  $$('.env',main).forEach(b=>b.onclick=()=>go('brief',{pid:b.dataset.id}));
+}
+function renderBrief(){
+  const sc=postById(V.pid); if(!sc){ go('post'); return; }
+  const F=postFields(sc), dr=(S.drafts[sc.id]=S.drafts[sc.id]||{});
+  const grp=(g,title,no)=>`<fieldset class="fs"><legend><span class="fs-no">${no}</span>${title}</legend>${F.filter(f=>f.grp===g).map(f=>{
+    const id='pf-'+f.id, ro=typeof f.ro==='function'?f.ro():f.ro;
+    if(ro) return `<div class="field ro"><label for="${id}">${esc(f.label)}</label><input type="text" id="${id}" value="${esc(ro)}" readonly tabindex="-1"><div class="f-msg">steht schon in deiner Vorlage</div></div>`;
+    if(f.type) return `<div class="field wide" data-f="${f.id}"><label for="${id}">${esc(f.label)}</label><textarea id="${id}" class="${f.type==='lines'?'addr-in':'text-in'}" rows="${f.type==='lines'?6:11}" spellcheck="${f.type==='text'}">${esc(dr[f.id]||'')}</textarea><div class="f-msg"></div></div>`;
+    return `<div class="field" data-f="${f.id}"><label for="${id}">${esc(f.label)}</label><input type="text" id="${id}" value="${esc(dr[f.id]||'')}" spellcheck="false" autocomplete="off"${f.ph?` placeholder="${esc(f.ph)}"`:''}><div class="f-msg"></div></div>`;
+  }).join('')}</fieldset>`;
+  main.innerHTML=`<div class="row"><button class="linkbtn" type="button" id="b-back">← Zum Posteingang</button></div>
+  <div class="ub"><section class="ub-in" aria-label="Eingegangener Brief"><div class="ub-lab"><span class="eyebrow">Eingegangen</span><span class="chip lv-${sc.level}">${esc(sc.level)}</span></div>${inLetterHtml(sc)}</section>
+  <section class="panel ub-form"><div class="ex-head"><span class="eyebrow">Deine Antwort · heute ist der ${HEUTE_UEB}</span><h2>Antwort an ${esc(sc.from)}</h2><p class="task">Beantworte den Brief. Übernimm die Angaben aus dem Brief und schreibe einen eigenen Text.</p></div>
+  <div class="hint-area"></div>
+  <form id="pform" autocomplete="off" novalidate>${grp('a','Anschriftfeld','2')}${grp('i','Informationsblock','3')}${grp('b','Betreff und Anrede','4–5')}${grp('t','Brieftext','6')}${grp('g','Gruß, Unterschrift, Anlage','7–9')}</form>
+  <div class="fb-area" aria-live="polite"></div>
+  <div class="ex-foot"><div class="left"><button class="btn small ghost" type="button" id="p-hint">Frag Mia</button><span class="mist">Prüfungen mit Fehlern: <b id="p-mist">0</b></span></div><div class="right" id="p-right"></div></div></section></div>`;
+  const P0={mist:0,hint:false,sol:false};
+  $('#b-back').onclick=()=>go('post');
+  let tmr=null;
+  $('#pform').addEventListener('input',e=>{ const f=e.target.closest('[data-f]'); if(!f) return; dr[f.dataset.f]=e.target.value; clearTimeout(tmr); tmr=setTimeout(save,400); });
+  cleanups.push(()=>{ clearTimeout(tmr); save(); });
+  $('#p-hint').onclick=()=>{ P0.hint=true; $('.hint-area',main).innerHTML=`<div class="note hintbox">${avHtml('mia')}<div><span class="hand">Mia hilft dir</span><div>${esc(sc.hint)}</div><div class="small">Ein Tipp kostet dich höchstens einen Stern.</div></div></div>`; };
+  const right=$('#p-right'), fb=$('.fb-area',main);
+  function btns(){ right.innerHTML=`${P0.mist>=2?'<button class="btn" type="button" id="p-sol">Lösung zeigen</button>':''}<button class="btn primary" type="button" id="p-check">Brief prüfen</button>`; $('#p-check').onclick=check; const s=$('#p-sol'); if(s) s.onclick=solve; }
+  function val(f){ const el=$('#pf-'+f.id); const v=el.value; return f.type?v:v.replace(/\s+/g,' ').trim(); }
+  function check(){
+    let wrong=0, first=null;
+    F.filter(f=>f.check).forEach(f=>{ const fd=$(`[data-f="${f.id}"]`,main), m=f.check(val(f)); fd.classList.toggle('ok',m===null); fd.classList.toggle('bad',m!==null); $('.f-msg',fd).textContent=m===null?'✓':m; if(m!==null){ wrong++; if(!first) first=fd; } });
+    if(wrong){ P0.mist++; $('#p-mist').textContent=P0.mist; btns(); fb.innerHTML=`<div class="fb err"><b>${wrong===1?'Eine Stelle':wrong+' Stellen'} im Brief ${wrong===1?'stimmt':'stimmen'} noch nicht.</b> Lies die roten Hinweise und verbessere.</div>`; try{ first.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){} const fi=$('input,textarea',first); if(fi) setTimeout(()=>fi.focus({preventScroll:true}),350); }
+    else preview();
+  }
+  function solve(){ P0.sol=true; F.filter(f=>f.sol).forEach(f=>{ const el=$('#pf-'+f.id); if(f.check(val(f))!==null){ el.value=f.sol(); dr[f.id]=el.value; } }); save(); check(); }
+  function preview(){
+    const g=id=>val(F.find(f=>f.id===id)), a=sc.ans;
+    const addr=g('addr').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+    const paras=g('text').replace(/\r/g,'').trim().split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+    const rows=[['Ihr Zeichen',g('ihrZ')],['Ihre Nachricht vom',g('ihreN')],['Unser Zeichen',g('unsZ')],['Unsere Nachricht vom',g('unsN')],null,['Name',g('name')],['Telefon','08136 8090-15'],['E-Mail',ME().mail],null,['Datum',g('datum')]].filter(r=>r===null||r[1]);
+    const letter=`<div class="letter">${LH}<div class="lt-top"><div><div class="rsa">${RSA}</div><div class="addr">${addr.map(l=>`<span class="al">${esc(l)}</span>`).join('')}</div></div><div class="info">${rows.map(r=>r?`<span class="lw">${esc(r[0])}:</span><span>${esc(r[1])}</span>`:'<span class="gap"></span>').join('')}</div></div>
+      <div class="lt-betreff">${esc(g('betreff'))}</div><p class="lt-p">${esc(g('anrede'))}</p>${paras.map(p=>`<p class="lt-p">${esc(p).replace(/(\d) (EUR|€|Uhr|%)/g,'$1&nbsp;$2').replace(/\n/g,'<br>')}</p>`).join('')}<p class="lt-p">${esc(g('gruss'))}</p><p class="lt-p" style="margin-bottom:0">Reisebüro Sonnenweg GmbH</p>
+      <div class="lt-sigrow"><span>${esc(g('zusatz'))}</span><span class="lt-sig">${esc(ME().first.charAt(0)+'. '+ME().name.split(' ').pop())}</span></div><p class="lt-p">${esc(g('uname'))}</p>${a.anlage?`<p class="lt-p"><b>${esc(g('anlage').replace(/:$/,''))}</b><br>${esc(a.anlageName)}</p>`:''}${FOOT}<span class="pstamp">Geprüft<small>K. Berger · Reisebüro Sonnenweg</small></span></div>`;
+    fb.innerHTML=`<div class="fb ok"><b>Die Form stimmt!</b> So sieht dein Brief aus. Prüfe jetzt den Inhalt selbst.</div>`;
+    right.innerHTML='';
+    const box=document.createElement('div'); box.className='pv'; box.innerHTML=`${letter}<div class="pv-check"><h3>Inhalt prüfen: Hast du an alles gedacht?</h3><ul class="cl">${sc.checklist.map((c,i)=>`<li><label class="tgl"><input type="checkbox" id="cl-${i}"><span>${esc(c)}</span></label></li>`).join('')}</ul><div class="row"><button class="btn" type="button" id="p-edit">Noch einmal bearbeiten</button><button class="btn primary" type="button" id="p-send" disabled>Brief abschicken</button></div></div>`;
+    fb.after(box); $('#pform').hidden=true; $('.hint-area',main).hidden=true; $('.ub',main).classList.add('pv-mode'); $('.ub-lab .eyebrow',main).textContent='Zum Vergleich: der eingegangene Brief';
+    const send=$('#p-send',box), cbs=$$('input[type=checkbox]',box);
+    cbs.forEach(c=>c.onchange=()=>{ send.disabled=!cbs.every(x=>x.checked); });
+    $('#p-edit',box).onclick=()=>{ box.remove(); $('#pform').hidden=false; $('.hint-area',main).hidden=false; $('.ub',main).classList.remove('pv-mode'); $('.ub-lab .eyebrow',main).textContent='Eingegangen'; fb.innerHTML=''; btns(); };
+    send.onclick=()=>{
+      let s=P0.sol?1:(P0.mist===0?3:P0.mist<=2?2:1); if(P0.hint) s=Math.min(s,2);
+      S.ueb[sc.id]=Math.max(S.ueb[sc.id]|0,s); delete S.drafts[sc.id]; save();
+      box.innerHTML=`<div class="done-grid"><span class="stamp big" style="--c:var(--st2)"><span class="stamp-in"><svg viewBox="0 0 40 40" aria-hidden="true">${MOTIF.post}</svg><span class="sv">Post</span><span class="stamp-stars">${'★'.repeat(s)}<span style="opacity:.35">${'★'.repeat(3-s)}</span></span></span></span><div class="done-text"><span class="eyebrow">Abgeschickt</span><h2>Dein Brief ist unterwegs!</h2><p>${['','Geschafft. Beim nächsten Brief klappt es noch besser.','Gut gemacht!','Perfekt, schon beim ersten Prüfen richtig!'][s]}</p><div class="row"><button class="btn primary" type="button" id="p-next">Zum Posteingang</button></div></div></div>`;
+      $('#p-next',box).onclick=()=>go('post');
+      try{ box.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+    };
+    try{ fb.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+  }
+  btns();
+}
 load();
 render();
 })();

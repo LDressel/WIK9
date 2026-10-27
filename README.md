@@ -6,7 +6,7 @@ Lernspiele und Materialien für **Wirtschaft und Kommunikation (WiK), 9. Klasse*
 
 | Ordner | Thema | Lernbereich |
 |---|---|---|
-| `geschaeftsbrief/` | Lernspiel „Dein erster Brief im Reisebüro“ und Merkblatt (PDF) | LB 10 |
+| `geschaeftsbrief/` | Lernspiel „Dein erster Brief im Reisebüro“ mit Übungsmodus (5 Briefe beantworten) und Merkblatt (PDF) | LB 10 |
 
 Die Startseite `index.html` listet alle Inhalte, gruppiert nach Lernbereich.
 
