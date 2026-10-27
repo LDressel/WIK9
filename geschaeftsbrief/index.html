@@ -1,0 +1,1155 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Briefprofi Sonnenweg</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: Schreibtisch als Grund, darauf Papierblätter. Kopfleiste mit Luftpost-Streifen.
+   Missionsansicht: links die Aufgabe, rechts der wachsende Brief (auf schmalen Bildschirmen darunter).
+   Belohnung: Briefmarken im Album, am Ende ein Prüfstempel auf dem eigenen Brief. */
+:root{
+  --desk:#cdb597; --grain:rgba(90,60,30,.08); --desk-ink:#2e2318;
+  --surface:#fffefb; --surface-2:#f5f0e9; --ink:#2a231d; --muted:#6a5e53; --line:#ddd2c4;
+  --brand:#23467a; --brand-ink:#ffffff; --brand-soft:#e2e9f4;
+  --air-red:#c2413a; --air-blue:#23467a;
+  --bar:#1d3150; --bar-ink:#ffffff; --bar-soft:rgba(255,255,255,.12); --bar-line:rgba(255,255,255,.38);
+  --sun:#c98d1f; --sun-soft:#fbefd4; --sun-ink:#4d3407; --focus:#d58b1c;
+  --ok:#2b6f48; --ok-soft:#dff0e4; --err:#b13d2d; --err-soft:#f7e0da;
+  --scrim:rgba(30,20,10,.55);
+  --shadow:0 1px 2px rgba(60,40,20,.12),0 8px 22px rgba(60,40,20,.14);
+  --note:#fde98c; --note-ink:#2f2709; --note-line:rgba(120,95,20,.25);
+  --stamp-red:#b8352c; --stamp-frame:#fffefb;
+  --st1:#2f6f8f; --st2:#b0564a; --st3:#4c7a39; --st4:#7c5596; --st5:#b98419; --st6:#2b4d7d; --st7:#5b7d86;
+  --av-ink:#ffffff; --av-berger:#7b3f59; --av-mia:#2c6b70; --av-yilmaz:#3d4d89;
+  --paper:#ffffff; --paper-ink:#1b1b1b; --paper-muted:#666c74; --paper-line:#c8cdd4; --paper-soft:#f3f5f8;
+  --paper-brand:#23467a; --paper-sun:#c98d1f; --paper-wood:#6b4a1f; --paper-hl:#fbefd6;
+  --paper-ok:#2b6f48; --paper-ok-soft:#dcefe3; --paper-err:#b13d2d; --paper-err-soft:#f7ddd6; --paper-new:#fff3c2;
+  --f-display:"Zilla Slab",Rockwell,Georgia,serif;
+  --f-body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --f-mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  --f-letter:Arial,"Helvetica Neue",Helvetica,sans-serif;
+  --radius:6px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --desk:#211a14; --grain:rgba(255,230,200,.035); --desk-ink:#ece2d6;
+    --surface:#2a231d; --surface-2:#332a22; --ink:#efe7dd; --muted:#b5a898; --line:#46392e;
+    --brand:#93b4e6; --brand-ink:#0f1a2b; --brand-soft:#26324a;
+    --bar:#121c2d; --bar-ink:#eef3f8; --bar-soft:rgba(255,255,255,.08); --bar-line:rgba(255,255,255,.25);
+    --sun:#e4ad4c; --sun-soft:#3b2e16; --sun-ink:#f6deae; --focus:#e4ad4c;
+    --ok:#6cc596; --ok-soft:#183324; --err:#ee8a76; --err-soft:#3d201a;
+    --scrim:rgba(0,0,0,.65); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px rgba(0,0,0,.35);
+    --note:#e9d47c; --stamp-frame:#efe7dd;
+    --av-berger:#a65f7e; --av-mia:#3f8f94; --av-yilmaz:#6475bd;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --desk:#211a14; --grain:rgba(255,230,200,.035); --desk-ink:#ece2d6;
+  --surface:#2a231d; --surface-2:#332a22; --ink:#efe7dd; --muted:#b5a898; --line:#46392e;
+  --brand:#93b4e6; --brand-ink:#0f1a2b; --brand-soft:#26324a;
+  --bar:#121c2d; --bar-ink:#eef3f8; --bar-soft:rgba(255,255,255,.08); --bar-line:rgba(255,255,255,.25);
+  --sun:#e4ad4c; --sun-soft:#3b2e16; --sun-ink:#f6deae; --focus:#e4ad4c;
+  --ok:#6cc596; --ok-soft:#183324; --err:#ee8a76; --err-soft:#3d201a;
+  --scrim:rgba(0,0,0,.65); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px rgba(0,0,0,.35);
+  --note:#e9d47c; --stamp-frame:#efe7dd;
+  --av-berger:#a65f7e; --av-mia:#3f8f94; --av-yilmaz:#6475bd;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html.beamer{font-size:118%}
+body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;
+  background-color:var(--desk);
+  background-image:repeating-linear-gradient(91deg,transparent 0 37px,var(--grain) 37px 39px,transparent 39px 83px),repeating-linear-gradient(89.4deg,transparent 0 113px,var(--grain) 113px 114px,transparent 114px 197px);}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:2.5rem}
+h2{font-size:1.75rem}
+h3{font-size:1.32rem}
+h4{font-size:1.05rem;font-weight:600}
+p{margin:0}
+ul,ol{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+.eyebrow{font-family:var(--f-body);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ok-t{color:var(--ok);font-weight:700}
+.err-t{color:var(--err);font-weight:700}
+.kbd{font-family:var(--f-mono);font-size:.82em;padding:.02rem .35rem;border:1px solid currentColor;border-radius:4px;white-space:nowrap}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Kopfleiste mit Luftpost-Streifen */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bar);color:var(--bar-ink);box-shadow:var(--shadow)}
+.topbar::after{content:"";display:block;height:6px;background:repeating-linear-gradient(-45deg,var(--air-red) 0 12px,var(--stamp-frame) 12px 18px,var(--air-blue) 18px 30px,var(--stamp-frame) 30px 36px)}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:.6rem 1rem;flex-wrap:wrap;padding-block:.5rem}
+.brand{display:flex;align-items:center;gap:.6rem;background:none;border:0;color:inherit;cursor:pointer;padding:0;font:inherit;text-align:left}
+.brand svg{flex:none}
+.brand-t{display:grid;line-height:1.1}
+.brand-t b{font-family:var(--f-display);font-size:1.22rem;font-weight:700}
+.brand-t small{font-size:.78rem;opacity:.82}
+.bar-r{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:.35rem;padding:.22rem .7rem;border-radius:999px;font-size:.86rem;font-weight:600;background:var(--bar-soft);white-space:nowrap}
+
+/* Buttons */
+.btn{font:inherit;font-weight:600;line-height:1.2;border-radius:6px;padding:.6rem 1.05rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;gap:.45rem;align-items:center;justify-content:center}
+.btn:hover:not([disabled]){border-color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.primary:hover:not([disabled]){filter:brightness(1.1)}
+.btn.small{padding:.35rem .7rem;font-size:.875rem}
+.btn.ghost{background:transparent}
+.btn.bar{background:transparent;border-color:var(--bar-line);color:var(--bar-ink)}
+.btn.bar:hover{background:var(--bar-soft);border-color:var(--bar-ink)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.pick{border-color:var(--ok);background:var(--ok-soft);color:var(--ink)}
+.btn.bad{border-color:var(--err);background:var(--err-soft)}
+.linkbtn{background:none;border:0;padding:0;color:var(--brand);font:inherit;font-weight:600;cursor:pointer;text-align:left}
+.linkbtn:hover{text-decoration:underline}
+.btn:focus-visible,.linkbtn:focus-visible,.opt:focus-visible,.tile:focus-visible,.zone:focus-visible,.chip-btn:focus-visible,.pc:focus-visible,.brand:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* Formulare */
+.fld{display:grid;gap:.35rem}
+.fld label,.field label{font-weight:600}
+input[type=text],input[type=password],textarea{font:inherit;padding:.6rem .75rem;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);width:100%}
+input:focus,textarea:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--brand)}
+.mono-in{font-family:var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+.fld-group{display:grid;gap:.75rem;padding:1rem;border:1px solid var(--line);border-radius:6px;background:var(--surface-2);align-content:start}
+.tgl{display:flex;gap:.55rem;align-items:flex-start;cursor:pointer}
+.tgl input{margin-top:.3rem;width:1.05rem;height:1.05rem;accent-color:var(--brand)}
+
+/* Papierflächen */
+.main{padding-block:1.4rem 2.5rem;display:grid;gap:1.1rem}
+.panel{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem}
+.foot{padding-block:.5rem 2rem;font-size:.8rem;color:var(--desk-ink);opacity:.85}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.btn.bar{text-decoration:none}
+.foot-link{color:inherit;font-weight:600}
+.desk-note{color:var(--desk-ink);font-size:.9rem}
+
+/* Haftnotiz */
+.note{background:var(--note);color:var(--note-ink);padding:1rem 1.1rem 1.1rem;border-radius:2px;box-shadow:var(--shadow);display:grid;gap:.5rem;position:relative}
+.note::before{content:"";position:absolute;top:-9px;left:50%;width:84px;height:18px;transform:translateX(-50%) rotate(-2deg);background:rgba(255,255,255,.45);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.note h4,.note .hand{font-family:var(--f-hand);font-size:1.5rem;font-weight:700;line-height:1}
+.note ul{padding-left:1.1rem;display:grid;gap:.1rem}
+.note.tilt{transform:rotate(-.8deg)}
+
+/* Start */
+.start{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:1.6rem;align-items:start}
+@media (max-width:820px){.start{grid-template-columns:minmax(0,1fr)}}
+.start-hero{display:grid;gap:1rem}
+.start-hero h1{color:var(--brand)}
+.lead{font-size:1.12rem;color:var(--muted);max-width:54ch}
+.start-forms{display:grid;gap:1rem}
+.mission-strip{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* Briefmarken */
+.stamp{--c:var(--st1);display:inline-grid;place-items:center;padding:6px;width:64px;height:76px;background:radial-gradient(circle,transparent 3px,var(--stamp-frame) 3.4px) -6px -6px/12px 12px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25));flex:none}
+.stamp-in{width:100%;height:100%;background:var(--c);color:var(--av-ink);display:grid;grid-template-rows:1fr auto;place-items:center;padding:4px 2px 3px;border-radius:1px}
+.stamp-in svg{width:30px;height:30px}
+.stamp-in .sv{font:700 .62rem/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase}
+.stamp.empty{background:none;filter:none;border:2px dashed var(--line);border-radius:3px;padding:0}
+.stamp.empty .stamp-in{background:transparent;color:var(--muted)}
+.stamp.big{width:96px;height:114px;padding:8px;background-size:14px 14px;background-position:-7px -7px}
+.stamp.big .stamp-in svg{width:46px;height:46px}
+.stamp.big .stamp-in .sv{font-size:.78rem}
+.stamp-stars{font-size:.6rem;letter-spacing:.05em}
+.stamp.big .stamp-stars{font-size:.85rem}
+.pstamp{display:inline-block;border:3px double var(--stamp-red);color:var(--stamp-red);font:700 .95rem/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.12em;padding:.35rem .7rem;border-radius:6px;transform:rotate(-9deg);text-align:center;opacity:.9}
+.pstamp small{display:block;font:600 .62rem/1.2 var(--f-body);letter-spacing:.08em}
+
+/* Schreibtisch (Übersicht) */
+.desk-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:1.2rem;align-items:start}
+@media (max-width:1000px){.desk-top{grid-template-columns:minmax(0,1fr)}}
+.desk-main{display:grid;gap:1.1rem;min-width:0}
+.hello{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem 1.5rem;align-items:center}
+@media (max-width:640px){.hello{grid-template-columns:minmax(0,1fr)}}
+.progress{display:flex;align-items:center;gap:.6rem;margin-top:.6rem;font-weight:600}
+.progress .bar{flex:1;max-width:260px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.progress .bar i{display:block;height:100%;background:var(--ok)}
+.codebox{display:grid;gap:.2rem;background:var(--surface-2);border:1px dashed var(--line);border-radius:6px;padding:.65rem .85rem}
+.code{font-family:var(--f-mono);font-size:1.05rem;letter-spacing:.06em;user-select:all;overflow-wrap:anywhere}
+.postcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.pc{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem .8rem;text-align:left;padding:1rem 1rem .9rem 1.1rem;border:0;border-radius:4px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--shadow);align-items:start}
+.pc:hover:not([disabled]){transform:translateY(-2px)}
+.pc[disabled]{cursor:not-allowed;opacity:.62}
+.pc.next{outline:3px solid var(--sun);outline-offset:0}
+.pc .pc-body{display:grid;gap:.25rem;min-width:0}
+.pc .pc-no{font-family:var(--f-hand);font-size:1.35rem;color:var(--muted);line-height:1}
+.pc .pc-title{font-family:var(--f-display);font-weight:700;font-size:1.16rem;line-height:1.15}
+.pc .pc-meta{font-size:.85rem;color:var(--muted)}
+.pc .pc-lines{grid-column:1/-1;height:16px;background:repeating-linear-gradient(transparent 0 7px,var(--line) 7px 8px);opacity:.7}
+.pc.bonus{background:var(--surface-2)}
+.pc .tag{font-size:.72rem;font-weight:700;padding:.1rem .45rem;border-radius:999px;background:var(--sun-soft);color:var(--sun-ink);justify-self:start}
+.album{display:grid;gap:.7rem}
+.album-row{display:flex;flex-wrap:wrap;gap:.6rem}
+
+/* Mission */
+.mission{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:1.2rem;align-items:start}
+@media (max-width:1000px){.mission{grid-template-columns:minmax(0,1fr)}}
+.m-main{display:grid;gap:1.2rem;min-width:0}
+.m-head{display:grid;gap:.4rem}
+.m-top{display:flex;justify-content:space-between;gap:.75rem;align-items:center;flex-wrap:wrap}
+.stepbar{display:flex;gap:4px;margin-top:.3rem}
+.stepbar i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.stepbar i.done{background:var(--ok)}
+.stepbar i.now{background:var(--sun)}
+
+/* wachsender Brief */
+.m-letter{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:grid;gap:.5rem}
+@media (max-width:1000px){.m-letter{position:static}}
+.lp-head{display:flex;justify-content:space-between;align-items:center;gap:.5rem;color:var(--desk-ink)}
+.lp-head .hand{font-family:var(--f-hand);font-size:1.6rem;line-height:1}
+.lp-head .btn{background:var(--surface)}
+details.lp-fold > summary{list-style:none;cursor:pointer}
+details.lp-fold > summary::-webkit-details-marker{display:none}
+.lp-sum{display:flex;justify-content:space-between;align-items:center;gap:.5rem;background:var(--surface);border-radius:6px;padding:.6rem .8rem;box-shadow:var(--shadow);font-weight:600}
+
+/* Brief (Papier) */
+.letter{background:var(--paper);color:var(--paper-ink);font-family:var(--f-letter);font-size:.84rem;line-height:1.45;box-shadow:var(--shadow);padding:1.4rem 1.5rem 1rem 2.2rem;width:100%;max-width:720px;margin:0 auto;min-width:0;position:relative}
+.letter.lp{font-size:.6rem;padding:1rem .9rem .7rem 1.35rem;max-width:none}
+.letter.mini{padding:.9rem 1.1rem;box-shadow:none;border:1px solid var(--paper-line)}
+.lt-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-bottom:.5em;margin-bottom:1.1em;border-bottom:2px solid var(--paper-brand)}
+.lt-head.wood{border-bottom-color:var(--paper-wood)}
+.lt-firm{font-family:var(--f-display);font-weight:700;font-size:1.55em;color:var(--paper-brand);line-height:1.05}
+.lt-head.wood .lt-firm{color:var(--paper-wood)}
+.lt-slogan{font-size:.85em;color:var(--paper-muted)}
+.lt-head svg{width:3.6em;height:3.6em;flex:none}
+.lt-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1em;margin-bottom:1.6em}
+.letter:not(.lp) .lt-top{min-height:9em}
+@media (max-width:560px){.letter:not(.lp) .lt-top{grid-template-columns:minmax(0,1fr)}}
+.rsa{font-size:.74em;color:var(--paper-muted);border-bottom:1px solid var(--paper-line);padding-bottom:.15em;margin-bottom:.45em}
+.addr .al,.addr .seg{display:block}
+.info{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 .7em;font-size:.95em;align-content:start;font-family:var(--f-letter);color:var(--paper-ink)}
+.info .lw{color:var(--paper-muted);font-size:.88em;white-space:nowrap;padding-top:.07em}
+.info .gap{grid-column:1/-1;height:.75em}
+.info span{overflow-wrap:anywhere}
+.hl{background:var(--paper-hl);border-radius:2px;padding:0 .15em}
+.lt-betreff{font-weight:700;margin-bottom:1.3em}
+.lt-p{margin:0 0 .85em}
+.lt-sig{font-family:var(--f-hand);font-size:1.5em;color:var(--paper-brand);line-height:1}
+.lt-sigrow{display:flex;align-items:baseline;gap:.45em;margin:.4em 0 .1em}
+.lt-foot{margin-top:1.4em;padding-top:.5em;border-top:1px solid var(--paper-line);font-size:.74em;color:var(--paper-muted);display:grid;gap:.1em}
+.lt-foot .seg{display:block}
+.slot-ph{border:1.5px dashed var(--paper-line);border-radius:3px;color:var(--paper-muted);font-family:var(--f-body);font-weight:600;font-size:.95em;padding:.45em .6em;margin-bottom:.9em;background:repeating-linear-gradient(-45deg,transparent 0 6px,var(--paper-soft) 6px 12px)}
+.lt-top .slot-ph{margin-bottom:0;min-height:7em;display:grid;place-items:center;text-align:center}
+.new{animation:glow 2.4s ease-out 1}
+@keyframes glow{0%{background:var(--paper-new);box-shadow:0 0 0 4px var(--paper-new)}100%{background:transparent;box-shadow:0 0 0 0 transparent}}
+.letter .pstamp{position:absolute;right:8%;bottom:14%;font-size:1.25em}
+.letter.lp .pstamp{font-size:.95em;border-width:2px}
+
+/* Gespräch und Merkzettel */
+.intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.4rem;align-items:start}
+@media (max-width:760px){.intro{grid-template-columns:minmax(0,1fr)}}
+.story{display:grid;gap:.85rem;align-content:start}
+.say{display:flex;gap:.7rem;align-items:flex-start;animation:rise .35s ease both}
+.say:nth-child(2){animation-delay:.25s}
+.say:nth-child(3){animation-delay:.5s}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--av-ink);font-family:var(--f-display);font-weight:700;font-size:1rem;flex:none}
+.say-b{min-width:0}
+.who{font-size:.82rem;color:var(--muted);margin-bottom:.15rem}
+.who b{color:var(--ink)}
+.bubble{background:var(--surface-2);border-radius:4px 14px 14px 14px;padding:.6rem .9rem;font-size:1.04rem}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.mz-rows{display:grid;gap:.45rem}
+.mz-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.2rem .8rem;align-items:baseline;padding-bottom:.4rem;border-bottom:1px solid var(--note-line)}
+.mz-row:last-child{border-bottom:0;padding-bottom:0}
+@media (max-width:520px){.mz-row{grid-template-columns:minmax(0,1fr)}}
+.mz-row .ex{font-family:var(--f-letter);font-size:.88rem;background:rgba(255,255,255,.55);padding:.1rem .4rem;border-radius:3px;justify-self:start;overflow-wrap:anywhere}
+.mz-ref{font-size:.82rem;font-weight:700;opacity:.8}
+.mz-visual{background:var(--paper);color:var(--paper-ink);border-radius:3px;padding:.7rem;overflow-x:auto}
+.foot-row{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;padding-top:.9rem;border-top:1px dashed var(--line)}
+
+/* Übung */
+.ex{display:grid;gap:1rem}
+.ex-head{display:grid;gap:.4rem}
+.badge{display:inline-block;font-family:var(--f-body);font-weight:700;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;padding:.14rem .55rem;border-radius:4px;background:var(--brand-soft);color:var(--brand)}
+.badge.boss{background:var(--sun-soft);color:var(--sun-ink)}
+.task{font-size:1.06rem;max-width:72ch}
+.ex-body{display:grid;gap:.9rem;min-width:0}
+.ex-foot{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;padding-top:.9rem;border-top:1px dashed var(--line)}
+.ex-foot .left,.ex-foot .right{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.mist{font-size:.86rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.hint-area:empty,.fb-area:empty{display:none}
+.fb{border-radius:6px;padding:.7rem .9rem;border:1px solid var(--line);background:var(--surface-2);display:grid;gap:.4rem}
+.fb.ok{border-color:var(--ok);background:var(--ok-soft)}
+.fb.err{border-color:var(--err);background:var(--err-soft)}
+.hintbox{display:flex;gap:.7rem;align-items:flex-start}
+.hintbox .av{width:36px;height:36px;font-size:.88rem}
+.hintbox > div{display:grid;gap:.25rem;min-width:0}
+.earned{display:flex;align-items:center;gap:.6rem;font-weight:600;flex-wrap:wrap}
+.stars{white-space:nowrap;letter-spacing:.06em}
+.stars .on{color:var(--sun)}
+.stars .off{color:var(--line)}
+.earned .stars{font-size:1.35rem}
+.qcount{font-size:.85rem;color:var(--muted);font-weight:600}
+.q{font-weight:600;font-size:1.1rem}
+.ctx{min-width:0;display:grid;gap:.75rem;align-content:start}
+.ctx-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:1rem;align-items:start}
+@media (max-width:1180px){.mission .ctx-grid{grid-template-columns:minmax(0,1fr)}}
+.opts{display:grid;gap:.55rem}
+.opts.addr{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.opt{display:block;width:100%;text-align:left;padding:.7rem .95rem;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;line-height:1.4}
+.opt:hover:not([disabled]){border-color:var(--brand)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--err);background:var(--err-soft)}
+.opt[disabled]{cursor:default}
+.addr-box{display:block;font-family:var(--f-letter);font-size:.9rem;background:var(--paper);color:var(--paper-ink);border:1px solid var(--paper-line);padding:.5rem .65rem;border-radius:3px;line-height:1.45}
+.addr-box .al{display:block}
+.addr-box .el{display:block;height:1.45em;background:repeating-linear-gradient(90deg,var(--paper-line) 0 4px,transparent 4px 8px) left center/100% 1px no-repeat}
+.cls{display:grid}
+.cls-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem 1rem;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.cls-row:first-child{border-top:1px solid var(--line)}
+@media (max-width:620px){.cls-row{grid-template-columns:minmax(0,1fr)}}
+.cls-text{display:grid;gap:.2rem;min-width:0}
+.cls-why{font-size:.92rem;color:var(--muted)}
+.cls-why:empty{display:none}
+.cls-btns{display:flex;gap:.4rem;flex-wrap:wrap}
+.cls-row.done .cls-btns .btn:not(.pick){opacity:.35}
+.lt-line{font-family:var(--f-letter);background:var(--paper);color:var(--paper-ink);border:1px solid var(--paper-line);border-radius:3px;padding:.25rem .55rem;justify-self:start;max-width:100%;overflow-wrap:anywhere}
+.ord{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.1rem}
+@media (max-width:700px){.ord{grid-template-columns:minmax(0,1fr)}}
+.col-lab{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem}
+.pool,.target{display:grid;gap:.45rem;margin:0;padding:0;list-style:none}
+.tile{display:flex;gap:.6rem;align-items:baseline;width:100%;text-align:left;padding:.55rem .8rem;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;line-height:1.35}
+.tile:hover{border-color:var(--brand)}
+.tile .num{font-family:var(--f-display);font-weight:700;color:var(--muted);min-width:1.2em;flex:none}
+.tile.ok{border-color:var(--ok);background:var(--ok-soft)}
+.tile.bad{border-color:var(--err);background:var(--err-soft)}
+.slot{border:1.5px dashed var(--line);border-radius:6px;padding:.55rem .8rem;color:var(--muted);font-size:.9rem}
+.target.locked .tile{cursor:default}
+
+/* Briefbogen */
+.asg{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:1.25rem;align-items:start}
+@media (max-width:720px){.asg{grid-template-columns:minmax(0,1fr)}}
+.chips{display:flex;flex-direction:column;gap:.45rem}
+@media (max-width:720px){.chips{flex-direction:row;flex-wrap:wrap}}
+.chip-btn{font:inherit;font-weight:600;font-size:.92rem;text-align:left;padding:.5rem .75rem;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:grab}
+.chip-btn:hover{border-color:var(--brand)}
+.chip-btn.sel{border-color:var(--sun);background:var(--sun-soft)}
+.chip-btn.used{display:none}
+.sheet{position:relative;width:100%;max-width:440px;aspect-ratio:210/297;background:var(--paper);color:var(--paper-ink);box-shadow:var(--shadow);margin:0 auto}
+.sheet.mini{max-width:250px;box-shadow:none;border:1px solid var(--paper-line)}
+.zone{position:absolute;display:flex;align-items:center;justify-content:center;gap:.3rem;padding:0 .3rem;border:1.5px dashed var(--paper-line);border-radius:3px;background:transparent;color:var(--paper-muted);font:600 .74rem/1.1 var(--f-body);text-align:center;cursor:pointer;overflow:hidden}
+button.zone:hover:not([disabled]){border-color:var(--paper-brand);background:var(--paper-hl)}
+.zone .zn{font-family:var(--f-display);font-weight:700;font-size:.85rem}
+.zone.filled{border-style:solid;border-color:var(--paper-ok);background:var(--paper-ok-soft);color:var(--paper-ink);cursor:default}
+.zone.static{cursor:default;border-style:solid;border-color:var(--paper-line);background:var(--paper-soft);color:var(--paper-ink);font-size:.56rem}
+.zone.shake{border-color:var(--paper-err);background:var(--paper-err-soft);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.mark{position:absolute;left:0;width:4%;border-top:1.5px solid var(--paper-ink)}
+.mark.loch{width:2.4%}
+
+/* Anschriftfeld-Schema */
+.af{font-family:var(--f-letter);font-size:.78rem;border:1.5px solid var(--paper-ink);width:100%;max-width:320px;background:var(--paper);color:var(--paper-ink)}
+.af-zone + .af-zone{border-top:1.5px solid var(--paper-ink)}
+.af-zl{font-family:var(--f-body);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--paper-brand);background:var(--paper-soft);padding:.12rem .5rem}
+.af-l{display:grid;grid-template-columns:1.5rem minmax(0,1fr);border-top:1px dotted var(--paper-line);min-height:1.4em}
+.af-l i{font-style:normal;color:var(--paper-muted);font-size:.6rem;text-align:right;padding-right:.35rem;align-self:center}
+.af-l span{padding:0 .4rem;align-self:center;overflow-wrap:anywhere}
+.af-l.rs span{font-size:.58rem}
+.af-l.v span{font-weight:700}
+.swap{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:.6rem;align-items:center}
+@media (max-width:520px){.swap{grid-template-columns:minmax(0,1fr)}.swap .arr{transform:rotate(90deg);justify-self:center}}
+.swap .box{border:1px solid var(--paper-line);border-radius:3px;padding:.5rem .6rem;display:grid;gap:.3rem}
+.swap .bt{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--paper-brand);font-family:var(--f-body)}
+.swap .arr{font-size:1.4rem;color:var(--paper-sun);font-weight:700}
+
+/* Eingaben */
+.vcard{background:var(--paper);color:var(--paper-ink);border-radius:4px;padding:1rem 1.1rem;box-shadow:var(--shadow);font-family:var(--f-letter);font-size:.9rem;max-width:22rem;display:grid;gap:.05rem}
+.vcard .vf{color:var(--paper-brand);font-weight:700;font-size:1rem;margin-bottom:.35rem}
+.vcard .vn{font-weight:700}
+.fields{display:grid;gap:.7rem}
+.field{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);gap:.3rem .9rem;align-items:center}
+@media (max-width:640px){.field{grid-template-columns:minmax(0,1fr)}}
+.field input{font-family:var(--f-letter)}
+.field.ok input{border-color:var(--ok);background:var(--ok-soft)}
+.field.bad input{border-color:var(--err);background:var(--err-soft)}
+.f-msg{grid-column:2;font-size:.88rem;color:var(--err)}
+@media (max-width:640px){.f-msg{grid-column:1}}
+.f-msg:empty{display:none}
+.field.ok .f-msg{color:var(--ok)}
+.timer{font-family:var(--f-mono);font-size:.9rem;color:var(--muted)}
+textarea.addr-in{font-family:var(--f-letter);line-height:1.55;resize:vertical;min-height:10em;background:var(--paper);color:var(--paper-ink);border-color:var(--paper-line)}
+
+/* Fehlerbild */
+.err-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,230px);gap:1.1rem;align-items:start}
+@media (max-width:1180px){.mission .err-grid{grid-template-columns:minmax(0,1fr)}}
+.err-side{display:grid;gap:.6rem;background:var(--surface-2);border-radius:6px;padding:.85rem}
+.err-count{font-family:var(--f-display);font-size:1.15rem;font-variant-numeric:tabular-nums}
+.err-count b{color:var(--sun);font-size:1.6rem}
+.err-list{padding-left:1.25rem;display:grid;gap:.5rem;font-size:.88rem}
+.err-list:empty{display:none}
+.fix{font-family:var(--f-letter);background:var(--ok-soft);padding:0 .25rem;border-radius:3px}
+.letter .seg{border-radius:2px}
+.letter.check .seg{cursor:pointer}
+.letter.check .seg:hover{background:var(--paper-hl)}
+.letter .seg.nope{background:var(--paper-err-soft)}
+.letter [data-e].found{background:var(--paper-ok-soft);outline:1.5px solid var(--paper-ok);border-radius:2px}
+
+/* Abschluss */
+.done-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1.2rem 1.6rem;align-items:center}
+@media (max-width:560px){.done-grid{grid-template-columns:minmax(0,1fr)}}
+.done-text{display:grid;gap:.6rem}
+.transfer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+@media (max-width:760px){.transfer{grid-template-columns:minmax(0,1fr)}}
+.checklist{list-style:none;padding:0;display:grid;gap:.35rem}
+.checklist li{display:flex;gap:.5rem;align-items:baseline}
+.checklist li::before{content:"";flex:none;width:.9rem;height:.9rem;border:1.5px solid currentColor;border-radius:2px;transform:translateY(.12rem)}
+
+/* Modal, Zeugnis */
+.modal-back{position:fixed;inset:0;z-index:30;background:var(--scrim);overflow:auto;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.modal{background:var(--surface);color:var(--ink);border-radius:8px;max-width:900px;margin:3vh auto;padding:1.3rem;display:grid;gap:1rem;box-shadow:var(--shadow)}
+.modal-h{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.mz-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;padding-top:.6rem}
+.lehr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.vtbl{border-collapse:collapse;width:100%;font-size:.9rem}
+.vtbl td{padding:.25rem .3rem;border-bottom:1px solid var(--line)}
+.vtbl td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.zeugnis{background:var(--paper);color:var(--paper-ink);box-shadow:var(--shadow);max-width:720px;width:100%;margin:0 auto;padding:2rem 2.2rem;display:grid;gap:1.1rem;font-family:var(--f-letter);position:relative}
+@media (max-width:520px){.zeugnis{padding:1.3rem 1.1rem}}
+.z-eyebrow{font-family:var(--f-body);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted);font-size:.8rem}
+.z-title{font-family:var(--f-display);font-size:2.3rem;font-weight:700;color:var(--paper-brand)}
+.z-stamps{display:flex;flex-wrap:wrap;gap:.6rem}
+.z-code{font-family:var(--f-mono);font-size:1.02rem;letter-spacing:.06em}
+.z-sign{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-top:.6rem;align-items:flex-end}
+.z-s{display:grid;gap:.15rem;min-width:13rem}
+.z-line{border-top:1px solid var(--paper-ink);padding-top:.3rem;font-size:.8rem}
+.zeugnis .pstamp{position:absolute;right:2rem;top:5.5rem}
+@media (max-width:620px){.zeugnis .pstamp{position:static;justify-self:start}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{
+  .topbar,.foot,.no-print,body::before{display:none!important}
+  body{background:var(--paper)}
+  .zeugnis,.letter{box-shadow:none}
+}
+</style>
+</head><body>
+<div id="top"></div>
+<main id="main" class="wrap main"></main>
+<footer class="wrap foot"><a class="foot-link" href="../">← Zurück zur Übersicht WiK 9</a> · <a class="foot-link" href="WiK9_Geschaeftsbrief_Merkblatt.pdf">Merkblatt als PDF</a> · Lernspiel für WiK 9 · Mittelschule Bayern · LehrplanPLUS Lernbereich 10. Alle Firmen, Personen, Adressen und Bankdaten im Spiel sind erfunden.</footer>
+<div id="modal-root"></div>
+<script>
+(function(){
+'use strict';
+/* ===== Figuren ===== */
+const P={
+  berger:{name:'Frau Berger',role:'Chefin des Reisebüros',ini:'KB'},
+  mia:{name:'Mia',role:'Azubine im 3. Lehrjahr',ini:'MI'},
+  yilmaz:{name:'Herr Yilmaz',role:'Abteilungsleiter',ini:'MY'}
+};
+
+function logoSvg(sz,mode){
+  const sun=mode==='bar'?'var(--sun)':'var(--paper-sun)';
+  const ln=mode==='bar'?'var(--bar-ink)':'var(--paper-brand)';
+  return `<svg width="${sz}" height="${sz}" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M8 24a12 12 0 0 1 24 0Z" style="fill:${sun}"/><g style="stroke:${sun}" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M20 5v4M7.5 10.5l2.8 2.8M32.5 10.5l-2.8 2.8M2.5 24h3.5M34 24h3.5"/></g><path d="M3.5 29.2c5.4-3 9.4 3 16.5 0s11.1 3 16.5 0" fill="none" style="stroke:${ln}" stroke-width="2.4" stroke-linecap="round"/><path d="M8 34.6c4-2.2 7.6 2.2 12 0s8 2.2 12 0" fill="none" style="stroke:${ln}" stroke-width="2.2" stroke-linecap="round" opacity=".65"/></svg>`;
+}
+
+/* Motive der Briefmarken */
+const MOTIF={
+  bogen:'<rect x="9" y="5" width="22" height="30" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M13 12h14M13 17h9M13 23h14M13 27h14" stroke="currentColor" stroke-width="2"/>',
+  kasten:'<path d="M8 17a8 8 0 0 1 16 0v14H8Z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M24 31h9V17a8 8 0 0 0-8-8h-9" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M28 9v-5h5v3h-5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 22h8" stroke="currentColor" stroke-width="2.2"/>',
+  info:'<circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M20 18v10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="12.5" r="2" fill="currentColor"/>',
+  uhr:'<circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M20 12v8l6 4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>',
+  feder:'<path d="M30 6C18 9 12 18 11 30l3-3c6-1 13-7 16-21Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M8 33l9-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+  lupe:'<circle cx="17" cy="17" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M24 24l8 8" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>',
+  berg:'<path d="M5 31l10-15 6 8 4-5 10 12Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="29" cy="10" r="3" fill="currentColor"/>'
+};
+
+/* ===== Bausteine für Briefe ===== */
+const LH=`<div class="lt-head"><div><div class="lt-firm">Reisebüro Sonnenweg</div><div class="lt-slogan">Reisen, Ausflüge und Gruppenfahrten aus dem Dachauer Land</div></div>${logoSvg(44,'paper')}</div>`;
+const FOOT=`<div class="lt-foot"><span>Reisebüro Sonnenweg GmbH · Lindenweg 7 · 85229 Markt Indersdorf · Telefon 08136 8090-0 · www.sonnenweg-reisen.de</span><span>Sitz: Markt Indersdorf · Amtsgericht München HRB 123456 · Geschäftsführerin: Karin Berger</span><span>Sparkasse Musterstadt · IBAN DE12 3456 7890 1234 5678 90 · BIC SOWEDEM1XXX</span></div>`;
+const RSA='Reisebüro Sonnenweg GmbH · Lindenweg 7 · 85229 Markt Indersdorf';
+
+const KRAUS_INFO=`<div class="letter mini"><div class="lt-head wood"><div><div class="lt-firm">Holzbau Huber GmbH</div><div class="lt-slogan">Ausschnitt: Informationsblock im Brief von Frau Kraus</div></div></div><div class="info"><span class="lw">Unser Zeichen:</span><span class="hl">kr</span><span class="gap"></span><span class="lw">Name:</span><span>Lena Kraus</span><span class="lw">Telefon:</span><span>08131 4455-30</span><span class="lw">E-Mail:</span><span>l.kraus@holzbau-huber.de</span><span class="gap"></span><span class="lw">Datum:</span><span class="hl">14.10.2026</span></div></div>`;
+
+const KRAUS_LETTER=`<div class="letter mini"><div class="lt-head wood"><div><div class="lt-firm">Holzbau Huber GmbH</div><div class="lt-slogan">Zimmerei · Dachstühle · Holzhäuser</div></div></div>
+<div class="lt-top"><div><div class="rsa">Holzbau Huber GmbH · Gewerbering 14 · 85221 Dachau</div><div class="addr"><span class="al">Reisebüro Sonnenweg GmbH</span><span class="al">Lindenweg 7</span><span class="al">85229 Markt Indersdorf</span></div></div>
+<div class="info"><span class="lw">Unser Zeichen:</span><span>kr</span><span class="gap"></span><span class="lw">Name:</span><span>Lena Kraus</span><span class="lw">Telefon:</span><span>08131 4455-30</span><span class="gap"></span><span class="lw">Datum:</span><span>14.10.2026</span></div></div>
+<div class="lt-betreff">Anfrage für einen Betriebsausflug im Juni 2027</div>
+<p class="lt-p">Sehr geehrte Damen und Herren,</p>
+<p class="lt-p">wir möchten mit unseren 25 Mitarbeitenden am Freitag, 11.06.2027, einen Betriebsausflug machen. Bitte schicken Sie uns ein Angebot für eine Tagesfahrt mit dem Bus ab Dachau.</p>
+<p class="lt-p">Mit freundlichen Grüßen</p>
+<div class="lt-sigrow"><span>i. A.</span><span class="lt-sig">L. Kraus</span></div>
+<p class="lt-p"><span class="hl">Lena Kraus<br>Personalabteilung</span></p></div>`;
+
+const YILMAZ_NOTE=`<div class="note tilt"><span class="hand">Notiz von Herrn Yilmaz</span><p>Bitte die Antwort an Frau Kraus vorbereiten.</p><ul><li>Ansprechpartner: ich, Murat Yilmaz</li><li>Mein Zeichen: yi</li><li>Telefon: Vorwahl 08136, Nummer 8090, meine Durchwahl 12</li><li>E-Mail: m.yilmaz@sonnenweg-reisen.de</li><li>Datum: heute, 21.10.2026</li></ul></div>`;
+
+/* Briefbogen Form B, Werte in Prozent des A4-Blatts */
+const BRIEF_ZONES=[
+  {id:'kopf',label:'Briefkopf',x:11.9,y:3,w:76,h:11,tip:'Der Briefkopf steht ganz oben auf dem Blatt.'},
+  {id:'anschrift',label:'Anschriftfeld',x:9.5,y:15.2,w:40.5,h:15.2,tip:'Das Anschriftfeld liegt links unter dem Briefkopf. Dort ist beim Fensterumschlag das Fenster.'},
+  {id:'info',label:'Informationsblock',x:59.8,y:15.2,w:30.5,h:15.2,tip:'Der Informationsblock steht rechts neben dem Anschriftfeld.'},
+  {id:'betreff',label:'Betreff',x:11.9,y:33.5,w:55,h:3.6,tip:'Der Betreff steht unter Anschriftfeld und Informationsblock, noch vor der Anrede.'},
+  {id:'anrede',label:'Anrede',x:11.9,y:38.6,w:36,h:3.6,tip:'Die Anrede steht direkt vor dem Brieftext.'},
+  {id:'text',label:'Brieftext',x:11.9,y:43.7,w:78,h:19,tip:'Der Brieftext ist der größte Bereich in der Mitte.'},
+  {id:'gruss',label:'Gruß',x:11.9,y:64.4,w:36,h:3.6,tip:'Der Gruß folgt nach dem Brieftext.'},
+  {id:'unterschrift',label:'Unterschrift und Name',x:11.9,y:69.4,w:36,h:7,tip:'Unter dem Gruß ist Platz für die Unterschrift und den Namen.'},
+  {id:'anlage',label:'Anlagenvermerk',x:11.9,y:78.2,w:30,h:3.6,tip:'Der Anlagenvermerk steht unter dem Namen.'},
+  {id:'fuss',label:'Fußzeile mit Geschäftsangaben',x:11.9,y:89.5,w:78,h:7,tip:'Die Geschäftsangaben stehen ganz unten in der Fußzeile.'}
+];
+
+const AF_EXAMPLE=`<div class="af"><div class="af-zone"><div class="af-zl">Zusatz- und Vermerkzone · 5 Zeilen</div>
+<div class="af-l rs"><i>1</i><span>${RSA}</span></div><div class="af-l"><i>2</i><span></span></div><div class="af-l"><i>3</i><span></span></div><div class="af-l"><i>4</i><span></span></div><div class="af-l v"><i>5</i><span>Einschreiben</span></div></div>
+<div class="af-zone"><div class="af-zl">Anschriftzone · 6 Zeilen</div><div class="af-l"><i>1</i><span>Busreisen Brandl KG</span></div><div class="af-l"><i>2</i><span>Disposition</span></div><div class="af-l"><i>3</i><span>Herrn Thomas Brandl</span></div><div class="af-l"><i>4</i><span>Am Bahnhof 5</span></div><div class="af-l"><i>5</i><span>85241 Hebertshausen</span></div><div class="af-l"><i>6</i><span></span></div></div></div>`;
+
+const SWAP_EXAMPLE=`<div class="swap"><div class="box"><span class="bt">Brief von Frau Kraus</span><div class="info"><span class="lw">Unser Zeichen:</span><span class="hl">kr</span><span class="lw">Datum:</span><span class="hl">14.10.2026</span></div></div><span class="arr" aria-hidden="true">→</span><div class="box"><span class="bt">Unsere Antwort</span><div class="info"><span class="lw">Ihr Zeichen:</span><span class="hl">kr</span><span class="lw">Ihre Nachricht vom:</span><span class="hl">14.10.2026</span><span class="lw">Unser Zeichen:</span><span>yi</span></div></div></div>`;
+
+/* ===== Missionen ===== */
+const MS=[
+/* ---------- 1 ---------- */
+{title:'Der Briefbogen',time:'ca. 10 min',motif:'bogen',color:'--st1',steps:[
+ {type:'intro',
+  lines:[
+   {who:'berger',text:'Willkommen im Reisebüro Sonnenweg, {name}! Die Holzbau Huber GmbH will einen Betriebsausflug buchen. Wir antworten mit einem Geschäftsbrief – und den baust du heute.'},
+   {who:'mia',text:'Rechts liegt dein Brief. Mit jeder Mission kommt ein Teil dazu. Zuerst brauchst du den Bauplan.'}
+  ],
+  note:{title:'Merkzettel 1: Der Briefbogen',ref:'Merkblatt Vorderseite, Nr. 1–10',
+   rows:[['10 Bereiche, immer in derselben Reihenfolge','siehe Bogen unten'],['Rand links','25 mm'],['Rand rechts','mindestens 20 mm'],['Faltmarken (Form B)','bei 105 mm und 210 mm']],
+   visual:'%SHEET%'}},
+ {type:'assign',title:'Briefbaukasten',task:'Ordne die <b>10 Bausteine</b> dem richtigen Bereich zu. Klicke erst einen Baustein an, dann den Bereich auf dem Briefbogen.',
+  zones:BRIEF_ZONES,hint:'Oben der Briefkopf, ganz unten die Fußzeile. Links unter dem Briefkopf liegt das Anschriftfeld, rechts daneben der Informationsblock.'},
+ {type:'mc',title:'Kurz gefragt',task:'Beantworte die <b>2 Fragen</b>.',hint:'Schau auf den Merkzettel 1.',
+  questions:[
+   {q:'Wie breit ist der linke Rand bei einem Geschäftsbrief?',options:['25 mm','10 mm','45 mm','50 mm'],correct:0,explain:'Alle Texte beginnen 25 mm vom linken Blattrand.'},
+   {q:'Wozu dienen die Faltmarken am linken Rand?',options:['Damit die Anschrift nach dem Falten genau im Fenster des Umschlags liegt.','Damit man weiß, wo man locht.','Sie markieren das Ende des Brieftextes.','Sie zeigen, wo die Unterschrift hinkommt.'],correct:0,explain:'Bei Form B faltet man bei 105 mm und 210 mm.',why:{1:'Zum Lochen gibt es die Lochmarke in der Blattmitte.'}}
+  ]}
+]},
+
+/* ---------- 2 ---------- */
+{title:'Das Anschriftfeld',time:'ca. 15 min',motif:'kasten',color:'--st2',steps:[
+ {type:'intro',
+  lines:[{who:'mia',text:'Das Anschriftfeld entscheidet, ob der Brief ankommt. Es hat zwei Zonen. Danach schreibst du die Anschrift von Frau Kraus.'}],
+  note:{title:'Merkzettel 2: Das Anschriftfeld',ref:'Merkblatt Nr. 2',
+   rows:[['Oben: Zusatz- und Vermerkzone','Rücksendeangabe, darunter z. B. Einschreiben'],['Unten: Anschriftzone in dieser Reihenfolge','Firma → Abteilung → Person → Straße → PLZ Ort'],['„Herrn“ mit n, keine Leerzeilen, kein „An“','Herrn Thomas Brandl'],['Ausland: Land in Großbuchstaben unten','ÖSTERREICH']],
+   visual:AF_EXAMPLE}},
+ {type:'classify',title:'Welche Zone?',task:'Entscheide bei jeder der <b>5 Angaben</b>, in welche Zone sie gehört.',
+  cats:['Zusatz- und Vermerkzone','Anschriftzone'],hint:'Oben stehen nur die Rücksendeangabe und Hinweise wie „Einschreiben“. Alles, was den Empfänger beschreibt, steht unten.',
+  items:[
+   {text:'Einschreiben',cat:0,why:'Die Versandart ist ein Vermerk.'},
+   {text:'Frau Lena Kraus',cat:1,why:'Die Empfängerin steht in der Anschriftzone.'},
+   {html:`<span class="lt-line" style="font-size:.78rem">${RSA}</span>`,cat:0,why:'Das ist die Rücksendeangabe, ganz oben in der Zusatz- und Vermerkzone.'},
+   {text:'Personalabteilung',cat:1,why:'Die Abteilung gehört zur Anschrift.'},
+   {text:'Persönlich',cat:0,why:'„Persönlich“ ist ein Vermerk: Nur diese Person soll den Brief öffnen.'}
+  ]},
+ {type:'mc',title:'Fehler-Detektiv',task:'Nur eine Anschrift ist richtig. Finde sie bei <b>2 Fragen</b>.',hint:'Achte auf „Herrn“, Leerzeilen, „An“ und das Land in Großbuchstaben.',
+  questions:[
+   {q:'Welche Anschrift ist richtig?',addr:true,options:['Herrn Thomas Brandl\nAm Bahnhof 5\n85241 Hebertshausen','Herr Thomas Brandl\nAm Bahnhof 5\n85241 Hebertshausen','Herrn Thomas Brandl\nAm Bahnhof 5\n\n85241 Hebertshausen','An\nHerrn Thomas Brandl\nAm Bahnhof 5\n85241 Hebertshausen'],correct:0,
+    explain:'„Herrn“ mit n, keine Leerzeile, kein „An“.',why:{1:'In der Anschrift heißt es „Herrn“ (mit n).',2:'Vor dem Ort steht keine Leerzeile.',3:'„An“ schreibt man nicht in die Anschrift.'}},
+   {q:'Welche Anschrift ist richtig?',addr:true,options:['Hotel Alpenrose\nFrau Sabine Gruber\nSeepromenade 3\n6370 Kitzbühel\nÖSTERREICH','Hotel Alpenrose\nFrau Sabine Gruber\nSeepromenade 3\n6370 Kitzbühel\nÖsterreich','Hotel Alpenrose\nFrau Sabine Gruber\nSeepromenade 3\nA-6370 Kitzbühel','ÖSTERREICH\nHotel Alpenrose\nFrau Sabine Gruber\nSeepromenade 3\n6370 Kitzbühel'],correct:0,
+    explain:'Das Land steht in der letzten Zeile in Großbuchstaben.',why:{1:'Das Land schreibt man in Großbuchstaben.',2:'„A-“ vor der Postleitzahl ist veraltet. Das Land steht ausgeschrieben unten.',3:'Das Land steht in der letzten Zeile.'}}
+  ]},
+ {type:'lines',boss:true,title:'Die Anschrift von Frau Kraus',task:'Schreibe die <b>Anschriftzone</b> für unseren Brief an Frau Kraus. Alle Angaben findest du in ihrem Brief.',
+  hint:'Firma → Abteilung → „Frau“ mit Vor- und Nachname → Straße und Hausnummer → Postleitzahl und Ort. Die Abteilung steht unter ihrer Unterschrift, die Straße in ihrer Rücksendeangabe.',
+  tasks:[
+   {context:KRAUS_LETTER,
+    answers:[['Holzbau Huber GmbH','Personalabteilung','Frau Lena Kraus','Gewerbering 14','85221 Dachau'],['Holzbau Huber GmbH','Personalabteilung','Frau','Lena Kraus','Gewerbering 14','85221 Dachau']],
+    kinds:['die Firma','die Abteilung','„Frau“ mit Vor- und Nachname','Straße und Hausnummer','Postleitzahl und Ort']}
+  ]}
+]},
+
+/* ---------- 3 ---------- */
+{title:'Der Informationsblock',time:'ca. 15 min',motif:'info',color:'--st3',steps:[
+ {type:'intro',
+  lines:[{who:'mia',text:'Rechts neben die Anschrift kommt der Informationsblock. Er verrät: Worauf antworten wir? Wer schreibt? Wie erreicht man uns? Der Trick dabei heißt Zeichen-Tausch.'}],
+  note:{title:'Merkzettel 3: Der Informationsblock',ref:'Merkblatt Nr. 3',
+   rows:[['Reihenfolge der Leitwörter','Ihr Zeichen · Ihre Nachricht vom · Unser Zeichen · Unsere Nachricht vom – Name · Telefon · E-Mail – Datum'],['Zeichen-Tausch: Ihr „Unser Zeichen“ wird unser „Ihr Zeichen“','kr → Ihr Zeichen: kr'],['Nicht benötigte Leitwörter entfallen','„Unsere Nachricht vom“ fällt weg'],['Telefon: Leerzeichen nach der Vorwahl, Bindestrich vor der Durchwahl','08136 8090-12']],
+   visual:SWAP_EXAMPLE}},
+ {type:'order',title:'Leitwörter ordnen',task:'Bringe die <b>8 Leitwörter</b> in die richtige Reihenfolge.',
+  hint:'Zuerst „Ihr …“, dann „Unser …“, dann die Kontaktdaten, ganz unten das Datum.',
+  items:['Ihr Zeichen','Ihre Nachricht vom','Unser Zeichen','Unsere Nachricht vom','Name','Telefon','E-Mail','Datum']},
+ {type:'input',boss:true,title:'Informationsblock ausfüllen',task:'Fülle den Informationsblock für unsere Antwort aus. Nutze den Ausschnitt und die Notiz. <b>Ein Feld bleibt leer.</b>',
+  hint:'„Ihr Zeichen“ und „Ihre Nachricht vom“ stehen im Ausschnitt von Frau Kraus. Alles über uns steht auf der Notiz. Wir haben Frau Kraus vorher noch nicht geschrieben.',
+  context:`<div class="ctx-grid">${KRAUS_INFO}${YILMAZ_NOTE}</div>`,
+  fields:[
+   {label:'Ihr Zeichen',answers:['kr'],ci:true,hints:[{re:/^yi$/i,msg:'„yi“ ist unser eigenes Zeichen. Hier steht das Zeichen von Frau Kraus.'}],msg:'Was steht bei Frau Kraus unter „Unser Zeichen“?'},
+   {label:'Ihre Nachricht vom',answers:['14.10.2026','2026-10-14'],hints:[{re:/21\.10/,msg:'Das ist das heutige Datum. Gesucht ist das Datum des Briefs von Frau Kraus.'},{re:/^\d{1,2}\.\d{1,2}\.\d{2}$/,msg:'Schreibe die Jahreszahl vierstellig.'},{re:/oktober/i,msg:'Im Informationsblock schreibt man das Datum in Ziffern.'}],msg:'Gesucht ist das Datum des Briefs von Frau Kraus.'},
+   {label:'Unser Zeichen',answers:['yi'],ci:true,hints:[{re:/^kr$/i,msg:'„kr“ ist das Zeichen von Frau Kraus. Unser Zeichen steht auf der Notiz.'}],msg:'Unser Zeichen steht auf der Notiz.'},
+   {label:'Unsere Nachricht vom',empty:true,emptyMsg:'Wir haben Frau Kraus vorher noch nicht geschrieben. Dieses Leitwort bleibt leer.'},
+   {label:'Name',answers:['Murat Yilmaz'],hints:[{re:/kraus/i,msg:'Bei „Name“ steht unser Ansprechpartner, nicht die Empfängerin.'},{re:/^herr/i,msg:'Schreibe nur Vor- und Nachnamen, ohne „Herr“.'},{re:/^yilmaz$/i,msg:'Schreibe Vor- und Nachnamen.'}],msg:'Wer ist bei uns der Ansprechpartner?'},
+   {label:'Telefon',answers:['08136 8090-12','+49 8136 8090-12'],hints:[{re:/\//,msg:'Zwischen Vorwahl und Rufnummer steht ein Leerzeichen, kein Schrägstrich.'},{re:/\(/,msg:'Klammern verwendet man nicht.'},{re:/-0$/,msg:'Das ist die Zentrale. Herr Yilmaz hat die Durchwahl 12.'},{re:/ - |- | -/,msg:'Vor und nach dem Bindestrich steht kein Leerzeichen.'},{re:/^08136-/,msg:'Zwischen Vorwahl und Rufnummer steht ein Leerzeichen.'},{re:/8090 ?12$/,msg:'Die Durchwahl hängst du mit Bindestrich an: 8090-12.'}],msg:'Vorwahl, Leerzeichen, Rufnummer, Bindestrich, Durchwahl.'},
+   {label:'E-Mail',answers:['m.yilmaz@sonnenweg-reisen.de'],ci:true,msg:'Schreibe die E-Mail-Adresse genau wie auf der Notiz.'},
+   {label:'Datum',answers:['21.10.2026','2026-10-21'],hints:[{re:/14\.10/,msg:'Das ist das Datum von Frau Kraus. Hier steht das heutige Datum.'},{re:/^\d{1,2}\.\d{1,2}\.\d{2}$/,msg:'Schreibe die Jahreszahl vierstellig.'},{re:/oktober/i,msg:'Im Informationsblock schreibt man das Datum in Ziffern.'}],msg:'Hier steht das heutige Datum laut Notiz.'}
+  ]}
+]},
+
+/* ---------- 4 ---------- */
+{title:'Zahlen und Zeichen',time:'ca. 10 min',motif:'uhr',color:'--st4',steps:[
+ {type:'intro',
+  lines:[{who:'berger',text:'Jetzt kommt der Kern des Briefs: unser Angebot. Ich diktiere dir die Daten. Jede Zahl muss nach DIN 5008 stimmen, sonst fährt der Bus zur falschen Zeit.'}],
+  note:{title:'Merkzettel 4: Zahlen und Zeichen',ref:'Merkblatt Rückseite, Zahlen und Zeichen',
+   rows:[['Datum: Tag und Monat zweistellig, Jahr vierstellig','11.06.2027'],['Uhrzeit: Doppelpunkt, dann „Uhr“','07:30 Uhr'],['Betrag: Tausenderpunkt, Komma, Leerzeichen, Währung','2.225,00 EUR'],['Prozent: Leerzeichen vor %','20 %']]}},
+ {type:'input',boss:true,title:'Das Diktat',timer:true,task:'Frau Berger diktiert <b>6 Angaben</b> für das Angebot. Schreibe jede so, wie sie im Brief stehen muss.',
+  hint:'Datum TT.MM.JJJJ · Uhrzeit mit Doppelpunkt und „Uhr“ · Beträge mit ,00 und EUR · Leerzeichen vor %.',
+  fields:[
+   {label:'„Freitag, der elfte Juni 2027“',store:'datum',answers:['11.06.2027'],hints:[{re:/^11\.6\./,msg:'Den Monat schreibst du zweistellig: 06.'},{re:/\.27$/,msg:'Die Jahreszahl schreibst du vierstellig: 2027.'},{re:/2027-06-11/,msg:'Das ist die internationale Form. Im Text schreibst du TT.MM.JJJJ.'},{re:/juni/i,msg:'Schreibe das Datum in Ziffern.'}],msg:'Tag.Monat.Jahr in Ziffern.'},
+   {label:'„Abfahrt um halb acht morgens“',store:'ab',answers:['07:30 Uhr','7:30 Uhr'],hints:[{re:/h$/i,msg:'Statt „h“ schreibt man „Uhr“.'},{re:/\d\.\d\d/,msg:'Stunden und Minuten trennst du mit einem Doppelpunkt.'},{re:/^0?7:30$/,msg:'Schreibe „Uhr“ dahinter.'},{re:/^0?7:30Uhr$/,msg:'Vor „Uhr“ steht ein Leerzeichen.'}],msg:'Halb acht am Morgen ist 07:30 Uhr.'},
+   {label:'„Rückkehr gegen neunzehn Uhr“',store:'an',answers:['19:00 Uhr','19 Uhr'],hints:[{re:/^0?7/,msg:'19 Uhr ist abends. Man schreibt die 24-Stunden-Zeit.'},{re:/\d\.\d\d/,msg:'Stunden und Minuten trennst du mit einem Doppelpunkt.'},{re:/h$/i,msg:'Statt „h“ schreibt man „Uhr“.'},{re:/^19(:00)?$/,msg:'Schreibe „Uhr“ dahinter.'}],msg:'Schreibe 19:00 Uhr oder 19 Uhr.'},
+   {label:'„Preis pro Person: neunundachtzig Euro“',store:'preis',answers:['89,00 EUR','89,00 €','EUR 89,00'],hints:[{re:/,-/,msg:'Schreibe die Cent aus: ,00.'},{re:/\.00/,msg:'Vor den Cent steht ein Komma, kein Punkt.'},{re:/euro/i,msg:'Schreibe die Währung als EUR oder €.'},{re:/89,00(EUR|€)/,msg:'Zwischen Betrag und Währung steht ein Leerzeichen.'},{re:/^89 ?(EUR|€)$/,msg:'Schreibe den Betrag mit Cent: 89,00.'}],msg:'Betrag mit Cent und Währung, z. B. 10,00 EUR.'},
+   {label:'„Gesamtpreis: zweitausendzweihundertfünfundzwanzig Euro“',store:'gesamt',answers:['2.225,00 EUR','2.225,00 €','EUR 2.225,00'],hints:[{re:/^2225/,msg:'Große Beträge gliedert man mit einem Tausenderpunkt: 2.225,00.'},{re:/2,225/,msg:'Tausender trennt ein Punkt, die Cent ein Komma.'},{re:/,-/,msg:'Schreibe die Cent aus: ,00.'},{re:/euro/i,msg:'Schreibe die Währung als EUR oder €.'},{re:/,00(EUR|€)/,msg:'Zwischen Betrag und Währung steht ein Leerzeichen.'},{re:/^2\.225 ?(EUR|€)$/,msg:'Schreibe die Cent dazu: ,00.'}],msg:'Tausenderpunkt, Komma vor den Cent, dann die Währung.'},
+   {label:'„Anzahlung: zwanzig Prozent“',store:'anz',answers:['20 %'],hints:[{re:/^20%$/,msg:'Zwischen Zahl und Prozentzeichen steht ein Leerzeichen.'},{re:/prozent/i,msg:'Verwende das Zeichen %.'}],msg:'Zahl, Leerzeichen, %.'}
+  ]}
+]},
+
+/* ---------- 5 ---------- */
+{title:'Betreff, Text und Gruß',time:'ca. 15 min',motif:'feder',color:'--st5',steps:[
+ {type:'intro',
+  lines:[
+   {who:'berger',text:'Ich fliege morgen in den Urlaub. Herr Yilmaz vertritt mich und unterschreibt. Bitte mach den Brief heute fertig!'},
+   {who:'mia',text:'Kurz, klar und freundlich. Und bitte keine verstaubten Floskeln.'}
+  ],
+  note:{title:'Merkzettel 5: Betreff, Text und Gruß',ref:'Merkblatt Nr. 4–9',
+   rows:[['Betreff: ohne das Wort „Betreff“, ohne Punkt','Angebot für Ihren Betriebsausflug'],['Anrede mit Komma, danach klein weiter','Sehr geehrte Frau Kraus, / vielen Dank …'],['Text in 3 Absätzen','Dank · Angebot · Ausblick'],['Gruß ohne Komma','Mit freundlichen Grüßen'],['i. V. = vertritt mit Vollmacht, i. A. = im Auftrag','i. V. Murat Yilmaz'],['Anlagenvermerk unter dem Namen','Anlage']]}},
+ {type:'input',title:'Briefwerkstatt',task:'Schreibe diese <b>4 Teile</b> des Briefs selbst. Den Betreff formulierst du in eigenen Worten.',
+  hint:'Der Betreff sagt in einer Zeile, worum es geht – ohne „Betreff“ und ohne Punkt. Nach der Anrede steht ein Komma, nach dem Gruß nicht.',
+  fields:[
+   {label:'Betreff (eigene Worte)',store:'betreff',example:'Angebot für Ihren Betriebsausflug am 11.06.2027',check:v=>{
+     if(v==='') return 'Hier fehlt noch dein Betreff.';
+     if(/^betreff/i.test(v)) return 'Das Wort „Betreff“ schreibt man nicht.';
+     if(/[.!]$/.test(v)) return 'Am Ende des Betreffs steht kein Satzzeichen.';
+     if(!/(angebot|ausflug)/i.test(v)) return 'Der Betreff soll sagen, worum es geht: ein Angebot für den Betriebsausflug.';
+     if(v.length>80) return 'Halte den Betreff kurz, höchstens eine Zeile.';
+     if(/^[a-zäöü]/.test(v)) return 'Der Betreff beginnt mit einem Großbuchstaben.';
+     return null;}},
+   {label:'Anrede',store:'anrede',answers:['Sehr geehrte Frau Kraus,'],hints:[{re:/!$/,msg:'Nach der Anrede steht ein Komma, kein Ausrufezeichen.'},{re:/kraus$/i,msg:'Nach der Anrede steht ein Komma.'},{re:/lena/i,msg:'In der Anrede steht nur der Nachname.'},{re:/^hallo/i,msg:'„Hallo“ ist für einen Geschäftsbrief zu locker.'},{re:/damen und herren/i,msg:'Du kennst den Namen – sprich Frau Kraus persönlich an.'},{re:/geehrter/i,msg:'Bei einer Frau heißt es „Sehr geehrte“ ohne r.'}],msg:'Sehr geehrte … Frau … Nachname … Komma.'},
+   {label:'Gruß',store:'gruss',answers:['Mit freundlichen Grüßen','Freundliche Grüße'],hints:[{re:/,$/,msg:'Nach dem Gruß steht kein Komma.'},{re:/hochachtungsvoll/i,msg:'„Hochachtungsvoll“ ist veraltet.'},{re:/^mfg/i,msg:'Im Gruß schreibt man keine Abkürzung.'},{re:/grüssen/i,msg:'Grüßen schreibt man mit ß.'}],msg:'Der übliche Gruß lautet „Mit freundlichen Grüßen“.'},
+   {label:'Anlagenvermerk (das Programm liegt bei)',answers:['Anlage','Anlage:'],ci:true,hints:[{re:/^anlagen/i,msg:'Es liegt nur ein Programm bei: „Anlage“ in der Einzahl.'},{re:/anbei|beilage/i,msg:'Der Vermerk heißt einfach „Anlage“.'}],msg:'Ein Wort genügt: Anlage.'}
+  ]},
+ {type:'mc',boss:true,title:'Den richtigen Ton treffen',task:'Wähle für die <b>3 Stellen</b> im Brief die beste Formulierung.',hint:'Modern heißt: so, wie man freundlich mit einem Menschen spricht. Nach der Anrede geht es klein weiter.',
+  questions:[
+   {q:'Wie beginnt der Text nach „Sehr geehrte Frau Kraus,“?',options:['vielen Dank für Ihre Anfrage vom 14.10.2026. Gern organisieren wir den Betriebsausflug für Ihre 25 Mitarbeitenden.','Bezug nehmend auf Ihr werbes Schreiben vom 14.10.2026 teilen wir Ihnen mit, dass wir den Ausflug organisieren.','Vielen Dank für Ihre Anfrage vom 14.10.2026. Gern organisieren wir den Betriebsausflug für Ihre 25 Mitarbeitenden.'],correct:0,explain:'Ein freundlicher Dank, klein geschrieben nach dem Komma.',why:{1:'Das ist eine veraltete Floskel.',2:'Nach dem Komma der Anrede geht es klein weiter: „vielen Dank …“.'}},
+   {q:'Wie endet der Brieftext?',options:['Das genaue Programm finden Sie in der Anlage. Wir freuen uns auf Ihre Buchung.','Anbei übersenden wir Ihnen das Programm und hoffen, Ihnen hiermit gedient zu haben.','Programm anbei. Melden Sie sich!'],correct:0,explain:'Ein freundlicher Ausblick mit Hinweis auf die Anlage.',why:{1:'Das sind gleich zwei veraltete Floskeln.',2:'Zu knapp und unhöflich für einen Geschäftsbrief.'}},
+   {q:'Herr Yilmaz vertritt Frau Berger mit Vollmacht. Was steht vor seiner Unterschrift?',options:['i. V.','i. A.','i.V.','ppa.'],correct:0,explain:'Er vertritt die Chefin mit Vollmacht: i. V. mit Leerzeichen.',why:{1:'i. A. benutzt man im Auftrag, ohne besondere Vollmacht.',2:'Nach dem ersten Punkt steht ein Leerzeichen.',3:'„ppa.“ heißt „per Prokura“. Die hat Herr Yilmaz nicht.'}}
+  ]}
+]},
+
+/* ---------- 6 ---------- */
+{title:'Der Chef-Check',time:'ca. 10 min',motif:'lupe',color:'--st6',steps:[
+ {type:'intro',
+  lines:[
+   {who:'mia',text:'Dein Brief ist fertig – stark! Bevor ein Brief rausgeht, macht Frau Berger immer den Chef-Check.'},
+   {who:'mia',text:'Lern ihn jetzt an einem Brief vom Praktikanten. Darin stecken 8 Fehler. Mit diesem Blick prüfst du später deinen eigenen Brief.'}
+  ],
+  note:{title:'Merkzettel 6: Der Chef-Check',ref:'Merkblatt Rückseite, Checkliste',
+   rows:[['Von oben nach unten prüfen','Anschrift → Informationsblock → Betreff → Anrede → Text → Gruß'],['Zahlen und Zeichen genau ansehen','08136 8090-12 · 07:30 Uhr'],['Satzzeichen bei Anrede und Gruß','Anrede mit Komma, Gruß ohne']]}},
+ {type:'errors',boss:true,tol:3,title:'Chef-Check: Buchungsbestätigung',task:'Klicke jeden der <b>8 Fehler</b> an. Klickst du auf etwas Richtiges, zählt das als Fehlversuch.',
+  hint:'Geh von oben nach unten: Anschriftfeld (1), Informationsblock (3), Betreff (1), Anrede (1), Brieftext (1), Gruß (1).',
+  errs:{
+   an:{what:'„An“ über der Anschrift',fix:'„An“ entfällt'},
+   zeichen:{what:'Zeichen vertauscht',fix:'Ihr Zeichen: kr · Unser Zeichen: yi'},
+   tel:{what:'Schrägstrich in der Telefonnummer',fix:'08136 8090-12'},
+   datum:{what:'Jahreszahl nur zweistellig',fix:'28.10.2026'},
+   betreff:{what:'Wort „Betreff“ und Punkt am Ende',fix:'Buchungsbestätigung für Ihren Betriebsausflug'},
+   anrede:{what:'Ausrufezeichen nach der Anrede',fix:'Sehr geehrte Frau Kraus,'},
+   uhr:{what:'Uhrzeit falsch geschrieben',fix:'07:30 Uhr'},
+   gruss:{what:'Veralteter Gruß',fix:'Mit freundlichen Grüßen'}
+  },
+  letter:`<div class="letter check">${LH}
+<div class="lt-top"><div><div class="rsa"><span class="seg">${RSA}</span></div><div class="addr"><span class="seg" data-e="an">An</span><span class="seg">Holzbau Huber GmbH</span><span class="seg">Personalabteilung</span><span class="seg">Frau Lena Kraus</span><span class="seg">Gewerbering 14</span><span class="seg">85221 Dachau</span></div></div>
+<div class="info"><span class="lw">Ihr Zeichen:</span><span class="seg" data-e="zeichen">yi</span><span class="lw">Ihre Nachricht vom:</span><span class="seg">26.10.2026</span><span class="lw">Unser Zeichen:</span><span class="seg" data-e="zeichen">kr</span><span class="lw">Unsere Nachricht vom:</span><span class="seg">21.10.2026</span><span class="gap"></span><span class="lw">Name:</span><span class="seg">Murat Yilmaz</span><span class="lw">Telefon:</span><span class="seg" data-e="tel">08136/8090-12</span><span class="lw">E-Mail:</span><span class="seg">m.yilmaz@sonnenweg-reisen.de</span><span class="gap"></span><span class="lw">Datum:</span><span class="seg" data-e="datum">28.10.26</span></div></div>
+<div class="lt-betreff"><span class="seg" data-e="betreff">Betreff: Buchungsbestätigung für Ihren Betriebsausflug.</span></div>
+<p class="lt-p"><span class="seg" data-e="anrede">Sehr geehrte Frau Kraus!</span></p>
+<p class="lt-p"><span class="seg">vielen Dank für Ihre Buchung vom 26.10.2026.</span> <span class="seg">Hiermit bestätigen wir Ihren Betriebsausflug an den Chiemsee am 11.06.2027 für 25 Personen.</span></p>
+<p class="lt-p"><span class="seg">Der Bus fährt um <span data-e="uhr">7.30 h</span> am Gewerbering 14 in Dachau ab.</span> <span class="seg">Der Gesamtpreis beträgt 2.225,00 EUR.</span> <span class="seg">Bitte überweisen Sie bis zum 15.03.2027 eine Anzahlung von 20 %.</span></p>
+<p class="lt-p"><span class="seg">Das Programm mit allen Zeiten finden Sie in der Anlage.</span> <span class="seg">Wir wünschen Ihnen und Ihrem Team schon jetzt einen schönen Ausflug.</span></p>
+<p class="lt-p"><span class="seg" data-e="gruss">Hochachtungsvoll</span></p>
+<p class="lt-p" style="margin-bottom:0"><span class="seg">Reisebüro Sonnenweg GmbH</span></p>
+<div class="lt-sigrow"><span class="seg">i. V.</span><span class="lt-sig">M. Yilmaz</span></div>
+<p class="lt-p"><span class="seg">Murat Yilmaz</span></p>
+<p class="lt-p"><span class="seg"><b>Anlage</b><br>Programm Chiemsee-Ausflug</span></p>
+${FOOT}</div>`},
+ {type:'finale'}
+]},
+
+/* ---------- Bonus ---------- */
+{bonus:true,title:'Bonus: Brief nach Österreich',time:'ca. 8 min',motif:'berg',color:'--st7',steps:[
+ {type:'intro',
+  lines:[{who:'yilmaz',text:'Für die Rückfahrt brauchen wir eine Mittagspause in Österreich. Der Brief an den Gasthof geht per Einschreiben. Schaffst du das auch?'}],
+  note:{title:'Merkzettel ★: Ausland und Vermerke',ref:'Merkblatt Nr. 2',
+   rows:[['Vermerk direkt über der Anschrift','Einschreiben'],['Land in der letzten Zeile, Großbuchstaben','ÖSTERREICH'],['Ort in der Landessprache','6020 Innsbruck']]}},
+ {type:'mc',title:'Kurz gefragt',task:'Beantworte die <b>2 Fragen</b>.',hint:'Schau auf den Merkzettel ★.',
+  questions:[
+   {q:'Wo steht der Vermerk „Einschreiben“?',options:['In der Zusatz- und Vermerkzone, direkt über der Anschrift','In der ersten Zeile der Anschriftzone','Unter der Postleitzahl','Im Betreff'],correct:0,explain:'Vermerke stehen direkt über der Anschrift.'},
+   {q:'Was gilt für das Porto nach Österreich?',options:['Es ist höher als in Deutschland, weil Österreich Ausland ist.','Es ist genauso hoch wie in Deutschland.','Für Österreich braucht man keine Briefmarke.'],correct:0,explain:'Briefe ins Ausland kosten mehr Porto.'}
+  ]},
+ {type:'lines',boss:true,title:'Der Brief an den Gasthof',task:'Schreibe den <b>Vermerk</b> und darunter die <b>Anschriftzone</b>, jede Angabe in eine eigene Zeile.',
+  hint:'Zeile 1: Einschreiben. Dann Firma → „Frau“ mit Namen → Straße → PLZ Ort → ÖSTERREICH.',
+  tasks:[
+   {label:'Vermerk und Anschriftzone – eine Angabe pro Zeile',context:`<div class="vcard"><span class="vf">Gasthof Zum Löwen</span><span class="vn">Anna Hofer, Inhaberin</span><span>Dorfstraße 8</span><span>6020 Innsbruck</span><span>Österreich</span></div><div class="note tilt"><span class="hand">Notiz</span><p>Versand per Einschreiben.</p></div>`,
+    answers:[['Einschreiben','Gasthof Zum Löwen','Frau Anna Hofer','Dorfstraße 8','6020 Innsbruck','ÖSTERREICH'],['Einschreiben','Gasthof Zum Löwen','Frau Anna Hofer','Dorfstraße 8','6020 INNSBRUCK','ÖSTERREICH']],
+    country:'ÖSTERREICH',kinds:['der Vermerk','die Firma','„Frau“ und der Name','Straße und Hausnummer','Postleitzahl und Ort','das Land in Großbuchstaben']}
+  ]}
+]}
+];
+
+const TRANSFER={
+  title:'Jetzt bist du dran: dein eigener Brief',
+  task:'Eure Klasse plant eine Abschlussfahrt. Schreibe in Word mit der Briefvorlage eine Anfrage an die Jugendherberge. Nutze dein Merkblatt.',
+  data:[
+   'Empfänger: Jugendherberge Seeblick, Herr Paul Brandner, Uferweg 12, 83209 Prien am Chiemsee',
+   'Absender: deine Schule',
+   'Ihr Zeichen und Ihre Nachricht vom entfallen – du schreibst zuerst',
+   'Inhalt: 24 Schülerinnen und Schüler, 2 Lehrkräfte, 3 Nächte vom 21.06.2027 bis 24.06.2027, Frage nach Preis und Programm'
+  ],
+  check:['Anschrift in der richtigen Reihenfolge, ohne Leerzeilen','Informationsblock mit Unser Zeichen, Name, Telefon, E-Mail, Datum','Betreff ohne „Betreff“ und ohne Punkt','Anrede mit Komma, Text beginnt klein','Text in 3 Absätzen: Anlass · Fragen · Ausblick','Datum, Uhrzeit und Beträge nach DIN 5008','Gruß ohne Komma, Name unter der Unterschrift']
+};
+/* ===== Hilfsfunktionen ===== */
+const $=(s,r)=>(r||document).querySelector(s);
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+const fill=t=>String(t).replace(/\{name\}/g,esc(S.name||'Azubi'));
+
+function sheetHtml(zones,mode,cls){
+  const marks='<span class="mark" style="top:35.35%"></span><span class="mark loch" style="top:50%"></span><span class="mark" style="top:70.71%"></span>';
+  return `<div class="sheet ${cls||''}" role="group" aria-label="Briefbogen DIN A4, Form B">${marks}${zones.map((z,i)=>{
+    const pos=`left:${z.x}%;top:${z.y}%;width:${z.w}%;height:${z.h}%`;
+    return mode==='static'?`<div class="zone static" style="${pos}">${esc(z.label)}</div>`:`<button type="button" class="zone" data-z="${z.id}" style="${pos}" aria-label="Bereich ${i+1}"><span class="zn">${i+1}</span></button>`;
+  }).join('')}</div>`;
+}
+MS.forEach(m=>m.steps.forEach(s=>{ if(s.type==='intro'&&s.note&&s.note.visual==='%SHEET%') s.note.visual=sheetHtml(BRIEF_ZONES,'static','mini'); }));
+
+/* ===== Zustand ===== */
+const SCORED=new Set(['mc','classify','order','assign','input','lines','errors']);
+let NS=0;
+MS.forEach(m=>m.steps.forEach(s=>{ if(SCORED.has(s.type)) s.sid=NS++; }));
+const CORE=MS.filter(m=>!m.bonus).length;
+const KEY='sonnenweg-briefprofi-v2';
+const S={name:'',stars:new Array(NS).fill(0),pos:{},seen:[],vals:{},unlockAll:false,beamer:false};
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY); if(!raw) return;
+    const o=JSON.parse(raw); if(!o||typeof o.name!=='string') return;
+    S.name=o.name;
+    if(Array.isArray(o.stars)&&o.stars.length===NS) S.stars=o.stars.map(v=>Math.max(0,Math.min(3,v|0)));
+    if(o.pos&&typeof o.pos==='object') S.pos=o.pos;
+    if(Array.isArray(o.seen)) S.seen=o.seen;
+    if(o.vals&&typeof o.vals==='object') S.vals=o.vals;
+    S.unlockAll=!!o.unlockAll; S.beamer=!!o.beamer;
+  }catch(e){}
+}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
+
+const scoredOf=mi=>MS[mi].steps.filter(s=>s.sid!==undefined);
+const msStars=mi=>scoredOf(mi).reduce((a,s)=>a+S.stars[s.sid],0);
+const msMax=mi=>scoredOf(mi).length*3;
+const msDone=mi=>scoredOf(mi).every(s=>S.stars[s.sid]>0);
+const msGrade=mi=>msDone(mi)?Math.max(1,Math.round(msStars(mi)/scoredOf(mi).length)):0;
+const msOpen=mi=>S.unlockAll||mi===0||msDone(MS[mi].bonus?CORE-1:mi-1);
+const coreDone=()=>{ let n=0; for(let i=0;i<CORE;i++) if(msDone(i)) n++; return n; };
+const coreStars=()=>{ let n=0; for(let i=0;i<CORE;i++) n+=msStars(i); return n; };
+const coreMax=()=>{ let n=0; for(let i=0;i<CORE;i++) n+=msMax(i); return n; };
+function starsHtml(n,max){ let s=''; for(let i=0;i<max;i++) s+=`<span class="${i<n?'on':'off'}">★</span>`; return `<span class="stars" role="img" aria-label="${n} von ${max} Sternen">${s}</span>`; }
+function avHtml(who){ return `<span class="av" style="background:var(--av-${who})" aria-hidden="true">${P[who].ini}</span>`; }
+function stampHtml(mi,big){
+  const m=MS[mi], g=msGrade(mi), lbl=m.bonus?'Bonus':'Nr. '+(mi+1);
+  if(!g) return `<span class="stamp empty ${big?'big':''}" aria-label="Briefmarke ${lbl}: noch offen"><span class="stamp-in"><svg viewBox="0 0 40 40" aria-hidden="true">${MOTIF[m.motif]}</svg><span class="sv">offen</span></span></span>`;
+  return `<span class="stamp ${big?'big':''}" style="--c:var(${m.color})" role="img" aria-label="Briefmarke ${lbl} mit ${g} von 3 Sternen"><span class="stamp-in"><svg viewBox="0 0 40 40" aria-hidden="true">${MOTIF[m.motif]}</svg><span class="sv">${lbl}</span><span class="stamp-stars">${'★'.repeat(g)}<span style="opacity:.35">${'★'.repeat(3-g)}</span></span></span></span>`;
+}
+
+/* ===== Fortsetzungscode ===== */
+function normName(n){ return String(n).trim().toLowerCase().replace(/\s+/g,' '); }
+function fnv(s){ let h=0x811c9dc5; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,0x01000193)>>>0; } return h>>>0; }
+function chk(name,body){ return (fnv(normName(name)+'|'+body)%1296).toString(36).toUpperCase().padStart(2,'0'); }
+function makeCode(name,stars){
+  let n=0n; for(let i=stars.length-1;i>=0;i--){ n=n*4n+BigInt(stars[i]&3); }
+  const body=n.toString(36).toUpperCase().padStart(6,'0');
+  return ('C'+body+chk(name,body)).match(/.{1,5}/g).join('-');
+}
+function readCode(name,code){
+  const c=String(code||'').toUpperCase().replace(/[^0-9A-Z]/g,'');
+  if(c.length!==9||c[0]!=='C') return null;
+  const body=c.slice(1,7);
+  if(c.slice(7)!==chk(name,body)) return null;
+  let n=0n; for(const ch of body){ const v=parseInt(ch,36); if(isNaN(v)) return null; n=n*36n+BigInt(v); }
+  const st=[]; for(let i=0;i<NS;i++){ st.push(Number(n%4n)); n=n/4n; }
+  return n===0n?st:null;
+}
+
+/* ===== Der wachsende Brief ===== */
+function vals(){ return Object.assign({datum:'11.06.2027',ab:'07:30 Uhr',an:'19:00 Uhr',preis:'89,00 EUR',gesamt:'2.225,00 EUR',anz:'20 %',betreff:'Angebot für Ihren Betriebsausflug am 11.06.2027',anrede:'Sehr geehrte Frau Kraus,',gruss:'Mit freundlichen Grüßen'},S.vals); }
+function letterHtml(cls,newMi){
+  const d=i=>msDone(i), nw=i=>i===newMi?' new':'', ph=(t)=>`<div class="slot-ph">${t}</div>`, v=vals();
+  if(!d(0)) return `<div class="letter ${cls||''}"><div class="slot-ph" style="min-height:22em;display:grid;place-items:center;text-align:center">Hier entsteht dein Brief.<br>Mission 1 legt den Briefbogen an.</div></div>`;
+  const anschrift=d(1)?`<div class="${nw(1)}"><div class="rsa">${RSA}</div><div class="addr"><span class="al">Holzbau Huber GmbH</span><span class="al">Personalabteilung</span><span class="al">Frau Lena Kraus</span><span class="al">Gewerbering 14</span><span class="al">85221 Dachau</span></div></div>`:ph('Anschriftfeld<br>Mission 2');
+  const info=d(2)?`<div class="info${nw(2)}"><span class="lw">Ihr Zeichen:</span><span>kr</span><span class="lw">Ihre Nachricht vom:</span><span>14.10.2026</span><span class="lw">Unser Zeichen:</span><span>yi</span><span class="gap"></span><span class="lw">Name:</span><span>Murat Yilmaz</span><span class="lw">Telefon:</span><span>08136 8090-12</span><span class="lw">E-Mail:</span><span>m.yilmaz@sonnenweg-reisen.de</span><span class="gap"></span><span class="lw">Datum:</span><span>21.10.2026</span></div>`:ph('Informationsblock<br>Mission 3');
+  const kopf5=d(4)?`<div class="${nw(4)}"><div class="lt-betreff">${esc(v.betreff)}</div><p class="lt-p">${esc(v.anrede)}</p><p class="lt-p">vielen Dank für Ihre Anfrage vom 14.10.2026. Gern organisieren wir den Betriebsausflug für Ihre 25 Mitarbeitenden.</p></div>`:ph('Betreff, Anrede und Einleitung · Mission 5');
+  const haupt=d(3)?`<p class="lt-p${nw(3)}">Wir schlagen Ihnen eine Tagesfahrt an den Chiemsee mit Schifffahrt zur Herreninsel vor. Termin ist Freitag, der ${esc(v.datum)}. Der Bus fährt um ${esc(v.ab)} am Gewerbering 14 in Dachau ab und ist gegen ${esc(v.an)} zurück. Der Preis beträgt ${esc(v.preis)} pro Person, für 25 Personen also ${esc(v.gesamt)}. Bei der Buchung bitten wir um eine Anzahlung von ${esc(v.anz)}.</p>`:ph('Angebot mit Datum, Uhrzeit und Preisen · Mission 4');
+  const ende=d(4)?`<div class="${nw(4)}"><p class="lt-p">Das genaue Programm finden Sie in der Anlage. Wir freuen uns auf Ihre Buchung.</p><p class="lt-p">${esc(v.gruss)}</p><p class="lt-p" style="margin-bottom:0">Reisebüro Sonnenweg GmbH</p><div class="lt-sigrow"><span>i. V.</span><span class="lt-sig">M. Yilmaz</span></div><p class="lt-p">Murat Yilmaz</p><p class="lt-p"><b>Anlage</b><br>Programm Chiemsee-Ausflug</p></div>`:ph('Schluss, Gruß, Unterschrift und Anlage · Mission 5');
+  const stamp=d(5)?'<span class="pstamp">Geprüft<small>K. Berger · Reisebüro Sonnenweg</small></span>':'';
+  return `<div class="letter ${cls||''}"><div class="${nw(0)}">${LH}</div><div class="lt-top">${anschrift}${info}</div>${kopf5}${haupt}${ende}<div class="${nw(0)}">${FOOT}</div>${stamp}</div>`;
+}
+function letterAside(newMi){
+  const open=(window.innerWidth||1200)>1000;
+  return `<aside class="m-letter"><details class="lp-fold" ${open?'open':''}><summary class="lp-sum"><span>Dein Brief</span><span class="small muted">${coreDone()} von ${CORE} Missionen</span></summary><div style="display:grid;gap:.5rem;margin-top:.5rem">${letterHtml('lp',newMi)}<div class="row"><button class="btn small" type="button" data-bigletter>Brief groß ansehen</button></div></div></details></aside>`;
+}
+function bindAside(root){ $$('[data-bigletter]',root).forEach(b=>b.onclick=()=>modal(`<div class="modal-h"><div><span class="eyebrow">Dein Brief</span><h2>Brief an Frau Kraus</h2></div><button class="btn" type="button" data-close>Schließen</button></div>${letterHtml('')}`)); }
+
+/* ===== Ansicht ===== */
+const main=$('#main'), topEl=$('#top'), modalRoot=$('#modal-root');
+const V={view:'home',mi:0,si:0};
+let cleanups=[];
+function cleanup(){ cleanups.forEach(f=>{ try{f();}catch(e){} }); cleanups=[]; }
+function go(view,opts){ cleanup(); V.view=view; if(opts) Object.assign(V,opts); render(); try{ window.scrollTo(0,0); }catch(e){} }
+function render(){
+  document.documentElement.classList.toggle('beamer',!!S.beamer);
+  renderTop();
+  if(!S.name){ renderStart(); return; }
+  if(V.view==='mission') renderMission();
+  else if(V.view==='done') renderDone();
+  else if(V.view==='zeugnis') renderZeugnis();
+  else renderHome();
+}
+function renderTop(){
+  topEl.innerHTML=`<header class="topbar"><div class="wrap bar-in"><button class="brand" id="go-home" type="button" aria-label="Zum Schreibtisch">${logoSvg(36,'bar')}<span class="brand-t"><b>Reisebüro Sonnenweg</b><small>Briefprofi · Geschäftsbrief nach DIN 5008</small></span></button><div class="bar-r">${S.name?`<span class="pill">${esc(S.name)}</span><span class="pill">${coreDone()} / ${CORE} Briefmarken</span><button class="btn bar small" type="button" id="b-mz">Merkzettel</button>`:''}<button class="btn bar small" type="button" id="b-lehr">Lehrkraft</button><a class="btn bar small" href="../">Alle Inhalte</a></div></div></header>`;
+  $('#go-home').onclick=()=>{ if(S.name) go('home'); };
+  const bm=$('#b-mz'); if(bm) bm.onclick=openMerkzettel;
+  $('#b-lehr').onclick=openLehrer;
+}
+function renderStart(){
+  main.innerHTML=`<section class="panel start"><div class="start-hero"><span class="eyebrow">Lernspiel · WiK 9 · Geschäftsbrief nach DIN 5008</span><h1>Dein erster Brief im Reisebüro</h1><p class="lead">Die Holzbau Huber GmbH möchte einen Betriebsausflug buchen. In 6 Missionen baust du die Antwort Schritt für Schritt zusammen. Danach kannst du einen Geschäftsbrief selbst schreiben.</p><div class="mission-strip" aria-hidden="true">${MS.map((m,i)=>stampHtml(i)).join('')}</div><p class="small muted">Für jede Mission bekommst du eine Briefmarke. Dauer: etwa 75 Minuten.</p></div>
+  <div class="start-forms"><form id="f-new" class="fld-group" autocomplete="off"><h3>Neu anfangen</h3><div class="fld"><label for="in-name">Dein Vorname</label><input type="text" id="in-name" maxlength="30" autocomplete="off"></div><button class="btn primary" type="submit">Arbeitstag beginnen</button><p class="small" id="new-msg" aria-live="polite"></p></form>
+  <form id="f-code" class="fld-group" autocomplete="off"><h3>Weiterspielen</h3><p class="small muted">Gib deinen Vornamen und deinen Fortsetzungscode ein.</p><div class="fld"><label for="in-name2">Vorname</label><input type="text" id="in-name2" maxlength="30" autocomplete="off"></div><div class="fld"><label for="in-code">Fortsetzungscode</label><input type="text" id="in-code" maxlength="14" placeholder="CXXXX-XXXX" class="mono-in" autocomplete="off"></div><button class="btn" type="submit">Weiterspielen</button><p class="small" id="code-msg" aria-live="polite"></p></form></div></section>`;
+  $('#f-new').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name').value.trim(); if(!n){ const m=$('#new-msg'); m.textContent='Bitte gib deinen Vornamen ein.'; m.className='small err-t'; $('#in-name').focus(); return; } S.name=n; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; save(); go('home'); };
+  $('#f-code').onsubmit=e=>{ e.preventDefault(); const n=$('#in-name2').value.trim(); const st=n?readCode(n,$('#in-code').value):null; const m=$('#code-msg');
+    if(!st){ m.textContent='Name und Code passen nicht zusammen. Prüfe die Schreibweise.'; m.className='small err-t'; return; }
+    S.name=n; S.stars=st; S.pos={}; S.vals={}; save(); go('home'); };
+}
+function copyCode(btn,text,target){
+  const ok=()=>{ btn.textContent='Kopiert'; setTimeout(()=>{ btn.textContent='Code kopieren'; },1600); };
+  const fb=()=>{ try{ const r=document.createRange(); r.selectNodeContents(target); const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent='Markiert – jetzt Strg + C'; }catch(e){} };
+  try{ navigator.clipboard.writeText(text).then(ok,fb); }catch(e){ fb(); }
+}
+function codeBox(){ const code=makeCode(S.name,S.stars); return `<div class="codebox"><span class="small muted">Dein Fortsetzungscode – bitte notieren</span><span class="code" id="mycode">${code}</span><button class="linkbtn small" type="button" id="b-copy">Code kopieren</button></div>`; }
+function bindCode(){ const b=$('#b-copy'); if(b) b.onclick=e=>copyCode(e.currentTarget,$('#mycode').textContent,$('#mycode')); }
+
+function renderHome(){
+  let next=-1; for(let i=0;i<CORE;i++){ if(!msDone(i)&&msOpen(i)){ next=i; break; } }
+  const all=coreDone()===CORE, pct=Math.round(coreDone()/CORE*100);
+  main.innerHTML=`<div class="desk-top"><div class="desk-main">
+  <section class="panel hello"><div><span class="eyebrow">Dein Schreibtisch</span><h2>Hallo ${esc(S.name)}!</h2><p class="muted">${all?'Dein Brief ist fertig und geprüft. Jetzt schreibst du einen eigenen.':next>=0?`Als Nächstes: Mission ${next+1} · ${esc(MS[next].title)}`:''}</p><div class="progress"><span class="bar"><i style="width:${pct}%"></i></span><span>${coreDone()} von ${CORE} Missionen</span></div></div>
+  <div style="display:grid;gap:.6rem">${all?'<button class="btn primary" id="b-zeug" type="button">Zeugnis ansehen</button>':next>=0?`<button class="btn primary" id="b-next" type="button">Weiter mit Mission ${next+1}</button>`:''}${codeBox()}</div></section>
+  <section class="postcards" aria-label="Missionen">${MS.map((m,i)=>{ const open=msOpen(i), dn=msDone(i); return `<button class="pc ${i===next?'next':''} ${m.bonus?'bonus':''}" data-mi="${i}" type="button" ${open?'':'disabled'}><span class="pc-body"><span class="pc-no">${m.bonus?'★ Bonus':'Mission '+(i+1)}</span><span class="pc-title">${esc(m.bonus?m.title.replace('Bonus: ',''):m.title)}</span><span class="pc-meta">${esc(m.time)} · ${dn?'erledigt':open?'offen':m.bonus?'nach Mission 6':'gesperrt'}</span>${m.bonus&&open&&!dn?'<span class="tag">für Schnelle</span>':''}</span>${stampHtml(i)}<span class="pc-lines" aria-hidden="true"></span></button>`; }).join('')}</section>
+  <p class="desk-note">Notiere dir den Code nach jeder Mission. Damit spielst du an jedem PC weiter.</p></div>
+  ${letterAside(-1)}</div>`;
+  $$('.pc',main).forEach(b=>b.onclick=()=>startMission(+b.dataset.mi));
+  const bn=$('#b-next'); if(bn) bn.onclick=()=>startMission(next);
+  const bz=$('#b-zeug'); if(bz) bz.onclick=()=>go('zeugnis');
+  bindCode(); bindAside(main);
+}
+function startMission(mi){ if(!msOpen(mi)) return; let si=S.pos[mi]|0; if(si>=MS[mi].steps.length) si=0; go('mission',{mi,si}); }
+
+function renderMission(){
+  const m=MS[V.mi], st=m.steps[V.si], wide=st.type==='finale';
+  const head=`<div class="m-head"><div class="m-top"><button class="linkbtn" type="button" id="b-back">← Zum Schreibtisch</button><span class="small muted">Schritt ${V.si+1} von ${m.steps.length}</span></div><span class="eyebrow">${m.bonus?'Bonus-Mission':'Mission '+(V.mi+1)} · ${esc(m.time)}</span><h2>${esc(m.title)}</h2><div class="stepbar" aria-hidden="true">${m.steps.map((s,i)=>`<i class="${i<V.si?'done':i===V.si?'now':''}"></i>`).join('')}</div></div>`;
+  main.innerHTML=wide?`<section class="panel m-main">${head}<div id="stage"></div></section>`:`<div class="mission"><section class="panel m-main">${head}<div id="stage"></div></section>${letterAside(-1)}</div>`;
+  $('#b-back').onclick=()=>go('home');
+  bindAside(main);
+  R[st.type](st,$('#stage'),stars=>stepDone(st,stars));
+}
+function stepDone(st,stars){
+  if(st.sid!==undefined&&stars) S.stars[st.sid]=Math.max(S.stars[st.sid],stars);
+  const m=MS[V.mi];
+  if(V.si+1<m.steps.length){ S.pos[V.mi]=V.si+1; save(); go('mission',{si:V.si+1}); }
+  else { S.pos[V.mi]=0; save(); go(V.mi===CORE-1?'zeugnis':'done'); }
+}
+const DONE_TXT=['Der Briefbogen liegt bereit: Briefkopf und Fußzeile stehen.','Die Anschrift von Frau Kraus steht im Anschriftfeld.','Der Informationsblock ist fertig.','Das Angebot mit allen Zahlen steht im Brief.','Betreff, Anrede, Text, Gruß und Unterschrift sind fertig. Dein Brief ist komplett!','',''];
+function renderDone(){
+  const mi=V.mi, m=MS[mi];
+  let next=-1; for(let i=mi+1;i<CORE;i++){ if(!msDone(i)){ next=i; break; } }
+  main.innerHTML=`<div class="mission"><section class="panel m-main"><div class="done-grid">${stampHtml(mi,true)}<div class="done-text"><span class="eyebrow">${m.bonus?'Bonus-Mission':'Mission '+(mi+1)} geschafft</span><h2>Briefmarke verdient!</h2><p>${m.bonus?'Auch der Brief nach Österreich sitzt. Stark!':DONE_TXT[mi]} <span class="muted">Der neue Teil leuchtet rechts in deinem Brief kurz auf.</span></p><p class="small muted">${msStars(mi)} von ${msMax(mi)} Sternen in dieser Mission.</p></div></div>${codeBox()}
+  <div class="row">${next>=0&&!m.bonus?`<button class="btn primary" type="button" id="b-n">Weiter mit Mission ${next+1}</button>`:''}<button class="btn" type="button" id="b-h">Zum Schreibtisch</button></div></section>${letterAside(m.bonus?-1:mi)}</div>`;
+  const bn=$('#b-n'); if(bn) bn.onclick=()=>startMission(next);
+  $('#b-h').onclick=()=>go('home');
+  bindCode(); bindAside(main);
+}
+function renderZeugnis(){
+  const code=makeCode(S.name,S.stars), d=new Date();
+  const ds=`${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+  const all=coreDone()===CORE, pct=coreStars()/coreMax();
+  const word=pct>=.9?'hervorragend':pct>=.75?'sehr gut':pct>=.55?'gut':'bestanden';
+  main.innerHTML=`<div class="row no-print"><button class="linkbtn" id="b-back" type="button">← Zum Schreibtisch</button></div>
+  <article class="zeugnis">${LH}${all?'<span class="pstamp">Bestanden<small>Reisebüro Sonnenweg</small></span>':''}<div><div class="z-eyebrow">${all?'Azubi-Zeugnis · Geschäftsbrief nach DIN 5008':'Zwischenstand'}</div><h2 class="z-title">${esc(S.name)}</h2></div>
+  <p>${all?`${esc(S.name)} hat im Reisebüro Sonnenweg einen vollständigen Geschäftsbrief nach DIN 5008 erstellt und alle ${CORE} Missionen geschafft.`:`${esc(S.name)} hat bisher ${coreDone()} von ${CORE} Missionen geschafft.`}</p>
+  <div class="z-stamps">${MS.map((m,i)=>m.bonus&&!msDone(i)?'':stampHtml(i)).join('')}</div>
+  <table class="vtbl"><tbody>${MS.map((m,i)=>m.bonus&&!msDone(i)?'':`<tr><td>${m.bonus?'★':i+1} · ${esc(m.title.replace('Bonus: ',''))}</td><td>${msStars(i)} / ${msMax(i)} Sterne</td></tr>`).join('')}</tbody></table>
+  ${all?`<p>Gesamtbewertung: <b>${word}</b></p>`:''}
+  <p class="small">Kontrollcode: <span class="z-code">${code}</span></p>
+  <div class="z-sign"><div class="z-s"><span>&nbsp;</span><div class="z-line">Markt Indersdorf, ${ds}</div></div><div class="z-s"><span class="lt-sig">K. Berger</span><div class="z-line">Karin Berger, Geschäftsführerin</div></div></div></article>
+  <p class="desk-note no-print">Zeige dein Zeugnis deiner Lehrkraft. Sie kann den Kontrollcode prüfen.</p>`;
+  $('#b-back').onclick=()=>go('home');
+}
+
+/* ===== Übungsrahmen ===== */
+function exFrame(st,root,done){
+  root.innerHTML=`<div class="ex"><div class="ex-head"><div><span class="badge ${st.boss?'boss':''}">${st.boss?'Mini-Boss':'Übung'}</span></div><h3>${esc(st.title)}</h3><p class="task">${fill(st.task)}</p></div><div class="ex-body"></div><div class="hint-area"></div><div class="fb-area" aria-live="polite"></div><div class="ex-foot"><div class="left"><button class="btn small ghost" type="button" data-hint>Frag Mia</button><span class="mist">Fehlversuche: 0</span></div><div class="right"></div></div></div>`;
+  const T={mist:0,hint:false,sol:false,body:$('.ex-body',root),right:$('.right',root)};
+  const mistEl=$('.mist',root), hintArea=$('.hint-area',root), fbArea=$('.fb-area',root), hintBtn=$('[data-hint]',root);
+  T.addMist=()=>{ T.mist++; mistEl.textContent='Fehlversuche: '+T.mist; };
+  hintBtn.onclick=()=>{ T.hint=true; hintArea.innerHTML=`<div class="note hintbox">${avHtml('mia')}<div><span class="hand">Mia hilft dir</span><div>${st.hint}</div><div class="small">Ein Tipp kostet dich höchstens einen Stern.</div></div></div>`; };
+  T.fb=(cls,html)=>{ fbArea.innerHTML=html?`<div class="fb ${cls}">${html}</div>`:''; };
+  T.setRight=(html,handlers)=>{ T.right.innerHTML=html; if(handlers) Object.keys(handlers).forEach(id=>{ const b=T.right.querySelector('#'+id); if(b) b.onclick=handlers[id]; }); };
+  T.stars=()=>{ if(T.sol) return 1; const tol=st.tol===undefined?2:st.tol; let s=T.mist===0?3:(T.mist<=tol?2:1); if(T.hint) s=Math.min(s,2); return s; };
+  T.finish=prefix=>{
+    const s=T.stars(); const words=['','Geschafft. Beim nächsten Mal klappt es noch besser.','Gut gemacht!','Perfekt, ohne Fehler!'];
+    T.fb('ok',`${prefix?`<div>${prefix}</div>`:''}<div class="earned">${starsHtml(s,3)}<span>${words[s]}</span></div>`);
+    T.setRight('<button class="btn primary" type="button" id="x-next">Weiter</button>',{'x-next':()=>done(s)});
+    hintBtn.disabled=true;
+    const nb=$('#x-next',root); if(nb){ try{ nb.focus({preventScroll:true}); }catch(e){ nb.focus(); } }
+  };
+  return T;
+}
+function addrBox(s){ return `<span class="addr-box">${String(s).split('\n').map(l=>l===''?'<span class="el" title="Leerzeile"></span>':`<span class="al">${esc(l)}</span>`).join('')}</span>`; }
+function noteHtml(n){ return `<div class="note"><span class="hand">${esc(n.title)}</span><div class="mz-rows">${n.rows.map(r=>`<div class="mz-row"><span>${esc(r[0])}</span><span class="ex">${esc(r[1])}</span></div>`).join('')}</div>${n.visual?`<div class="mz-visual">${n.visual}</div>`:''}<span class="mz-ref">Ausführlich: ${esc(n.ref)}</span></div>`; }
+
+/* ===== Schritt-Typen ===== */
+const R={};
+R.intro=(st,root,done)=>{
+  const id='mz'+V.mi; if(!S.seen.includes(id)){ S.seen.push(id); save(); }
+  root.innerHTML=`<div class="intro"><div class="story">${st.lines.map(l=>`<div class="say">${avHtml(l.who)}<div class="say-b"><div class="who"><b>${esc(P[l.who].name)}</b> · ${esc(P[l.who].role)}</div><div class="bubble">${fill(l.text)}</div></div></div>`).join('')}</div>${noteHtml(st.note)}</div><div class="foot-row" style="margin-top:1rem"><span class="small muted">Den Merkzettel findest du oben jederzeit wieder.</span><button class="btn primary" type="button" id="go">Los geht's</button></div>`;
+  const b=$('#go',root); b.onclick=()=>done(); try{ b.focus({preventScroll:true}); }catch(e){}
+};
+R.mc=(st,root,done)=>{
+  const T=exFrame(st,root,done); let qi=0;
+  function showQ(){
+    const q=st.questions[qi], order=shuffle(q.options.map((_,k)=>k)); let solved=false;
+    T.body.innerHTML=`<div class="qcount">Frage ${qi+1} von ${st.questions.length}</div>${q.context?`<div class="ctx">${q.context}</div>`:''}<p class="q">${esc(q.q)}</p><div class="opts ${q.addr?'addr':''}">${order.map(k=>`<button type="button" class="opt" data-k="${k}">${q.addr?addrBox(q.options[k]):esc(q.options[k])}</button>`).join('')}</div>`;
+    T.fb('',''); T.setRight('');
+    $$('.opt',T.body).forEach(b=>b.onclick=()=>{
+      if(solved||b.classList.contains('wrong')) return;
+      const k=+b.dataset.k;
+      if(k===q.correct){
+        solved=true; b.classList.add('right'); $$('.opt',T.body).forEach(o=>o.disabled=true);
+        const msg=`<b>Richtig.</b> ${q.explain||''}`;
+        if(qi<st.questions.length-1){ T.fb('ok',msg); T.setRight('<button class="btn primary" type="button" id="x-q">Nächste Frage</button>',{'x-q':()=>{ qi++; showQ(); }}); $('#x-q',T.right).focus({preventScroll:true}); }
+        else T.finish(msg);
+      } else {
+        b.classList.add('wrong'); T.addMist();
+        const w=q.why&&q.why[k]; T.fb('err',`<b>Nicht ganz.</b> ${w||'Versuch es noch einmal.'}`);
+      }
+    });
+  }
+  showQ();
+};
+R.classify=(st,root,done)=>{
+  const T=exFrame(st,root,done);
+  const items=shuffle(st.items.map((it,i)=>i)); let left=items.length;
+  T.body.innerHTML=`<div class="cls">${items.map(i=>{ const it=st.items[i]; return `<div class="cls-row" data-i="${i}"><div class="cls-text"><div>${it.html||esc(it.text)}</div><div class="cls-why"></div></div><div class="cls-btns">${st.cats.map((c,ci)=>`<button class="btn small" type="button" data-c="${ci}">${esc(c)}</button>`).join('')}</div></div>`; }).join('')}</div>`;
+  $$('.cls-row',T.body).forEach(row=>{
+    const it=st.items[+row.dataset.i], why=$('.cls-why',row);
+    $$('[data-c]',row).forEach(b=>b.onclick=()=>{
+      if(row.classList.contains('done')) return;
+      const c=+b.dataset.c;
+      if(c===it.cat){
+        row.classList.add('done'); b.classList.add('pick'); $$('[data-c]',row).forEach(x=>x.disabled=true);
+        why.innerHTML=`<span class="ok-t">✓ ${esc(st.cats[c])}.</span> ${it.why||''}`; left--;
+        if(left===0) T.finish('Alles richtig zugeordnet.'); else T.fb('','');
+      } else {
+        T.addMist(); b.classList.add('bad'); setTimeout(()=>b.classList.remove('bad'),900);
+        why.innerHTML=`<span class="err-t">Nicht „${esc(st.cats[c])}“.</span> Überleg noch einmal.`;
+      }
+    });
+  });
+};
+R.order=(st,root,done)=>{
+  const T=exFrame(st,root,done); const n=st.items.length;
+  const fresh=()=>{ let p=shuffle(st.items.map((_,i)=>i)); if(n>1&&p.every((v,i)=>v===i)) p.reverse(); return p; };
+  let pool=fresh(), tgt=[], marks=null, checks=0, locked=false;
+  const tile=(i,w,p)=>`<button type="button" class="tile ${w==='t'&&marks?(marks[p]?'ok':'bad'):''}" data-w="${w}" data-i="${i}">${w==='t'?`<span class="num">${p+1}</span>`:''}<span>${esc(st.items[i])}</span></button>`;
+  function draw(){
+    T.body.innerHTML=`<div class="ord"><div><div class="col-lab">Bausteine – zum Einsortieren anklicken</div><div class="pool">${pool.length?pool.map(i=>tile(i,'p')).join(''):'<p class="small muted">Alle Bausteine sind einsortiert.</p>'}</div></div><div><div class="col-lab">Deine Reihenfolge</div><ol class="target ${locked?'locked':''}">${Array.from({length:n},(_,p)=>tgt[p]!==undefined?`<li>${tile(tgt[p],'t',p)}</li>`:`<li class="slot">Platz ${p+1}</li>`).join('')}</ol></div></div>`;
+    $$('.tile',T.body).forEach(b=>b.onclick=()=>{
+      if(locked) return; const i=+b.dataset.i;
+      if(b.dataset.w==='p'){ pool=pool.filter(x=>x!==i); tgt.push(i); } else { tgt=tgt.filter(x=>x!==i); pool.push(i); }
+      marks=null; draw();
+    });
+    if(!locked) T.setRight(`${checks>=2?'<button class="btn" type="button" id="x-sol">Lösung zeigen</button>':''}<button class="btn" type="button" id="x-reset">Neu mischen</button><button class="btn primary" type="button" id="x-check" ${tgt.length<n?'disabled':''}>Prüfen</button>`,{
+      'x-check':check,
+      'x-reset':()=>{ pool=fresh(); tgt=[]; marks=null; T.fb('',''); draw(); },
+      'x-sol':()=>{ T.sol=true; tgt=st.items.map((_,i)=>i); pool=[]; marks=tgt.map(()=>true); locked=true; draw(); T.finish('So ist die richtige Reihenfolge. Präge sie dir gut ein.'); }
+    });
+  }
+  function check(){
+    marks=tgt.map((v,p)=>v===p); const good=marks.filter(Boolean).length;
+    if(good===n){ locked=true; draw(); T.finish('Die Reihenfolge stimmt.'); }
+    else { checks++; T.addMist(); draw(); T.fb('err',`<b>${good} von ${n}</b> stehen schon richtig. Klicke die rot markierten Bausteine an, um sie zurückzulegen, und sortiere neu.`); }
+  }
+  draw();
+};
+R.assign=(st,root,done)=>{
+  const T=exFrame(st,root,done); const zones=st.zones; let sel=null; const placed=new Set();
+  const zById=id=>zones.find(z=>z.id===id);
+  T.body.innerHTML=`<div class="asg"><div><div class="col-lab">Bausteine</div><div class="chips">${shuffle(zones.map(z=>z.id)).map(id=>`<button type="button" class="chip-btn" draggable="true" data-id="${id}">${esc(zById(id).label)}</button>`).join('')}</div></div><div>${sheetHtml(zones,'play')}</div></div>`;
+  const chips=$$('.chip-btn',T.body);
+  const select=id=>{ sel=id; chips.forEach(x=>x.classList.toggle('sel',x.dataset.id===sel)); };
+  chips.forEach(b=>{
+    b.onclick=()=>{ select(sel===b.dataset.id?null:b.dataset.id); if(sel) T.fb('',`Klicke jetzt auf den Bereich für <b>${esc(zById(sel).label)}</b>.`); };
+    b.addEventListener('dragstart',e=>{ try{ e.dataTransfer.setData('text/plain',b.dataset.id); }catch(_){} select(b.dataset.id); });
+  });
+  $$('.zone',T.body).forEach(z=>{
+    z.onclick=()=>{ if(!sel){ T.fb('','Wähle zuerst links einen Baustein aus.'); return; } attempt(sel,z); };
+    z.addEventListener('dragover',e=>e.preventDefault());
+    z.addEventListener('drop',e=>{ e.preventDefault(); let id=''; try{ id=e.dataTransfer.getData('text/plain'); }catch(_){} attempt(id||sel,z); });
+  });
+  function attempt(id,zEl){
+    const zid=zEl.dataset.z; if(!id||placed.has(zid)) return; const zc=zById(id);
+    if(id===zid){
+      placed.add(zid); zEl.classList.add('filled'); zEl.innerHTML=`<span>${esc(zc.label)}</span>`; zEl.disabled=true;
+      chips.find(x=>x.dataset.id===id).classList.add('used'); select(null);
+      if(placed.size===zones.length) T.finish('Der Briefbogen ist komplett.');
+      else T.fb('ok',`<b>${esc(zc.label)}</b> sitzt. Noch ${zones.length-placed.size} Bausteine.`);
+    } else {
+      T.addMist(); zEl.classList.remove('shake'); void zEl.offsetWidth; zEl.classList.add('shake');
+      T.fb('err',`Das passt hier nicht. Tipp zu <b>${esc(zc.label)}</b>: ${zc.tip}`);
+    }
+  }
+};
+function fieldMsg(f,v){
+  if(f.check) return f.check(v);
+  if(f.empty) return v===''?null:(f.emptyMsg||'Dieses Leitwort bleibt leer. Lösche den Eintrag.');
+  if(f.answers.some(a=>f.ci?a.toLowerCase()===v.toLowerCase():a===v)) return null;
+  if(v==='') return 'Hier fehlt noch ein Eintrag.';
+  for(const h of (f.hints||[])){ if(h.re.test(v)) return h.msg; }
+  return f.msg||'Das stimmt noch nicht.';
+}
+R.input=(st,root,done)=>{
+  const T=exFrame(st,root,done); let checks=0; const key='in'+st.sid;
+  T.body.innerHTML=`${st.context?`<div class="ctx">${st.context}</div>`:''}${st.timer?'<div class="timer">Diktat-Zeit: <b id="tm">0:00</b> min</div>':''}<form class="fields" autocomplete="off" novalidate>${st.fields.map((f,i)=>`<div class="field" data-i="${i}"><label for="${key}-${i}">${esc(f.label)}</label><input type="text" id="${key}-${i}" spellcheck="false" autocomplete="off"${f.empty?' placeholder="(leer lassen, wenn nicht nötig)"':''}><div class="f-msg"></div></div>`).join('')}<button type="submit" hidden>Prüfen</button></form>`;
+  let iv=null; const t0=Date.now();
+  if(st.timer){ const tm=$('#tm',T.body); iv=setInterval(()=>{ const s=Math.floor((Date.now()-t0)/1000); tm.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); },1000); cleanups.push(()=>clearInterval(iv)); }
+  const form=$('form',T.body); form.onsubmit=e=>{ e.preventDefault(); check(); };
+  const inp=i=>$('#'+key+'-'+i,T.body);
+  function lock(){ if(iv) clearInterval(iv); $$('input',form).forEach(x=>x.readOnly=true); st.fields.forEach((f,i)=>{ if(f.store) S.vals[f.store]=inp(i).value.replace(/\s+/g,' ').trim(); }); save(); }
+  function setBtns(){ T.setRight(`${checks>=2?'<button class="btn" type="button" id="x-sol">Lösung zeigen</button>':''}<button class="btn primary" type="button" id="x-check">Prüfen</button>`,{'x-check':check,'x-sol':()=>{
+    T.sol=true;
+    st.fields.forEach((f,i)=>{ const el=inp(i), fd=el.closest('.field'); if(fieldMsg(f,el.value.replace(/\s+/g,' ').trim())!==null) el.value=f.empty?'':(f.answers?f.answers[0]:f.example||''); fd.classList.remove('bad'); fd.classList.add('ok'); $('.f-msg',fd).textContent=f.empty?'bleibt leer':''; });
+    lock(); T.finish('Hier siehst du die Lösung. Vergleiche sie mit deinen Eingaben.');
+  }}); }
+  function check(){
+    let wrong=0;
+    st.fields.forEach((f,i)=>{
+      const el=inp(i), v=el.value.replace(/\s+/g,' ').trim(), fd=el.closest('.field'), msg=fieldMsg(f,v), ok=msg===null;
+      fd.classList.toggle('ok',ok); fd.classList.toggle('bad',!ok);
+      $('.f-msg',fd).textContent=ok?(f.empty?'✓ richtig, bleibt leer':'✓'):msg;
+      if(!ok) wrong++;
+    });
+    if(wrong===0){ lock(); const tm=st.timer?$('#tm',T.body).textContent:''; T.finish('Alles korrekt eingetragen.'+(st.timer?` Deine Zeit: ${tm} min.`:'')); }
+    else { checks++; T.addMist(); setBtns(); T.fb('err',`<b>${wrong===1?'Ein Eintrag stimmt':wrong+' Einträge stimmen'} noch nicht.</b> Lies die roten Hinweise und verbessere.`); const fb=$('.field.bad input',T.body); if(fb) fb.focus(); }
+  }
+  setBtns();
+};
+function diagLines(L,t){
+  const A=t.answers[0];
+  if(!L.length) return 'Du hast noch nichts eingetragen.';
+  if(L.some(l=>l==='')) return 'Hier stehen keine Leerzeilen – auch nicht vor dem Ort.';
+  if(/^an$/i.test(L[0])) return '„An“ schreibt man nicht in die Anschrift.';
+  if(L.some(l=>/^Herr\s/.test(l)||l==='Herr')) return 'In der Anschrift schreibt man „Herrn“ (mit n).';
+  if(L.some(l=>/,$/.test(l))) return 'Am Zeilenende stehen keine Kommas.';
+  if(t.country){
+    const last=L[L.length-1];
+    if(last.toUpperCase()===t.country&&last!==t.country) return `Das Land schreibst du in Großbuchstaben: ${t.country}.`;
+    if(!L.some(l=>l.toUpperCase()===t.country)) return `Bei Auslandsbriefen steht das Land in der letzten Zeile: ${t.country}.`;
+    if(last.toUpperCase()!==t.country) return 'Das Land steht ganz unten in der letzten Zeile.';
+  }
+  for(let k=0;k<Math.min(L.length,A.length);k++){
+    if(!t.answers.some(a=>a[k]===L[k])) return `Zeile ${k+1} stimmt noch nicht. Dort gehört hin: ${t.kinds[k]}.${L[k].toLowerCase()===A[k].toLowerCase()?' Achte auf Groß- und Kleinschreibung.':''}`;
+  }
+  if(L.length>A.length) return `Du hast ${L.length} Zeilen. Nötig sind nur ${A.length}.`;
+  if(L.length<A.length) return `Es fehlt noch eine Zeile: ${t.kinds[L.length]}.`;
+  return 'Vergleiche noch einmal genau mit der Vorlage.';
+}
+R.lines=(st,root,done)=>{
+  const T=exFrame(st,root,done); let ti=0, checks=0;
+  function show(){
+    const t=st.tasks[ti], id='ln'+st.sid+'-'+ti; checks=0;
+    T.body.innerHTML=`${st.tasks.length>1?`<div class="qcount">Brief ${ti+1} von ${st.tasks.length}</div>`:''}<div class="ctx-grid"><div class="ctx">${t.context}</div><div class="fld"><label for="${id}">${esc(t.label||'Anschriftzone – eine Angabe pro Zeile')}</label><textarea id="${id}" class="addr-in" rows="7" spellcheck="false"></textarea><p class="small muted">Drücke nach jeder Zeile die Taste <span class="kbd">Enter</span>.</p></div></div>`;
+    T.fb(''); setBtns();
+  }
+  function setBtns(){ T.setRight(`${checks>=2?'<button class="btn" type="button" id="x-sol">Lösung zeigen</button>':''}<button class="btn primary" type="button" id="x-check">Prüfen</button>`,{'x-check':check,'x-sol':()=>{ T.sol=true; const ta=$('textarea',T.body); ta.value=st.tasks[ti].answers[0].join('\n'); ta.readOnly=true; next('So sieht es richtig aus.'); }}); }
+  function next(msg){
+    if(ti<st.tasks.length-1){ T.fb('ok',msg+' Weiter mit dem nächsten Brief.'); T.setRight('<button class="btn primary" type="button" id="x-n">Nächster Brief</button>',{'x-n':()=>{ ti++; show(); }}); }
+    else T.finish(msg);
+  }
+  function check(){
+    const t=st.tasks[ti], ta=$('textarea',T.body);
+    const L=ta.value.split(/\r?\n/).map(s=>s.replace(/\s+/g,' ').trim());
+    while(L.length&&L[0]==='') L.shift(); while(L.length&&L[L.length-1]==='') L.pop();
+    if(t.answers.some(a=>a.length===L.length&&a.every((x,k)=>x===L[k]))){ ta.readOnly=true; next('Richtig adressiert!'); return; }
+    checks++; T.addMist(); setBtns(); T.fb('err',esc(diagLines(L,t)));
+  }
+  show();
+};
+R.errors=(st,root,done)=>{
+  const T=exFrame(st,root,done); const found=new Set(), keys=Object.keys(st.errs), total=keys.length; let finished=false;
+  T.body.innerHTML=`<div class="err-grid"><div style="min-width:0">${st.letter}</div><aside class="err-side" aria-live="polite"><div class="err-count"><b id="ec">0</b> von ${total} Fehlern gefunden</div><ol class="err-list" id="el"></ol></aside></div>`;
+  const letter=$('.letter',T.body);
+  const addFound=k=>{ found.add(k); $$(`[data-e="${k}"]`,letter).forEach(x=>x.classList.add('found')); $('#el',T.body).insertAdjacentHTML('beforeend',`<li><b>${esc(st.errs[k].what)}</b><br>Richtig: <span class="fix">${esc(st.errs[k].fix)}</span></li>`); $('#ec',T.body).textContent=found.size; };
+  function setBtns(){ T.setRight(T.mist>=6&&!finished?'<button class="btn" type="button" id="x-sol">Alle Fehler zeigen</button>':'',{'x-sol':()=>{ T.sol=true; keys.forEach(k=>{ if(!found.has(k)) addFound(k); }); finished=true; letter.classList.remove('check'); T.finish('Hier sind alle Fehler markiert. Lies die Verbesserungen genau.'); }}); }
+  letter.addEventListener('click',ev=>{
+    if(finished) return;
+    const e=ev.target.closest('[data-e]');
+    if(e){ const k=e.dataset.e; if(found.has(k)){ T.fb('','Diesen Fehler hast du schon gefunden.'); return; }
+      addFound(k);
+      if(found.size===total){ finished=true; letter.classList.remove('check'); T.finish('Alle Fehler gefunden!'); }
+      else { T.fb('ok',`<b>Gefunden:</b> ${esc(st.errs[k].what)}. Noch ${total-found.size}.`); setBtns(); }
+      return; }
+    const s=ev.target.closest('.seg');
+    if(s){ T.addMist(); s.classList.add('nope'); setTimeout(()=>s.classList.remove('nope'),800); T.fb('err','Das ist so korrekt. Such weiter!'); setBtns(); }
+  });
+  setBtns();
+};
+R.finale=(st,root,done)=>{
+  root.innerHTML=`<div style="display:grid;gap:1.4rem"><div class="done-grid">${stampHtml(V.mi,true)}<div class="done-text"><span class="eyebrow">Alle Missionen geschafft</span><h2>Dein Brief ist fertig und geprüft</h2><p>Jeden Teil dieses Briefs hast du selbst gebaut. Genau so schreibst du ab jetzt jeden Geschäftsbrief.</p></div></div>
+  ${letterHtml('')}
+  <section class="transfer"><div class="note tilt"><span class="hand">${esc(TRANSFER.title)}</span><p>${esc(TRANSFER.task)}</p><ul>${TRANSFER.data.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="panel" style="box-shadow:none;border:1px dashed var(--line)"><h3>Checkliste für deinen Brief</h3><p class="small muted">Hake jeden Punkt ab, bevor du deinen Brief abgibst.</p><ul class="checklist">${TRANSFER.check.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></section>
+  <div class="foot-row"><span class="small muted">Die Checkliste steht auch auf deinem Merkblatt.</span><button class="btn primary" type="button" id="go">Zum Zeugnis</button></div></div>`;
+  $('#go',root).onclick=()=>done();
+};
+
+/* ===== Modal, Merkzettel, Lehrkraft ===== */
+function modal(html,onOpen){
+  modalRoot.innerHTML=`<div class="modal-back"><div class="modal" role="dialog" aria-modal="true">${html}</div></div>`;
+  const back=$('.modal-back',modalRoot);
+  back.addEventListener('click',e=>{ if(e.target===back||e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown',escClose);
+  if(onOpen) onOpen($('.modal',modalRoot));
+  const c=$('[data-close]',modalRoot); if(c) c.focus();
+}
+function escClose(e){ if(e.key==='Escape') closeModal(); }
+function closeModal(){ modalRoot.innerHTML=''; document.removeEventListener('keydown',escClose); }
+function openMerkzettel(){
+  const notes=MS.map((m,i)=>({i,n:m.steps[0].note})).filter(x=>S.unlockAll||S.seen.includes('mz'+x.i));
+  modal(`<div class="modal-h"><div><span class="eyebrow">Merkzettel</span><h2>Deine Merkzettel</h2></div><button class="btn" type="button" data-close>Schließen</button></div>${notes.length?`<div class="mz-list">${notes.map(x=>noteHtml(x.n)).join('')}</div>`:'<p class="muted">Noch leer. Jede Mission beginnt mit einem Merkzettel.</p>'}`);
+}
+let teacherOK=false;
+function openLehrer(){ modal(`<div class="modal-h"><div><span class="eyebrow">Nur für die Lehrkraft</span><h2>Lehrkraft-Menü</h2></div><button class="btn" type="button" data-close>Schließen</button></div><div id="lehr-body"></div>`,m=>drawLehrer($('#lehr-body',m))); }
+function drawLehrer(box){
+  if(!teacherOK){
+    box.innerHTML='<form id="f-pin" class="fld-group" autocomplete="off"><div class="fld"><label for="in-pin">PIN</label><input type="password" id="in-pin" inputmode="numeric" maxlength="8" autocomplete="off"></div><div class="row"><button class="btn primary" type="submit">Öffnen</button></div><p class="small" id="pin-msg" aria-live="polite"></p></form>';
+    $('#f-pin',box).onsubmit=e=>{ e.preventDefault(); if($('#in-pin',box).value.trim()==='5008'){ teacherOK=true; drawLehrer(box); } else { const m=$('#pin-msg',box); m.textContent='Die PIN stimmt nicht.'; m.className='small err-t'; } };
+    setTimeout(()=>{ const p=$('#in-pin',box); if(p) p.focus(); },0);
+    return;
+  }
+  box.innerHTML=`<div class="lehr-grid">
+  <section class="fld-group"><h3>Ansicht</h3><label class="tgl"><input type="checkbox" id="t-beamer" ${S.beamer?'checked':''}><span>Beamer-Modus mit größerer Schrift</span></label><label class="tgl"><input type="checkbox" id="t-unlock" ${S.unlockAll?'checked':''}><span>Alle Missionen und Merkzettel auf diesem PC freischalten, z. B. zum Vorführen</span></label></section>
+  <section class="fld-group"><h3>Code prüfen</h3><p class="small muted">Vorname und Code vom Zeugnis oder vom Schreibtisch eingeben.</p><div class="fld"><label for="v-name">Vorname</label><input type="text" id="v-name" autocomplete="off"></div><div class="fld"><label for="v-code">Code</label><input type="text" id="v-code" class="mono-in" autocomplete="off"></div><div class="row"><button class="btn" type="button" id="v-go">Prüfen</button></div><div id="v-out" aria-live="polite"></div></section>
+  <section class="fld-group"><h3>Fortschritt löschen</h3><p class="small muted">Löscht Name und Sterne auf diesem PC, z. B. vor der nächsten Klasse. Ein notierter Code bleibt gültig.</p><div class="row"><button class="btn" type="button" id="r-1">Fortschritt löschen …</button></div><div id="r-confirm"></div></section></div>`;
+  $('#t-beamer',box).onchange=e=>{ S.beamer=e.target.checked; save(); document.documentElement.classList.toggle('beamer',S.beamer); };
+  $('#t-unlock',box).onchange=e=>{ S.unlockAll=e.target.checked; save(); render(); };
+  $('#v-go',box).onclick=()=>{
+    const n=$('#v-name',box).value.trim(), st=n?readCode(n,$('#v-code',box).value):null, out=$('#v-out',box);
+    if(!st){ out.innerHTML='<p class="small err-t">Ungültig: Der Code passt nicht zu diesem Namen.</p>'; return; }
+    let dn=0; const rows=MS.map((m,i)=>{ const ss=scoredOf(i).map(s=>st[s.sid]); const t=ss.reduce((a,b)=>a+b,0); const ok=ss.every(v=>v>0); if(ok&&!m.bonus) dn++; return `<tr><td>${m.bonus?'★':i+1} · ${esc(m.title.replace('Bonus: ',''))}${ok?'':' <span class="muted">(offen)</span>'}</td><td>${t} / ${ss.length*3}</td></tr>`; }).join('');
+    out.innerHTML=`<p class="small ok-t">Gültig: ${esc(n)} · ${dn} von ${CORE} Missionen</p><table class="vtbl">${rows}</table>`;
+  };
+  $('#r-1',box).onclick=()=>{
+    $('#r-confirm',box).innerHTML='<p class="small"><b>Wirklich löschen?</b></p><div class="row"><button class="btn primary" type="button" id="r-yes">Ja, löschen</button><button class="btn" type="button" id="r-no">Abbrechen</button></div>';
+    $('#r-no',box).onclick=()=>{ $('#r-confirm',box).innerHTML=''; };
+    $('#r-yes',box).onclick=()=>{ try{ localStorage.removeItem(KEY); }catch(e){} S.name=''; S.stars=new Array(NS).fill(0); S.pos={}; S.seen=[]; S.vals={}; S.unlockAll=false; save(); closeModal(); go('home'); };
+  };
+}
+
+load();
+render();
+})();
+</script>
+</body></html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WiK 9 · Mittelschule Indersdorf</title>
+<meta name="description" content="Lernspiele und Materialien für Wirtschaft und Kommunikation, 9. Klasse">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: Kopfbereich mit Kurstitel, darunter die Inhalte als Mappen mit Registerreiter,
+   gruppiert nach Lernbereich des LehrplanPLUS. Neue Inhalte: Eintrag in INHALTE unten ergänzen. */
+:root{
+  --bg:#edf0f4; --surface:#ffffff; --surface-2:#f5f7fa; --ink:#1d2733; --muted:#5a6573; --line:#d3dae3;
+  --brand:#23467a; --brand-ink:#ffffff; --brand-soft:#e3eaf4;
+  --tab:#dce5f1; --tab-ink:#1d3a66; --accent:#c98d1f; --focus:#d58b1c;
+  --shadow:0 1px 2px rgba(25,40,60,.07),0 8px 20px rgba(25,40,60,.08);
+  --f-display:"Zilla Slab",Rockwell,Georgia,serif;
+  --f-body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161d; --surface:#19212b; --surface-2:#1f2935; --ink:#e6ebf1; --muted:#a0abb8; --line:#2f3b48;
+    --brand:#93b4e6; --brand-ink:#0f1a2b; --brand-soft:#223149;
+    --tab:#263751; --tab-ink:#cfdcf3; --accent:#e4ad4c; --focus:#e4ad4c;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161d; --surface:#19212b; --surface-2:#1f2935; --ink:#e6ebf1; --muted:#a0abb8; --line:#2f3b48;
+  --brand:#93b4e6; --brand-ink:#0f1a2b; --brand-soft:#223149;
+  --tab:#263751; --tab-ink:#cfdcf3; --accent:#e4ad4c; --focus:#e4ad4c;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);line-height:1.12;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.head{background:var(--surface);border-bottom:1px solid var(--line)}
+.head .wrap{padding-block:calc(2rem + env(safe-area-inset-top,0px)) 2rem;display:grid;gap:.7rem}
+.eyebrow{font-weight:700;font-size:.8rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.head h1{font-size:clamp(2.1rem,6vw,3.1rem);color:var(--brand)}
+.head h1 span{color:var(--ink);font-weight:600}
+.lead{color:var(--muted);max-width:58ch;font-size:1.12rem}
+
+main.wrap{padding-block:2rem 3rem;display:grid;gap:2.4rem}
+.group{display:grid;gap:1.1rem}
+.group-h{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;padding-bottom:.5rem;border-bottom:1px solid var(--line)}
+.group-h .lb{font-family:var(--f-display);font-weight:700;font-size:1rem;color:var(--accent);white-space:nowrap}
+.group-h h2{font-size:1.4rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1.6rem 1.2rem;padding-top:.8rem}
+
+/* Mappe mit Registerreiter */
+.card{position:relative;background:var(--surface);border-radius:0 8px 8px 8px;box-shadow:var(--shadow);padding:1.3rem 1.3rem 1.2rem;display:grid;gap:.75rem;align-content:start;min-width:0}
+.card::before{content:attr(data-tab);position:absolute;left:0;bottom:100%;background:var(--tab);color:var(--tab-ink);font:700 .78rem/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:.45rem .8rem .35rem;border-radius:7px 7px 0 0}
+.card h3{font-size:1.45rem}
+.card .sub{font-weight:600;color:var(--muted)}
+.card .meta{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{font-size:.82rem;font-weight:600;padding:.15rem .6rem;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:44px;padding:.55rem 1.05rem;border-radius:6px;font:600 1rem/1.2 var(--f-body);text-decoration:none;border:1.5px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn:hover{border-color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+.soon{color:var(--muted);font-size:.95rem}
+footer.wrap{padding-block:0 calc(2rem + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<header class="head"><div class="wrap">
+  <span class="eyebrow">Mittelschule Indersdorf · 9. Klasse</span>
+  <h1>WiK 9 <span>Wirtschaft und Kommunikation</span></h1>
+  <p class="lead">Hier findest du die Lernspiele und Merkblätter zu unseren Themen. Wähle ein Thema aus und starte.</p>
+</div></header>
+
+<main class="wrap" id="inhalte">
+  <noscript><p><a class="btn primary" href="geschaeftsbrief/">Der Geschäftsbrief: Lernspiel starten</a></p></noscript>
+</main>
+
+<footer class="wrap">Alle Firmen, Personen und Daten in den Lernspielen sind erfunden.</footer>
+
+<script>
+/* ============================================================
+   NEUE INHALTE HINZUFÜGEN
+   1. Einen neuen Ordner anlegen, z. B. "seriendruck/", darin index.html.
+   2. Hier unten einen Eintrag ergänzen (Komma zwischen den Einträgen).
+   lb      = Nummer des Lernbereichs im LehrplanPLUS (1 bis 12)
+   art     = Art des Inhalts, z. B. "Lernspiel", "Übung", "Merkblatt"
+   links   = Buttons; primary:true macht den Hauptbutton blau
+   ============================================================ */
+const INHALTE = [
+  {
+    lb: 10,
+    titel: "Der Geschäftsbrief",
+    untertitel: "Dein erster Brief im Reisebüro",
+    text: "Als Azubi im Reisebüro Sonnenweg baust du in 6 Missionen einen Geschäftsbrief nach DIN 5008. Danach schreibst du deinen eigenen.",
+    art: "Lernspiel",
+    dauer: "ca. 75 Minuten",
+    links: [
+      { label: "Lernspiel starten", href: "geschaeftsbrief/", primary: true },
+      { label: "Merkblatt (PDF)", href: "geschaeftsbrief/WiK9_Geschaeftsbrief_Merkblatt.pdf" }
+    ]
+  }
+];
+
+const LERNBEREICHE = {
+  1: "Dokumentbearbeitung und Dokumentgestaltung",
+  2: "Layout und Druckerzeugnisse",
+  3: "Bildbearbeitung",
+  4: "Präsentation",
+  5: "Tabellenkalkulation",
+  6: "EDV-Grundlagen",
+  7: "Internetanwendungen",
+  8: "Planen und Organisieren",
+  9: "Tastschreiben",
+  10: "Schriftliche und mündliche Kommunikation",
+  11: "Kaufmännische Grundbildung",
+  12: "Berufsorientierung"
+};
+
+(function () {
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const main = document.getElementById("inhalte");
+  const gruppen = {};
+  INHALTE.forEach(i => { (gruppen[i.lb] = gruppen[i.lb] || []).push(i); });
+  const nummern = Object.keys(gruppen).map(Number).sort((a, b) => a - b);
+
+  main.innerHTML = nummern.map(lb => `
+    <section class="group" aria-labelledby="lb${lb}">
+      <div class="group-h"><span class="lb">Lernbereich ${lb}</span><h2 id="lb${lb}">${esc(LERNBEREICHE[lb] || "")}</h2></div>
+      <div class="cards">
+        ${gruppen[lb].map(i => `
+          <article class="card" data-tab="${esc(i.art)}">
+            <h3>${esc(i.titel)}</h3>
+            ${i.untertitel ? `<p class="sub">${esc(i.untertitel)}</p>` : ""}
+            <p>${esc(i.text)}</p>
+            <div class="meta">${i.dauer ? `<span class="chip">${esc(i.dauer)}</span>` : ""}<span class="chip">LB ${lb}</span></div>
+            <div class="actions">${(i.links || []).map(l => `<a class="btn${l.primary ? " primary" : ""}" href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}</div>
+          </article>`).join("")}
+      </div>
+    </section>`).join("") + `<p class="soon">Weitere Themen folgen im Laufe des Schuljahres.</p>`;
+})();
+</script>
+</body>
+</html>
